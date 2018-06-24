@@ -1,0 +1,20 @@
+@import "~app/app.variables.scss";
+.app-nav {
+  &__links {
+    position: fixed;
+    top: 0;
+    z-index: $overlayZ + 1;
+  }
+  &__overlay {
+    position: fixed;
+    top: 0;
+    z-index: $overlayZ;
+    height: 0;
+    width: 100%;
+    background-color: $overlayGrey;
+    transition: all 0.5s;
+    &__open {
+      height: 100vh;
+    }
+  }
+}

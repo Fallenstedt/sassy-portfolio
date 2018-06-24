@@ -1,0 +1,11 @@
+<nav class="app-nav">
+  
+  <div class="app-nav__links container">
+    <div (click)="toggleNav()">burger</div>
+  </div>
+  
+  <div 
+    class="app-nav__overlay"
+    [class.app-nav__overlay__open]="isNavOpen">
+  </div>
+</nav>
