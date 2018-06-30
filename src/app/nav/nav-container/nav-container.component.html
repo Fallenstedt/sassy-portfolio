@@ -1,7 +1,16 @@
 <nav class="app-nav">
   
-  <div class="app-nav__links container">
-    <div (click)="toggleNav()">burger</div>
+  <div class="container">
+    <div class="app-nav__fixed">
+      <!-- Refactor to Nav Bar Component... -->
+      <div class="app-nav__controls">
+        <div class="app-nav__logo"></div>
+        <app-burger
+          (burgerClickEmitter)="toggleNav($event)">
+        </app-burger>
+      </div>
+      <!-- Add Nav Links Here -->
+    </div>
   </div>
   
   <div 
