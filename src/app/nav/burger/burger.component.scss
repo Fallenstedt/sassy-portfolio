@@ -13,6 +13,7 @@
 
   span {
     transition: all 0.2s;
+    transition-delay: 0.05s;
     display: block;
     width: 24px;
     height: 2px;
@@ -24,6 +25,33 @@
     }
     &:nth-child(3) {
       width: 10px;
+    }
+  }
+}
+
+.app-cross {
+  transform: translate3d(5px, -1px, 0) rotate(45deg);
+  padding: 10px;
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  cursor: pointer;
+  &:hover {
+    span,
+    span:nth-child(2) {
+      width: 24px;
+    }
+  }
+  span {
+    display: block;
+    width: 0px;
+    height: 2px;
+    margin-bottom: 6px;
+    transition: all 0.2s;
+    transition-delay: 0.625s;
+    background-color: $tomatoRed;
+    &:nth-child(2) {
+      transform: translate3d(0px, -7px, 0) rotate(90deg);
     }
   }
 }
