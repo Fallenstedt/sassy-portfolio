@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./burger.component.scss"]
 })
 export class BurgerComponent implements OnInit {
-  private isNavOpen: boolean;
+  public isNavOpen: boolean;
   @Output() burgerClickEmitter: EventEmitter<boolean> = new EventEmitter();
 
   constructor() {

@@ -1,6 +1,7 @@
 <div>
   <div 
   class="app-burger"
+  [class.app-burger__hide-burger]="isNavOpen"
   (click)="handleBurgerClick()">
     <span></span>
     <span></span>
@@ -9,6 +10,7 @@
   
   <div
     class="app-cross"
+    [class.app-cross__show-cross]="isNavOpen"
     (click)="handleBurgerClick()">
     <span></span>
     <span></span>
