@@ -3,15 +3,8 @@
   &__fixed {
     position: absolute;
     width: 100%;
-    top: 0;
+    top: 10px;
     z-index: $overlayZ + 1;
-  }
-  &__logo {
-    height: 50px;
-    width: 200px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-image: url("/assets/img/alex-fallenstedt-logo.png");
   }
   &__controls {
     display: flex;

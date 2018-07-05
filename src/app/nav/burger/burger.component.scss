@@ -1,4 +1,7 @@
 @import "~app/app.variables.scss";
+$bar-width: 24px;
+$bar-height: 2px;
+
 .app-burger {
   padding: 5px;
   cursor: pointer;
@@ -7,14 +10,14 @@
     span,
     span:nth-child(2),
     span:nth-child(3) {
-      width: 24px;
+      width: $bar-width;
     }
   }
   span {
     transition: all 0.2s;
     display: block;
-    width: 24px;
-    height: 2px;
+    width: $bar-width;
+    height: $bar-height;
     border-radius: 50px;
     margin-bottom: 6px;
     background-color: $tomatoRed;
@@ -46,13 +49,13 @@
   top: 10px;
   right: 10px;
   position: absolute;
-  // transition-delay: 0.625s;
   cursor: pointer;
+  transition: all 0.2s;
 
   span {
     display: block;
     width: 0px;
-    height: 2px;
+    height: $bar-height;
     margin-bottom: 6px;
     transition: all 0.2s;
     background-color: $tomatoRed;
@@ -64,7 +67,7 @@
     padding: 10px;
     span,
     span:nth-child(2) {
-      width: 24px;
+      width: $bar-width;
     }
   }
 }

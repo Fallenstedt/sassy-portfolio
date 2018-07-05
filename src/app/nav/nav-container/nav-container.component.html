@@ -2,9 +2,9 @@
   
   <div class="container">
     <div class="app-nav__fixed">
-      <!-- Refactor to Nav Bar Component... -->
       <div class="app-nav__controls">
-        <div class="app-nav__logo"></div>
+        <app-logo
+          (logoClickEmitter)="navigateHome()"></app-logo>
         <app-burger
           (burgerClickEmitter)="toggleNav($event)">
         </app-burger>
