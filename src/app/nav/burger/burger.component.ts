@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
   selector: "app-burger",
@@ -6,17 +6,13 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./burger.component.scss"]
 })
 export class BurgerComponent implements OnInit {
-  public isNavOpen: boolean;
+  @Input() isNavOpen: boolean;
   @Output() burgerClickEmitter: EventEmitter<boolean> = new EventEmitter();
-
-  constructor() {
-    this.isNavOpen = false;
-  }
+  constructor() {}
 
   ngOnInit() {}
 
   public handleBurgerClick() {
-    this.isNavOpen = !this.isNavOpen;
-    this.burgerClickEmitter.emit(this.isNavOpen);
+    this.burgerClickEmitter.emit(true);
   }
 }
