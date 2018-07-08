@@ -1,0 +1,20 @@
+@import "~app/app.variables.scss";
+.app-overlay {
+  pointer-events: all;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: $overlayZ;
+  height: 0;
+  width: 0;
+  background-color: $charcoal;
+  transition: all 0.5s;
+  border-radius: 50%;
+  border: 0px solid white;
+  &__open {
+    border: 150vw solid $charcoal;
+    display: block;
+    top: -100vh;
+    right: -100vh;
+  }
+}
