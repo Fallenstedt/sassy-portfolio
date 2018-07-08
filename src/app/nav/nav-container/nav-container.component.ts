@@ -15,6 +15,7 @@ export class NavContainerComponent implements OnInit {
   ngOnInit() {}
 
   public toggleNav(e: boolean): void {
+    console.log(e);
     this.isNavOpen = e;
   }
 

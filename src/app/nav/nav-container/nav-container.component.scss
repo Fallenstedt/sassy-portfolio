@@ -12,16 +12,9 @@
     align-items: center;
     width: inherit;
   }
-  &__overlay {
-    position: fixed;
-    top: 0;
-    z-index: $overlayZ;
-    height: 0;
-    width: 100%;
-    background-color: $overlayGrey;
-    transition: all 0.5s;
-    &__open {
-      height: 100vh;
-    }
+  &__links {
+  }
+  &__no-events {
+    pointer-events: none;
   }
 }

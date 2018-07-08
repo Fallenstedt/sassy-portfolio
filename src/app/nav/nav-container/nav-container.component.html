@@ -1,18 +1,23 @@
-<nav class="app-nav">
+<nav class="app-nav"
+  [class.app-nav__no-events]="isNavOpen">
   
     <div class="app-nav__fixed">
       <div class="app-nav__controls">
         <app-logo
+          [isNavOpen]="isNavOpen"
           (logoClickEmitter)="navigateHome()">
         </app-logo>
         <app-burger
+          [isNavOpen]="isNavOpen"
           (burgerClickEmitter)="toggleNav($event)">
         </app-burger>
       </div>
     </div>
-  
+    <app-overlay
+    (overlayClickEmitter)="toggleNav($event)"
+    [isNavOpen]="isNavOpen"></app-overlay>
   <div 
-    class="app-nav__overlay"
-    [class.app-nav__overlay__open]="isNavOpen">
+    class="app-nav__links">
+    Link lik
   </div>
 </nav>
