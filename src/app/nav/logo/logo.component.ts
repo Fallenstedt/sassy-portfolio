@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
   selector: "app-logo",
@@ -6,6 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
   styleUrls: ["./logo.component.scss"]
 })
 export class LogoComponent implements OnInit {
+  @Input() isNavOpen: boolean;
   @Output() logoClickEmitter: EventEmitter<boolean>;
 
   constructor() {
@@ -14,7 +15,7 @@ export class LogoComponent implements OnInit {
 
   ngOnInit() {}
 
-  public onNavClick() {
+  public onNavClick(): void {
     this.logoClickEmitter.emit(true);
   }
 }
