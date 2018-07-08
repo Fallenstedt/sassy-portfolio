@@ -8,13 +8,15 @@
   height: 0;
   width: 0;
   background-color: $charcoal;
-  transition: all 0.5s;
+  transition: all 0.4s;
   border-radius: 50%;
-  border: 0px solid white;
+  border: 0px solid transparent;
   &__open {
     border: 150vw solid $charcoal;
+    width: 100vw;
+    height: 100vh;
     display: block;
     top: -100vh;
-    right: -100vh;
+    right: -150vw;
   }
 }
