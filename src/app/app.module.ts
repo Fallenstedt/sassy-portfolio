@@ -1,3 +1,5 @@
+import { NgtUniversalModule } from '@ng-toolkit/universal';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
@@ -8,8 +10,10 @@ import { AboutComponent } from "./about/about.component";
 
 @NgModule({
   declarations: [AppComponent, AboutComponent],
-  imports: [BrowserModule, HomeModule, AppRoutingModule, NavModule],
+  imports:[
+ CommonModule,
+NgtUniversalModule,
+  HomeModule, AppRoutingModule, NavModule],
   providers: [],
-  bootstrap: [AppComponent]
 })
 export class AppModule {}

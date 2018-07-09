@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/styles/normalize.css";
 @import "./assets/styles/skeleton.css";
+@import "~app/app.variables.scss";
 
 * {
   font-family: "Courier New", Courier, monospace;
+}
+
+a {
+  color: $tomatoRed;
+  &:hover {
+    color: $spoiledTomato;
+  }
 }

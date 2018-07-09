@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import * as THREE from "three";
 import { Scene } from "./scene/index.js";
 
 @Component({
