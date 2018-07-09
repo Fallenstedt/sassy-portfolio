@@ -2,8 +2,8 @@
 .app-overlay {
   pointer-events: all;
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 40px;
+  right: 40px;
   z-index: $overlayZ;
   height: 0;
   width: 0;
@@ -14,7 +14,7 @@
   &__open {
     border: 150vw solid $charcoal;
     width: 100vw;
-    height: 100vh;
+    height: 100vw;
     display: block;
     top: -100vh;
     right: -150vw;
