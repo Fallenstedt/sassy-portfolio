@@ -1,0 +1,9 @@
+@import "~app/app.variables.scss";
+.app-home {
+  &__content {
+    position: absolute;
+    z-index: $overlayHome;
+    top: 40%;
+    left: 20%;
+  }
+}
