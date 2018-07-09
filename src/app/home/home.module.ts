@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import { HomeContainerComponent } from "./home-container/home-container.component";
 import { HomeSceneComponent } from "./home-scene/home-scene.component";
+import { HomeContentComponent } from "./home-content/home-content.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [HomeContainerComponent, HomeSceneComponent]
+  declarations: [
+    HomeContainerComponent,
+    HomeSceneComponent,
+    HomeContentComponent
+  ]
 })
 export class HomeModule {}
