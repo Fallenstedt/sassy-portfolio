@@ -1,4 +1,11 @@
 import * as THREE from "THREE";
+import TWEEN from "@tweenjs/tween.js";
+import {
+  scaleLinear,
+  scaleSequential,
+  interpolateRdYlBu,
+  interpolateRainbow
+} from "d3";
 
 export class Scene {
   scene: any;
@@ -6,6 +13,7 @@ export class Scene {
   renderer: any;
   canvas: any;
   box: any;
+  grid: Grid;
   constructor(canvas) {
     window.addEventListener("resize", this.onWindowResize.bind(this), false);
 
@@ -23,7 +31,8 @@ export class Scene {
     });
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
-    this.box = new Box(10, 10, 10, "0xc1533d");
+    this.grid = new Grid(5, 5, 5);
+    // this.box = new Box(1, 1, 1, "0xc1533d");
     this.init();
     this.setWidthAndHeightOfCanvas();
   }
@@ -33,7 +42,9 @@ export class Scene {
 
     this.createLights();
     this.positionCamera();
-    this.scene.add(this.box.mesh);
+    this.grid.mesh.rotation.x = Math.PI / 2;
+    this.scene.add(this.grid.mesh);
+    // this.scene.add(this.box.mesh);
     this.animate();
   }
 
@@ -48,15 +59,15 @@ export class Scene {
     const cameraLookAtPoint = new THREE.Vector3();
     this.camera.position.z = 55;
     this.camera.position.y = -5;
-    this.camera.position.x = -15;
+    this.camera.position.x = 10;
     // this.camera.lookAt(cameraLookAtPoint);
   }
 
-  private animate(): void {
+  private animate(delta?): void {
     requestAnimationFrame(this.animate);
-    // TWEEN.update(delta);
-    this.box.mesh.rotation.x += 0.01;
-    this.box.mesh.rotation.z += 0.02;
+    TWEEN.update(delta);
+    // this.box.mesh.rotation.x += 0.01;
+    // this.box.mesh.rotation.z += 0.02;
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -78,15 +89,88 @@ class Box {
   x: number;
   y: number;
   z: number;
-  color: string;
   geom: THREE.BoxGeometry;
   mat: THREE.MeshLambertMaterial;
   mesh: THREE.Mesh;
+  tween: TWEEN.Tween;
+  colorScale: scaleSequential;
+  current: ITweenPosition = { y: 1 };
+  target: ITweenPosition = { y: Math.random() * 50 };
 
   constructor(x, y, z, color) {
-    this.color = color;
     this.geom = new THREE.BoxGeometry(x, y, z);
     this.mat = new THREE.MeshLambertMaterial();
     this.mesh = new THREE.Mesh(this.geom, this.mat);
+    this.tween = this.makeTween();
+    this.colorScale = this.createColorScale();
   }
+
+  set color(color) {
+    this.mesh.material.color.set(color);
+  }
+
+  private makeTween(): TWEEN.Tween {
+    const update = function() {
+      this.mesh.position.y = this.current.y;
+      this.mesh.rotation.x = this.current.y;
+      this.mesh.rotation.z = this.current.y / (this.current.y * 9);
+      // this.mesh.rotation.z += 0.02;
+      this.updateColor(this.mesh.position.y);
+    };
+    const easing = TWEEN.Easing.Elastic.InOut;
+    const tweenHead = new TWEEN.Tween(this.current)
+      .to(this.target, 2000)
+      .easing(easing)
+      .onUpdate(update.bind(this));
+
+    const tweenBack = new TWEEN.Tween(this.current)
+      .to({ y: 1 }, 4000)
+      .easing(easing)
+      .onUpdate(update.bind(this));
+
+    tweenHead.chain(tweenBack);
+    tweenBack.chain(tweenHead);
+    return tweenHead;
+  }
+  private updateColor(height) {
+    this.color = this.colorScale(height);
+  }
+  private createColorScale(): scaleSequential {
+    return scaleSequential(interpolateRainbow).domain([10, 5, 0]);
+  }
+}
+
+class Grid {
+  x: number;
+  y: number;
+  group: Array<Box>;
+  mesh: THREE.Group;
+  gutter: number;
+  constructor(x, y, gutter) {
+    this.x = x;
+    this.y = y;
+    this.group = [];
+    this.gutter = gutter;
+    this.mesh = this.makeGrid();
+  }
+  private makeGrid(): THREE.Group {
+    const meshGroup = new THREE.Group();
+    for (let x = 0; x < this.x; x++) {
+      for (let y = 0; y < this.y; y++) {
+        const c = new Box(3, 3, 3, "0xc1533d");
+        c.mesh.position.x = x * this.gutter;
+        c.mesh.position.z = y * this.gutter;
+        c.tween.start();
+        this.group.push(c);
+        meshGroup.add(c.mesh);
+      }
+    }
+    return meshGroup;
+  }
+}
+
+interface ITweenPosition {
+  x?: number;
+  y?: number;
+  z?: number;
 }
