@@ -94,8 +94,8 @@ class Box {
   mesh: THREE.Mesh;
   tween: TWEEN.Tween;
   colorScale: scaleSequential;
-  current: ITweenPosition = { y: 1 };
-  target: ITweenPosition = { y: Math.random() * 50 };
+  current: ITweenPosition = { y: -100 };
+  target: ITweenPosition = { y: Math.random() * 40 };
 
   constructor(x, y, z, color) {
     this.geom = new THREE.BoxGeometry(x, y, z);
@@ -112,19 +112,18 @@ class Box {
   private makeTween(): TWEEN.Tween {
     const update = function() {
       this.mesh.position.y = this.current.y;
-      this.mesh.rotation.x = this.current.y;
+      this.mesh.rotation.x = this.current.y / 10;
       this.mesh.rotation.z = this.current.y / (this.current.y * 9);
-      // this.mesh.rotation.z += 0.02;
-      this.updateColor(this.mesh.position.y);
+      // this.updateColor(this.mesh.position.y);
     };
     const easing = TWEEN.Easing.Elastic.InOut;
     const tweenHead = new TWEEN.Tween(this.current)
-      .to(this.target, 2000)
+      .to(this.target, 8000)
       .easing(easing)
       .onUpdate(update.bind(this));
 
     const tweenBack = new TWEEN.Tween(this.current)
-      .to({ y: 1 }, 4000)
+      .to({ y: -100 }, 4000)
       .easing(easing)
       .onUpdate(update.bind(this));
 
