@@ -8,6 +8,7 @@ export class Scene {
   box: any;
   constructor(canvas) {
     window.addEventListener("resize", this.onWindowResize.bind(this), false);
+
     this.canvas = canvas;
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
@@ -22,7 +23,7 @@ export class Scene {
     });
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
-    this.box = this.createBox();
+    this.box = new Box(10, 10, 10, "0xc1533d");
     this.init();
     this.setWidthAndHeightOfCanvas();
   }
@@ -32,18 +33,8 @@ export class Scene {
 
     this.createLights();
     this.positionCamera();
-    this.scene.add(this.box);
-
-    // const axesHelper = new THREE.AxesHelper(25);
-    // this.scene.add(axesHelper);
+    this.scene.add(this.box.mesh);
     this.animate();
-  }
-
-  private createBox() {
-    const geometry = new THREE.BoxGeometry(10, 10, 10);
-    const material = new THREE.MeshLambertMaterial({ color: 0xc1533d });
-    const mesh = new THREE.Mesh(geometry, material);
-    return mesh;
   }
 
   private createLights(): void {
@@ -64,8 +55,8 @@ export class Scene {
   private animate(): void {
     requestAnimationFrame(this.animate);
     // TWEEN.update(delta);
-    this.box.rotation.x += 0.01;
-    this.box.rotation.z += 0.02;
+    this.box.mesh.rotation.x += 0.01;
+    this.box.mesh.rotation.z += 0.02;
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -80,5 +71,22 @@ export class Scene {
     console.log(window.innerWidth);
     this.canvas.style.width = `${window.innerWidth - 20}px`;
     this.canvas.style.height = `${window.innerHeight - 28}px`;
+  }
+}
+
+class Box {
+  x: number;
+  y: number;
+  z: number;
+  color: string;
+  geom: THREE.BoxGeometry;
+  mat: THREE.MeshLambertMaterial;
+  mesh: THREE.Mesh;
+
+  constructor(x, y, z, color) {
+    this.color = color;
+    this.geom = new THREE.BoxGeometry(x, y, z);
+    this.mat = new THREE.MeshLambertMaterial();
+    this.mesh = new THREE.Mesh(this.geom, this.mat);
   }
 }
