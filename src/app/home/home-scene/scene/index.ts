@@ -31,7 +31,7 @@ export class Scene {
     });
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
-    this.grid = new Grid(5, 5, 5);
+    this.grid = new Grid(20, 20, 5);
     // this.box = new Box(1, 1, 1, "0xc1533d");
     this.init();
     this.setWidthAndHeightOfCanvas();
@@ -58,8 +58,8 @@ export class Scene {
   private positionCamera(): void {
     const cameraLookAtPoint = new THREE.Vector3();
     this.camera.position.z = 55;
-    this.camera.position.y = -5;
-    this.camera.position.x = 10;
+    this.camera.position.y = -50;
+    this.camera.position.x = 50;
     // this.camera.lookAt(cameraLookAtPoint);
   }
 
