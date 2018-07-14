@@ -1,4 +1,5 @@
 @import "~app/app.variables.scss";
+@import "~app/app.mixins.scss";
 .app-overlay {
   pointer-events: all;
   position: fixed;
@@ -13,10 +14,15 @@
   border: 0px solid transparent;
   &__open {
     border: 150vw solid $charcoal;
-    width: 100vw;
-    height: 100vw;
+    width: 200vw;
+    height: 100vh;
     display: block;
     top: -100vh;
     right: -150vw;
+
+    @include breakpoint(map-get($breakpoints, "md")) {
+      width: 100vw;
+      height: 200vh;
+    }
   }
 }

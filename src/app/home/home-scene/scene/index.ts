@@ -102,6 +102,7 @@ class Box {
     this.mat = new THREE.MeshLambertMaterial();
     this.mesh = new THREE.Mesh(this.geom, this.mat);
     this.tween = this.makeTween();
+    // this.color = 0xc1533d;
     this.colorScale = this.createColorScale();
   }
 
