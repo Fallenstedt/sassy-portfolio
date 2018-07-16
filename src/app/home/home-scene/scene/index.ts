@@ -19,6 +19,9 @@ export class Scene {
 
     this.canvas = canvas;
     this.scene = new THREE.Scene();
+    const fogColor = new THREE.Color(0xf5f5f5);
+    this.scene.background = 0xf5f5f5;
+    this.scene.fog = new THREE.Fog(0xf5f5f5, 0.0025, 100);
     this.camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -57,7 +60,7 @@ export class Scene {
 
   private positionCamera(): void {
     const cameraLookAtPoint = new THREE.Vector3();
-    this.camera.position.z = 55;
+    this.camera.position.z = 65;
     this.camera.position.y = -50;
     this.camera.position.x = 50;
     // this.camera.lookAt(cameraLookAtPoint);
@@ -119,16 +122,22 @@ class Box {
     };
     const easing = TWEEN.Easing.Elastic.InOut;
     const tweenHead = new TWEEN.Tween(this.current)
-      .to(this.target, 8000)
+      .to(this.target, 2000)
+      .easing(easing)
+      .onUpdate(update.bind(this));
+
+    const tweenMiddle = new TWEEN.Tween(this.current)
+      .to(this.target, 6000)
       .easing(easing)
       .onUpdate(update.bind(this));
 
     const tweenBack = new TWEEN.Tween(this.current)
-      .to({ y: -100 }, 4000)
+      .to({ y: -100 }, 2000)
       .easing(easing)
       .onUpdate(update.bind(this));
 
-    tweenHead.chain(tweenBack);
+    tweenHead.chain(tweenMiddle);
+    tweenMiddle.chain(tweenBack);
     tweenBack.chain(tweenHead);
     return tweenHead;
   }
