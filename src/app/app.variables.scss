@@ -12,3 +12,19 @@ $breakpoints: (
   md: "720px",
   lg: "1080px"
 );
+
+//anims
+.top-fade-out {
+  animation-name: topFadeOut;
+  animation-duration: 1s;
+}
+
+@keyframes topFadeOut {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

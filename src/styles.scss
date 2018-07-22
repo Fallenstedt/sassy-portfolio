@@ -2,9 +2,15 @@
 @import "./assets/styles/normalize.css";
 @import "./assets/styles/skeleton.css";
 @import "~app/app.variables.scss";
-@import url("https://fonts.googleapis.com/css?family=Gaegu");
+@import url("https://fonts.googleapis.com/css?family=Roboto:900,300");
+
+h1 {
+  font-weight: 900;
+}
+
 * {
-  font-family: "Gaegu", "Times New Roman", Times, serif;
+  font-family: "Roboto", sans-serif;
+  font-family: 300;
 }
 
 a {
