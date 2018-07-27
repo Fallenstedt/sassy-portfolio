@@ -1,11 +1,15 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AboutComponent } from "../about/about.component";
 
 const routes: Routes = [
   {
-    path: "about/time",
-    component: AboutComponent
+    path: "about",
+    loadChildren: "app/about/about.module#AboutModule"
+  },
+  {
+    path: "",
+    redirectTo: "",
+    pathMatch: "full"
   }
 ];
 
