@@ -32,6 +32,7 @@ export class Scene {
       canvas: this.canvas,
       antialias: true
     });
+    this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
     this.grid = new Grid(20, 20, 5);
