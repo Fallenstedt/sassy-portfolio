@@ -1,10 +1,11 @@
+@import "~app/app.variables.scss";
 .app-grid {
   position: relative;
   display: flex;
   align-items: stretch;
   width: 100vw;
+  padding-top: $navHeight;
   &__item {
-    border: 2px solid red;
     display: block;
     height: 100vw;
     width: 100%;

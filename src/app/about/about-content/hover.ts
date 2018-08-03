@@ -23,6 +23,7 @@ export class Hover {
   geom: THREE.PlaneBufferGeometry;
 
   constructor(opts: HoverOpts) {
+    window.addEventListener("resize", this.onWindowResize.bind(this), false);
     // GLSL
     this.vertex = `
     varying vec2 vUv;
@@ -39,25 +40,13 @@ export class Hover {
       uniform sampler2D texture2;
       uniform sampler2D disp;
 
-      // uniform float time;
-      // uniform float _rot;
       uniform float dispFactor;
       uniform float effectFactor;
-
-      // vec2 rotate(vec2 v, float a) {
-      //  float s = sin(a);
-      //  float c = cos(a);
-      //  mat2 m = mat2(c, -s, s, c);
-      //  return m * v;
-      // }
 
       void main() {
 
           vec2 uv = vUv;
 
-          // uv -= 0.5;
-          // vec2 rotUV = rotate(uv, _rot);
-          // uv += 0.5;
 
           vec4 disp = texture2D(disp, uv);
 
@@ -70,7 +59,6 @@ export class Hover {
           vec4 finalTexture = mix(_texture, _texture2, dispFactor);
 
           gl_FragColor = finalTexture;
-          // gl_FragColor = disp;
       }
   `;
     // image opts
@@ -112,6 +100,15 @@ export class Hover {
     this.loader = new THREE.TextureLoader();
     this.loader.crossOrigin = "";
 
+    this.scene.add(this.makePicture());
+
+    this.addEventListeners();
+
+    // render it all
+    this.animate();
+  }
+
+  makePicture() {
     const texture1 = this.loader.load(this.img1);
     const texture2 = this.loader.load(this.img2);
     const disp = this.loader.load(this.dispImg);
@@ -119,9 +116,8 @@ export class Hover {
     texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
     texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
 
-    texture1.anisotropy = this.renderer.getMaxAnisotropy();
-    texture2.anisotropy = this.renderer.getMaxAnisotropy();
-
+    texture1.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
+    texture2.anisotropy = this.renderer.capabilities.getMaxAnisotropy();
     // material
     this.mat = new THREE.ShaderMaterial({
       uniforms: {
@@ -145,37 +141,48 @@ export class Hover {
     );
 
     // images
-    const object = new THREE.Mesh(this.geom, this.mat);
-    this.scene.add(object);
-
-    // event listeners
-    const events = function() {
-      let evtIn = "mouseenter";
-      let evtOut = "mouseout";
-      if (false) {
-        evtIn = "touchstart";
-        evtOut = "touchend";
-      }
-      this.parent.addEventListener(evtIn, e => {
+    return new THREE.Mesh(this.geom, this.mat);
+  }
+  addEventListeners() {
+    let evtIn = "mouseenter";
+    let evtOut = "mouseout";
+    if (this.isMobile()) {
+      evtIn = "touchstart";
+      evtOut = "touchend";
+    }
+    this.parent.addEventListener(
+      evtIn,
+      function(e) {
         // alert("Hello");
         TweenMax.to(this.mat.uniforms.dispFactor, this.speedIn, {
           value: 1,
           easing: this.easing
         });
-      });
+      }.bind(this)
+    );
 
-      this.parent.addEventListener(evtOut, e => {
+    this.parent.addEventListener(
+      evtOut,
+      function(e) {
         TweenMax.to(this.mat.uniforms.dispFactor, this.speedOut, {
           value: 0,
           easing: this.easing
         });
-      });
-    }.bind(this)();
-
-    // render it all
-    this.animate();
+      }.bind(this)
+    );
   }
 
+  isMobile(): boolean {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  }
+  private onWindowResize(): void {
+    this.renderer.setSize(this.parent.offsetWidth, this.parent.offsetHeight);
+  }
+  // private setWidthAndHeightOfCanvas() {
+  //   console.log(window.innerWidth);
+  //   this.render.style.width = `${window.innerWidth - 20}px`;
+  //   this.canvas.style.height = `${window.innerHeight - 28}px`;
+  // }
   animate() {
     requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);

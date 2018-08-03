@@ -7,6 +7,7 @@ import { Hover, HoverOpts } from "./hover";
 })
 export class AboutContentComponent implements OnInit {
   @ViewChild("gridItem") gridItem;
+  hover: Hover;
   displacement: string;
   constructor() {
     this.displacement = "/assets/img/displacement/5.jpg";
@@ -22,15 +23,7 @@ export class AboutContentComponent implements OnInit {
       img1: images[0].getAttribute("src"),
       img2: images[1].getAttribute("src")
     };
-    const theHover = new Hover(opts);
-    // const displacement = this.gridItem.nativeElement.dataset.displacement;
-    // const opts: HoverOpts = {
-    //   parent: this.gridItem.nativeElement
-    //   dispImg:
-    //   img1:
-    //   img2:
-    //   userHover: false
-    // }
-    // const a = new Hover(opts);
+
+    this.hover = new Hover(opts);
   }
 }
