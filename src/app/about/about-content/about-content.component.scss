@@ -1,5 +1,5 @@
 @import "~app/app.variables.scss";
-.app-grid {
+.grid {
   position: relative;
   display: flex;
   align-items: stretch;
@@ -16,4 +16,11 @@
       }
     }
   }
+}
+
+.loader {
+  width: inherit;
+  height: inherit;
+  background-color: red;
+  z-index: 2000;
 }

@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { TweenMax, Expo } from "gsap";
+import { Observable, from } from "rxjs";
 
 export class Hover {
   parent: HTMLElement;
@@ -12,6 +13,7 @@ export class Hover {
   speedIn: number;
   speedOut: number;
   userHover: boolean;
+  public isDoneLoading: Observable<{}>;
   tween: Function;
 
   // three
@@ -21,6 +23,7 @@ export class Hover {
   loader: THREE.TextureLoader;
   mat: THREE.ShaderMaterial;
   geom: THREE.PlaneBufferGeometry;
+  loadManager: THREE.LoadManager;
 
   constructor(opts: HoverOpts) {
     window.addEventListener("resize", this.onWindowResize.bind(this), false);
@@ -67,8 +70,8 @@ export class Hover {
     this.img1 = opts.img1;
     this.img2 = opts.img2;
     this.intensity = 1;
-    this.speedIn = 1.6;
-    this.speedOut = 1.2;
+    this.speedIn = 0.5;
+    this.speedOut = 0.5;
     this.userHover = opts.userHover === undefined ? true : opts.userHover;
     this.tween = Expo.easeOut;
 
@@ -76,6 +79,13 @@ export class Hover {
     this.scene = new THREE.Scene();
     this.animate = this.animate.bind(this);
 
+    // loadManager
+    this.loadManager = new THREE.LoadingManager();
+    this.isDoneLoading = new Observable(observer => {
+      this.loadManager.onProgress = function(_item, loaded, total) {
+        observer.next(loaded / total);
+      };
+    });
     // camera
     this.camera = new THREE.OrthographicCamera(
       this.parent.offsetWidth / -2,
@@ -92,12 +102,12 @@ export class Hover {
       antialias: false
     });
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setClearColor(0xffffff, 0.0);
+    this.renderer.setClearColor(0xffffff, 1.0);
     this.renderer.setSize(this.parent.offsetWidth, this.parent.offsetHeight);
     this.parent.appendChild(this.renderer.domElement);
 
     // texture
-    this.loader = new THREE.TextureLoader();
+    this.loader = new THREE.TextureLoader(this.loadManager);
     this.loader.crossOrigin = "";
 
     this.scene.add(this.makePicture());
@@ -143,7 +153,7 @@ export class Hover {
     // images
     return new THREE.Mesh(this.geom, this.mat);
   }
-  addEventListeners() {
+  private addEventListeners(): void {
     let evtIn = "mouseenter";
     let evtOut = "mouseout";
     if (this.isMobile()) {
@@ -172,18 +182,15 @@ export class Hover {
     );
   }
 
-  isMobile(): boolean {
+  private isMobile(): boolean {
     return /Mobi|Android/i.test(navigator.userAgent);
   }
+
   private onWindowResize(): void {
     this.renderer.setSize(this.parent.offsetWidth, this.parent.offsetHeight);
   }
-  // private setWidthAndHeightOfCanvas() {
-  //   console.log(window.innerWidth);
-  //   this.render.style.width = `${window.innerWidth - 20}px`;
-  //   this.canvas.style.height = `${window.innerHeight - 28}px`;
-  // }
-  animate() {
+
+  private animate(): void {
     requestAnimationFrame(this.animate);
     this.renderer.render(this.scene, this.camera);
   }
