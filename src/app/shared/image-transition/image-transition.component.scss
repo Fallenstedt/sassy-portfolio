@@ -1,0 +1,8 @@
+//size is set by the parent component's scss.
+.image-container {
+  width: inherit;
+  height: inherit;
+  & img {
+    display: none;
+  }
+}

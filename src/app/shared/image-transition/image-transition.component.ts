@@ -1,19 +1,22 @@
-import { Component, OnInit, OnDestroy, ViewChild } from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewChild, Input } from "@angular/core";
 import { Hover, HoverOpts } from "./hover";
 import { Subscription, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
-  selector: "app-about-content",
-  templateUrl: "./about-content.component.html",
-  styleUrls: ["./about-content.component.scss"]
+  selector: "app-image-transition",
+  templateUrl: "./image-transition.component.html",
+  styleUrls: ["./image-transition.component.scss"]
 })
-export class AboutContentComponent implements OnInit, OnDestroy {
-  @ViewChild("gridItem") gridItem;
+export class ImageTransitionComponent implements OnInit, OnDestroy {
+  @ViewChild("imageContainer") imageContainer;
+  @Input() image1: string;
+  @Input() image2: string;
+  parsedStyles: object;
   hover: Hover;
-  displacement: string;
   isLoaded$: Subscription;
   destroyed$ = new Subject<boolean>();
+  private displacement: string;
 
   constructor() {
     this.displacement = "/assets/img/displacement/5.jpg";
@@ -24,14 +27,11 @@ export class AboutContentComponent implements OnInit, OnDestroy {
     this.destroyed$.complete();
   }
   ngOnInit() {
-    const images: Array<HTMLElement> = Array.from(
-      this.gridItem.nativeElement.querySelectorAll("img")
-    );
     const opts: HoverOpts = {
-      parent: this.gridItem.nativeElement,
+      parent: this.imageContainer.nativeElement,
       dispImg: this.displacement,
-      img1: images[0].getAttribute("src"),
-      img2: images[1].getAttribute("src")
+      img1: this.image1,
+      img2: this.image2
     };
 
     this.hover = new Hover(opts);
@@ -43,5 +43,9 @@ export class AboutContentComponent implements OnInit, OnDestroy {
           console.log("DONE LOADING");
         }
       });
+  }
+
+  public is500() {
+    return true;
   }
 }

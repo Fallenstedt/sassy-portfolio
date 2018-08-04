@@ -143,6 +143,7 @@ export class Hover {
       opacity: 1.0
     });
 
+    this.transitionOnLoad();
     // geometry
     this.geom = new THREE.PlaneBufferGeometry(
       this.parent.offsetWidth,
@@ -153,6 +154,13 @@ export class Hover {
     // images
     return new THREE.Mesh(this.geom, this.mat);
   }
+  private transitionOnLoad() {
+    this.mat.uniforms.dispFactor.value = 0.5;
+    TweenMax.to(this.mat.uniforms.dispFactor, this.speedOut, {
+      value: 0
+    });
+  }
+
   private addEventListeners(): void {
     let evtIn = "mouseenter";
     let evtOut = "mouseout";
@@ -163,10 +171,8 @@ export class Hover {
     this.parent.addEventListener(
       evtIn,
       function(e) {
-        // alert("Hello");
         TweenMax.to(this.mat.uniforms.dispFactor, this.speedIn, {
-          value: 1,
-          easing: this.easing
+          value: 1
         });
       }.bind(this)
     );
@@ -175,8 +181,7 @@ export class Hover {
       evtOut,
       function(e) {
         TweenMax.to(this.mat.uniforms.dispFactor, this.speedOut, {
-          value: 0,
-          easing: this.easing
+          value: 0
         });
       }.bind(this)
     );
