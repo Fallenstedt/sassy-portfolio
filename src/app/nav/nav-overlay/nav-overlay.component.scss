@@ -20,7 +20,7 @@
     top: -100vh;
     right: -150vw;
 
-    @include breakpoint(map-get($breakpoints, "md")) {
+    @include breakpoint(map-get($breakpoints, "medium")) {
       width: 100vw;
       height: 200vh;
     }
