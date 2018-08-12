@@ -81,6 +81,7 @@ export class Scene {
     TWEEN.update(delta);
     if (this.renderer) {
       this.renderer.render(this.scene, this.camera);
+      this.camera.rotation.z += 0.001;
     }
   }
 
@@ -135,15 +136,8 @@ class Box {
       .to(this.target, 6000)
       .easing(easing)
       .onUpdate(update.bind(this));
-
-    const tweenBack = new TWEEN.Tween(this.current)
-      .to({ y: -100 }, 2000)
-      .easing(easing)
-      .onUpdate(update.bind(this));
-
     tweenHead.chain(tweenMiddle);
-    tweenMiddle.chain(tweenBack);
-    tweenBack.chain(tweenHead);
+
     return tweenHead;
   }
 }

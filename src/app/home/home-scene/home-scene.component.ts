@@ -16,7 +16,9 @@ export class HomeSceneComponent implements OnInit, OnDestroy {
   @ViewChild("scene", { read: ElementRef })
   scene: ElementRef;
   sceneManger: Scene | undefined;
+
   constructor() {}
+
   ngOnInit() {
     this.sceneManger = new Scene(this.scene.nativeElement);
     console.log(this.sceneManger);
