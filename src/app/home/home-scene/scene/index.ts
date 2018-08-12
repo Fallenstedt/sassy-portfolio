@@ -1,11 +1,5 @@
 import * as THREE from "three";
 import TWEEN from "@tweenjs/tween.js";
-import {
-  scaleLinear,
-  scaleSequential,
-  interpolateRdYlBu,
-  interpolateRainbow
-} from "d3";
 
 export class Scene {
   scene: any;
@@ -19,7 +13,6 @@ export class Scene {
 
     this.canvas = canvas;
     this.scene = new THREE.Scene();
-    const fogColor = new THREE.Color(0xf5f5f5);
     this.scene.background = 0xf5f5f5;
     this.scene.fog = new THREE.Fog(0xf5f5f5, 0.0025, 100);
     this.camera = new THREE.PerspectiveCamera(
@@ -36,9 +29,26 @@ export class Scene {
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
     this.grid = new Grid(20, 20, 5);
-    // this.box = new Box(1, 1, 1, "0xc1533d");
     this.init();
     this.setWidthAndHeightOfCanvas();
+  }
+
+  private dispose() {
+    // Iterate through all properties of this object.
+    Object.keys(this).forEach(key => {
+      // Recursively call dispose() if possible.
+      if (typeof this[key].dispose === "function") {
+        this[key].dispose();
+      }
+      // Remove any reference.
+      this[key] = null;
+    });
+  }
+
+  public cleanUp(): void {
+    window.removeEventListener("resize", this.onWindowResize.bind(this), false);
+    this.renderer.dispose();
+    this.dispose();
   }
 
   private init(): void {
@@ -48,7 +58,6 @@ export class Scene {
     this.positionCamera();
     this.grid.mesh.rotation.x = Math.PI / 2;
     this.scene.add(this.grid.mesh);
-    // this.scene.add(this.box.mesh);
     this.animate();
   }
 
@@ -60,32 +69,35 @@ export class Scene {
   }
 
   private positionCamera(): void {
-    const cameraLookAtPoint = new THREE.Vector3();
     this.camera.position.z = 65;
     this.camera.position.y = -50;
     this.camera.position.x = 50;
-    // this.camera.lookAt(cameraLookAtPoint);
   }
 
   private animate(delta?): void {
-    requestAnimationFrame(this.animate);
+    if (this.animate) {
+      requestAnimationFrame(this.animate);
+    }
     TWEEN.update(delta);
-    // this.box.mesh.rotation.x += 0.01;
-    // this.box.mesh.rotation.z += 0.02;
-    this.renderer.render(this.scene, this.camera);
+    if (this.renderer) {
+      this.renderer.render(this.scene, this.camera);
+    }
   }
 
   private onWindowResize(): void {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.setWidthAndHeightOfCanvas();
+    if (this.camera && this.renderer) {
+      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.setWidthAndHeightOfCanvas();
+    }
   }
 
   private setWidthAndHeightOfCanvas() {
-    console.log(window.innerWidth);
-    this.canvas.style.width = `${window.innerWidth - 20}px`;
-    this.canvas.style.height = `${window.innerHeight - 28}px`;
+    if (this.canvas) {
+      this.canvas.style.width = `${window.innerWidth - 20}px`;
+      this.canvas.style.height = `${window.innerHeight - 28}px`;
+    }
   }
 }
 
@@ -97,7 +109,6 @@ class Box {
   mat: THREE.MeshLambertMaterial;
   mesh: THREE.Mesh;
   tween: TWEEN.Tween;
-  colorScale: scaleSequential;
   current: ITweenPosition = { y: -100 };
   target: ITweenPosition = { y: Math.random() * 40 };
 
@@ -106,8 +117,6 @@ class Box {
     this.mat = new THREE.MeshLambertMaterial();
     this.mesh = new THREE.Mesh(this.geom, this.mat);
     this.tween = this.makeTween();
-    // this.color = 0xc1533d;
-    this.colorScale = this.createColorScale();
   }
 
   set color(color) {
@@ -119,7 +128,6 @@ class Box {
       this.mesh.position.y = this.current.y;
       this.mesh.rotation.x = this.current.y / 10;
       this.mesh.rotation.z = this.current.y / (this.current.y * 9);
-      // this.updateColor(this.mesh.position.y);
     };
     const easing = TWEEN.Easing.Elastic.InOut;
     const tweenHead = new TWEEN.Tween(this.current)
@@ -141,12 +149,6 @@ class Box {
     tweenMiddle.chain(tweenBack);
     tweenBack.chain(tweenHead);
     return tweenHead;
-  }
-  private updateColor(height) {
-    this.color = this.colorScale(height);
-  }
-  private createColorScale(): scaleSequential {
-    return scaleSequential(interpolateRainbow).domain([10, 5, 0]);
   }
 }
 
