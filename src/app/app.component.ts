@@ -6,9 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = "app";
-
-  constructor() {}
+  ngOnInit() {}
 
   get isHomePage() {
     return !(window.location.pathname === "/");
