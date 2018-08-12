@@ -62,7 +62,7 @@ export class Scene {
   }
 
   private createLights(): void {
-    let light = new THREE.DirectionalLight(0x404040, 1); // soft white light
+    let light: any = new THREE.DirectionalLight(0x404040, 1); // soft white light
     this.scene.add(light);
     light = new THREE.AmbientLight(0xdadada, 1); // soft white light
     this.scene.add(light);
@@ -117,10 +117,6 @@ class Box {
     this.mat = new THREE.MeshLambertMaterial();
     this.mesh = new THREE.Mesh(this.geom, this.mat);
     this.tween = this.makeTween();
-  }
-
-  set color(color) {
-    this.mesh.material.color.set(color);
   }
 
   private makeTween(): TWEEN.Tween {

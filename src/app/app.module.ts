@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { NavModule } from "./nav/nav.module";
+import { FooterModule } from "./footer/footer.module";
 import { AppComponent } from "./app.component";
 import { HomeModule } from "./home/home.module";
 
@@ -13,7 +14,8 @@ import { HomeModule } from "./home/home.module";
     NgtUniversalModule,
     HomeModule,
     AppRoutingModule,
-    NavModule
+    NavModule,
+    FooterModule
   ],
   providers: []
 })

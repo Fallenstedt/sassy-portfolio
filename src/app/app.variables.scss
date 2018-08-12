@@ -38,6 +38,26 @@ $breakpoints: (
   large: 1024px
 );
 
+//functions
+// Default font size set by browsers 16px
+$browser-context: 16;
+
+// Calculates the rem value so it can be applied everywhere;
+//
+// @param an integer font size in px
+// @param an integer reference size in px
+// @return a string with rem unit.
+//
+@function rem($pixels, $context: $browser-context) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+  @if (unitless($context)) {
+    $context: $context * 1px;
+  }
+  @return $pixels / $context * 1rem;
+}
+
 //mixins
 @mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
   @each $fs-breakpoint, $fs-font-size in $fs-map {
