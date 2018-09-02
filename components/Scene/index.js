@@ -74,7 +74,7 @@ export default class Scene {
     TWEEN.update(delta);
     if (this.renderer) {
       this.renderer.render(this.scene, this.camera);
-      this.camera.rotation.z += 0.001;
+      this.camera.rotation.z = Math.sin(0.00003 * delta);
     }
   }
 

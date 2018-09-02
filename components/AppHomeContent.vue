@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "/assets/app.variables.scss";
+@import "assets/app.variables.scss";
 .app-home__content {
   position: absolute;
   width: 100%;
@@ -34,5 +34,5 @@ export default {
       color: $tomatoRed;
     }
   }
-
+}
 </style>
