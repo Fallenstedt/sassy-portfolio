@@ -1,6 +1,7 @@
 <template>
   <section>
     <div>
+      <AppHomeContent></AppHomeContent>
       <Scene></Scene>
     </div>
   </section>
@@ -8,9 +9,11 @@
 
 <script>
 import Scene from "../components/Scene/Scene.vue";
+import AppHomeContent from "../components/AppHomeContent.vue";
 export default {
   components: {
-    Scene
+    Scene,
+    AppHomeContent
   }
 };
 </script>

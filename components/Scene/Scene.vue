@@ -17,14 +17,19 @@ export default {
     };
   },
   mounted() {
-    this.sceneManager = new Scene(this.$refs.scene);
+    if (this.$refs.scene) {
+      this.sceneManager = new Scene(this.$refs.scene);
+    }
   },
-  destroyed() {
-    this.sceneManger.cleanUp();
-    this.sceneManger = undefined;
+  beforeDestroy() {
+    if (this.sceneManager) {
+      this.sceneManager.cleanUp();
+      this.sceneManager = undefined;
+    }
   }
 };
 </script>
+
 <style lang="scss">
 .scene {
   overflow: hidden;
