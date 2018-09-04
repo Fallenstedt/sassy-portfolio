@@ -17,7 +17,7 @@ $h1-font-sizes: (
   ),
   small: 55px,
   medium: 65px,
-  large: 10vw
+  large: 11vw
 );
 $p-font-sizes: (
   null: (
@@ -125,6 +125,17 @@ p {
 }
 
 //globals
+h1 {
+  font-weight: 900;
+}
+
+a {
+  color: $tomatoRed;
+  &:hover {
+    color: $spoiledTomato;
+  }
+}
+
 .horizontal-bar {
   display: block;
   height: 0.575rem;

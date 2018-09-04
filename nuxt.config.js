@@ -15,6 +15,9 @@ module.exports = {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
+
+  css: ["~/assets/css/skeleton.css", "~/assets/css/normalize.css"],
+
   /*
   ** Customize the progress bar color
   */
