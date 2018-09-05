@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import NavBarLogo from './NavBarLogo.vue';
+import NavBarLogo from "./NavBarLogo.vue";
 export default {
   name: "NavBarContainer",
   components: {
     NavBarLogo
-  }
+  },
   data: function() {
     return {
       isNavOpen: false
