@@ -1,7 +1,7 @@
 <template>
   <div class="app-home__content">
     <div class="container">
-      <h1><a>About</a></h1>    
+      <h1><nuxt-link to="/about">About</nuxt-link></h1>    
     </div>
   </div>
 </template>

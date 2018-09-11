@@ -1,7 +1,7 @@
 <template>
   <div 
   v-on:click="onLogoClick"
-  class="app-logo"> SUP</div>
+  class="app-logo"></div>
 </template>
 
 <script>
