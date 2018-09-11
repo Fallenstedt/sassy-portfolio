@@ -1,5 +1,4 @@
 <template>
-  <section>
     <div class="about-container">
       <div class="container about-container__content">
         <h1><span class="about-container__bg-span">About</span></h1>
@@ -16,14 +15,21 @@
         </p>
       </div>
       <div class="about-container__image">
-        <img src="/assets/img/fallenstedt.png" alt="Alex fallenstedt self portrait">
+        <img src="~/assets/fallenstedt.png" alt="Alex fallenstedt self portrait">
       </div>
+    <div>
+      <Footer />
     </div>
-  </section>
+    </div>
 </template>
 
 <script>
-export default {};
+import Footer from "../components/Footer.vue";
+export default {
+  components: {
+    Footer
+  }
+};
 </script>
 
 <style lang="scss">

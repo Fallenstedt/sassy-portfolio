@@ -13,7 +13,23 @@ module.exports = {
         content: "Alex Fallenstedt&apos;s portfolio website"
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "stylesheet",
+        href: "https://use.fontawesome.com/releases/v5.2.0/css/brands.css",
+        integrity:
+          "sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE",
+        crossorigin: "anonymous"
+      },
+      {
+        rel: "stylesheet",
+        href: "https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css",
+        integrity:
+          "sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6",
+        crossorigin: "anonymous"
+      }
+    ]
   },
 
   css: ["~/assets/css/skeleton.css", "~/assets/css/normalize.css"],
