@@ -22,8 +22,7 @@ export default {
 .app-logo {
   height: 50px;
   width: 200px;
-  transition: all 0.6s;
-  margin: 10px 0 0 40px;
+  margin: 10px 0 0 20px;
   background-repeat: no-repeat;
   background-size: contain;
   background-image: url("~/assets/alex-fallenstedt-logo.png");
