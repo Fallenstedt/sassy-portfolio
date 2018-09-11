@@ -1,7 +1,9 @@
 <template>
   <div class="app-home__content">
     <div class="container">
-      <h1><nuxt-link to="/about">About</nuxt-link></h1>    
+      <h2><nuxt-link to="/about">About</nuxt-link></h2>
+      <h2><a href="https://github.com/Fallenstedt" target="_blank">GitHub</a></h2>    
+      <h2><a href="https://500px.com/alexanderfallenstedt" target="_blank">Photos</a></h2>    
     </div>
   </div>
 </template>
