@@ -1,33 +1,39 @@
 <template>
     <div class="about-container">
-      <div class="container about-container__content">
-        <h1><span class="about-container__bg-span">About</span></h1>
+      <div class="container">
+        <Title>About</Title>
         <div class="about-container__image-containerized">
-          <img src="~/assets/fallenstedt.png" alt="Alex fallenstedt self portrait">
+          <img src="/fallenstedt.png" alt="Alex fallenstedt self portrait">
         </div>
-        <p class="half-width">
+        <Caption>
           Alex is a Creative Technologist at EY. He works with various web technologies to create business intelligence tools, websites, and web apps. 
           In the past he has photographed weddings and for a Portland magazine.
-        </p>
-        <div class="horizontal-bar"></div>
-        <p class="headline half-width">
+        </Caption>
+        <HorizontalBar></HorizontalBar>
+        <Caption isHeadline="true">
           He uses a scoop of JavaScript in his coffee every morning. He also does photography.
-        </p>
+        </Caption>
       </div>
       <div class="about-container__image">
-        <img src="~/assets/fallenstedt.png" alt="Alex fallenstedt self portrait">
+        <img src="/fallenstedt.png" alt="Alex fallenstedt self portrait">
       </div>
-    <div>
-      <Footer />
-    </div>
+      <div>
+        <Footer />
+      </div>
     </div>
 </template>
 
 <script>
 import Footer from "../components/Footer.vue";
+import Title from "../components/Title.vue";
+import Caption from "../components/Caption.vue";
+import HorizontalBar from "../components/HorizontalBar.vue";
 export default {
   components: {
-    Footer
+    Title,
+    Caption,
+    Footer,
+    HorizontalBar
   }
 };
 </script>
@@ -39,12 +45,6 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  &__bg-span {
-    background-image: url("~/assets/5.jpg");
-    background-size: cover;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
   &__image {
     width: 100%;
     height: 100vw;
