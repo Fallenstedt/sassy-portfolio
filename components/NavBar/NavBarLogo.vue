@@ -25,7 +25,7 @@ export default {
   margin: 10px 0 0 20px;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("~/assets/alex-fallenstedt-logo.png");
+  background-image: url("~/alex-fallenstedt-logo.png");
   cursor: pointer;
 }
 </style>
