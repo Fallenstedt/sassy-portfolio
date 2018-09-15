@@ -4,11 +4,13 @@
       v-for="gallery in galleries" 
       :key="gallery.title"
       class="gallery-list__item">
-        <div 
-        class="gallery-list__teaser"
-        :style="{backgroundImage: `url(${gallery.teaser})`}">
-        </div>
-        <h2>{{gallery.title}}</h2>
+        <nuxt-link to="/photos/foo">
+          <div 
+          class="gallery-list__teaser"
+          :style="{backgroundImage: `url(${gallery.teaser})`}">
+          </div>
+          <h2>{{gallery.title}}</h2>
+        </nuxt-link>
     </li>
   </ul>
 </template>

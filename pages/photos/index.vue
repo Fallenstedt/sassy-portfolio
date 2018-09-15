@@ -15,11 +15,11 @@
   </div>
 </template>
 <script>
-import Footer from "../components/Footer.vue";
-import Title from "../components/Title.vue";
-import Caption from "../components/Caption.vue";
-import HorizontalBar from "../components/HorizontalBar.vue";
-import PhotoGalleryList from "../components/PhotoGalleryList.vue";
+import Footer from "../../components/Footer.vue";
+import Title from "../../components/Title.vue";
+import Caption from "../../components/Caption.vue";
+import HorizontalBar from "../../components/HorizontalBar.vue";
+import PhotoGalleryList from "../../components/PhotoGalleryList.vue";
 export default {
   components: {
     Title,

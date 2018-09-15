@@ -171,3 +171,8 @@ a {
   line-height: 3.25rem;
   letter-spacing: -0.025rem;
 }
+
+::selection {
+  background: $tomatoRed; /* WebKit/Blink Browsers */
+  color: white;
+}

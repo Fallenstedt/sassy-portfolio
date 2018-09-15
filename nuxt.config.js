@@ -60,5 +60,13 @@ module.exports = {
         });
       }
     }
+  },
+  generate: {
+    routes: [
+      "/photos/weddings",
+      "/photos/world",
+      "/photos/recent",
+      "/photos/people"
+    ]
   }
 };
