@@ -15,12 +15,19 @@
     <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
       <i class="fab fa-twitter" aria-hidden="true"></i>
     </a>
+    <div class="footer-links">
+      <nuxt-link to="/"><p>Home</p></nuxt-link>  
+      <nuxt-link to="/about"><p>About</p></nuxt-link>  
+      <nuxt-link to="/photos"><p>Photos</p></nuxt-link>  
+    </div>
   </div>
 </footer>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Footer"
+};
 </script>
 <style lang="scss">
 @import "assets/app.variables.scss";
@@ -36,6 +43,23 @@ footer {
   .footer-social {
     margin-top: rem(20px);
     margin-bottom: rem(80px);
+
+    .footer-links {
+      display: flex;
+      a {
+        text-decoration: none;
+        padding: 0 rem(20px);
+        &:nth-child(1) {
+          padding-left: 0;
+        }
+        &:hover {
+          p {
+            transition: all 0.2s ease-out;
+            color: $tomatoRed;
+          }
+        }
+      }
+    }
 
     .footer-social-icon {
       &:nth-child(1) {

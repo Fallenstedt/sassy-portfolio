@@ -4,12 +4,12 @@
       v-for="gallery in galleries" 
       :key="gallery.title"
       class="gallery-list__item">
-        <nuxt-link to="/photos/foo">
+        <nuxt-link :to="getLink(gallery)">
           <div 
           class="gallery-list__teaser"
           :style="{backgroundImage: `url(${gallery.teaser})`}">
           </div>
-          <h2>{{gallery.title}}</h2>
+          <p>{{gallery.title}}</p>
         </nuxt-link>
     </li>
   </ul>
@@ -42,6 +42,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    getLink({ title }) {
+      return `/photos/${title.toLowerCase()}`;
+    }
   }
 };
 </script>
@@ -56,11 +61,21 @@ export default {
     padding: 0;
     margin: 0;
     list-style: none;
+    a {
+      text-decoration: none;
+    }
   }
   &__teaser {
     border: 2px solid red;
     height: 350px;
     width: 350px;
+    background-size: 100%;
+    background-position: 50% 50%;
+    transition: all 0.2s ease-out;
+    &:hover {
+      background-size: 120%;
+      background-position: 50% 50%;
+    }
   }
 }
 </style>
