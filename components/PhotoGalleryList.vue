@@ -17,6 +17,7 @@
 <script>
 export default {
   name: "PhotoGalleryList",
+  mounted() {},
   data: function() {
     return {
       galleries: [
