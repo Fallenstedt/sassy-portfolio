@@ -9,26 +9,24 @@
       <Caption isHeadline="true">
         Cool check it out
       </Caption>
-      <div class="viewer m-2 mt-3 mt-5 m-md-5">
+      <div class="viewer">
         <div class="grid-sizer"></div>
         <img 
           v-for="(image, index) in this.images"
           :data-index="index"
           :key="index"
           :class="`box-${index}`" 
-          class="grid-item"
           :src="image"
+          class="grid-item"
           @click="handleClick">
-          
-        <!-- </div> -->
       </div>
       <HorizontalBar></HorizontalBar>
-
-
-
       <PhotoGalleryList></PhotoGalleryList>
     </div>
     <Footer />
+    <div class="overlay">
+      <img :src="this.selectedImage" alt="">
+    </div>
   </div>
 </template>
 
@@ -59,6 +57,7 @@ export default {
         "https://via.placeholder.com/450x250"
       ],
       selector: ".viewer",
+      selectedImage: "",
       options: {
         columnWidth: ".grid-sizer",
         percentPosition: true,
@@ -77,7 +76,7 @@ export default {
   mounted() {
     this.loaded();
     this.$root.$on("image-clicked", s => {
-      console.log(s);
+      this.selectedImage = s;
     });
   },
   computed: {
@@ -98,14 +97,10 @@ export default {
         .replace(/^\w/, c => c.toUpperCase());
     },
     loaded() {
-      console.log("hi");
-      // all images are loaded
       ImagesLoaded(this.selector, () => {
-        console.log("loaded");
         this.$root.$emit("masonry-images-loaded");
-        // activate mansonry grid
         let masonry = new Masonry(this.selector, this.options);
-        this.$root.$emit("masonry-loaded", masonry);
+        // this.$root.$emit("masonry-loaded", masonry);
       });
     },
     handleClick(e) {
