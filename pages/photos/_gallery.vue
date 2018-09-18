@@ -24,8 +24,9 @@
       <PhotoGalleryList></PhotoGalleryList>
     </div>
     <Footer />
-    <div class="overlay">
-      <img :src="this.selectedImage" alt="">
+    <div :class="this.overlayOpen ? 'overlay' : null">
+      <div class="overlay__background"></div>
+      <img class="overlay__image" :src="this.selectedImage" alt="">
     </div>
   </div>
 </template>
@@ -58,6 +59,7 @@ export default {
       ],
       selector: ".viewer",
       selectedImage: "",
+      overlayOpen: false,
       options: {
         columnWidth: ".grid-sizer",
         percentPosition: true,
@@ -106,6 +108,10 @@ export default {
     handleClick(e) {
       const src = e.target.src;
       this.$root.$emit("image-clicked", src);
+      console.log(this.overlayOpen);
+      // if (!!this.overlayOpen) {
+      this.overlayOpen = !this.overlayOpen;
+      // }
     }
   }
 };
@@ -151,6 +157,30 @@ export default {
     width: 25%;
     // padding-bottom: 10px;
     // padding-left: 10px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  &__background {
+    position: relative;
+    background-color: $charcoal;
+    opacity: 0.9;
+    z-index: $overlayZ + 5;
+    width: inherit;
+    height: inherit;
+  }
+  &__image {
+    display: block;
+    position: fixed;
+    z-index: $overlayZ + 5;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
