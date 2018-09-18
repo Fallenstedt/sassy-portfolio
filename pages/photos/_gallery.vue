@@ -24,9 +24,10 @@
       <PhotoGalleryList></PhotoGalleryList>
     </div>
     <Footer />
-    <div :class="this.overlayOpen ? 'overlay' : null">
-      <div class="overlay__background"></div>
-      <img class="overlay__image" :src="this.selectedImage" alt="">
+    <div @click="handleClick" :class="this.overlayOpen ? 'overlay' : ''">
+      <div 
+      :class="this.overlayOpen ? 'overlay__background' : '' "></div>
+      <img class="overlay__image" :src="this.overlayOpen ? this.selectedImage : ''" alt="">
     </div>
   </div>
 </template>
