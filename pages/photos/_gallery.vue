@@ -15,7 +15,7 @@
           v-for="(image, index) in this.images"
           :data-index="index"
           :key="index"
-          :class="`box-${index}`" 
+          :class="`box-${index}`"
           :src="image"
           class="grid-item"
           @click="handleClick">
@@ -24,10 +24,11 @@
       <PhotoGalleryList></PhotoGalleryList>
     </div>
     <Footer />
-    <div @click="handleClick" :class="this.overlayOpen ? 'overlay' : ''">
+    <div  :class="this.overlayOpen ? 'overlay' : ''">
       <div 
       :class="this.overlayOpen ? 'overlay__background' : '' "></div>
       <img class="overlay__image" :src="this.overlayOpen ? this.selectedImage : ''" alt="">
+      <div class="overlay__next" @click="handleNext">Next</div>
     </div>
   </div>
 </template>
@@ -60,6 +61,7 @@ export default {
       ],
       selector: ".viewer",
       selectedImage: "",
+      selectedIndex: null,
       overlayOpen: false,
       options: {
         columnWidth: ".grid-sizer",
@@ -78,9 +80,6 @@ export default {
   },
   mounted() {
     this.loaded();
-    this.$root.$on("image-clicked", s => {
-      this.selectedImage = s;
-    });
   },
   computed: {
     getTitle() {
@@ -108,11 +107,17 @@ export default {
     },
     handleClick(e) {
       const src = e.target.src;
-      this.$root.$emit("image-clicked", src);
-      console.log(this.overlayOpen);
-      // if (!!this.overlayOpen) {
+      const index = parseInt(e.target.getAttribute("data-index"));
+
+      this.selectedIndex = index || null;
+      this.selectedImage = src;
       this.overlayOpen = !this.overlayOpen;
-      // }
+    },
+    handleNext() {
+      console.log("next");
+      const nextImg = this.images[this.selectedIndex++];
+      console.log(nextImg);
+      this.selectedImage = nextImg;
     }
   }
 };
@@ -182,6 +187,15 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+  &__next {
+    border: 2px solid red;
+    z-index: $overlayZ + 6;
+    position: fixed;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    color: white;
   }
 }
 </style>
