@@ -15,7 +15,6 @@
           v-for="(image, index) in this.images"
           :data-index="index"
           :key="index"
-          :class="`box-${index}`"
           :src="image"
           class="grid-item"
           @click="handleClick">

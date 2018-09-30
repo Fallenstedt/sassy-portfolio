@@ -9,8 +9,8 @@
       <Caption isHeadline="true">
         Each photo is composed with care, and crafted with love.
       </Caption>
-      <PhotoGalleryList></PhotoGalleryList>
     </div>
+    <PhotoGalleryList></PhotoGalleryList>
     <Footer />
   </div>
 </template>

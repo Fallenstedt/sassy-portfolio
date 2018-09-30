@@ -1,23 +1,30 @@
 <template>
-  <ul class="gallery-list">
-    <li 
-      v-for="gallery in galleries" 
-      :key="gallery.title"
-      class="gallery-list__item">
-        <nuxt-link :to="getLink(gallery)">
-          <div 
-          class="gallery-list__teaser"
-          :style="{backgroundImage: `url(${gallery.teaser})`}">
-          </div>
-          <p>{{gallery.title}}</p>
-        </nuxt-link>
-    </li>
-  </ul>
+  <div>
+    <ul class="gallery-list">
+      <PhotoGalleryListItem
+        v-for="gallery in galleries" 
+        :key="gallery.title" 
+        :title="gallery.title" 
+        :teaser="gallery.teaser">
+      </PhotoGalleryListItem>
+    </ul>
+    <ul class="gallery-list__containerized container">
+      <PhotoGalleryListItem
+        v-for="gallery in galleries" 
+        :key="gallery.title" 
+        :title="gallery.title" 
+        :teaser="gallery.teaser">
+      </PhotoGalleryListItem>
+    </ul>
+  </div>
 </template>
 <script>
+import PhotoGalleryListItem from "./PhotoGalleryListItem";
 export default {
   name: "PhotoGalleryList",
-  mounted() {},
+  components: {
+    PhotoGalleryListItem
+  },
   data: function() {
     return {
       galleries: [
@@ -43,39 +50,19 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    getLink({ title }) {
-      return `/photos/${title.toLowerCase()}`;
-    }
   }
 };
 </script>
 <style lang="scss">
 @import "assets/app.variables.scss";
-
 .gallery-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  &__item {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    a {
-      text-decoration: none;
-    }
+  @include breakpoint(tablet) {
+    display: none;
   }
-  &__teaser {
-    border: 2px solid red;
-    height: 350px;
-    width: 350px;
-    background-size: 100%;
-    background-position: 50% 50%;
-    transition: all 0.2s ease-out;
-    &:hover {
-      background-size: 120%;
-      background-position: 50% 50%;
+  &__containerized {
+    display: none;
+    @include breakpoint(tablet) {
+      display: block;
     }
   }
 }
