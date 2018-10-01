@@ -1,19 +1,27 @@
 <template>
-    <li 
-    class="gallery-list__item">
+    <li class="gallery-list__item">
       <nuxt-link :to="getLink(title)">
-        <div 
-        class="gallery-list__teaser"
-        :style="{backgroundImage: `url(${teaser})`}">
-        </div>
-        <h3>{{title}}</h3>
+      <div 
+      class="gallery-list__teaser"
+      :style="{backgroundImage: `url(${teaser})`}">
+      </div>
+      <div class="gallery-list__caption">
+        <Caption isHeadline="true">{{title}}</Caption>
+      </div>
+      <div class="gallery-list__caption-container container">
+        <Caption isHeadline="true">{{title}}</Caption>
+      </div>
       </nuxt-link>
   </li>
 </template>
 <script>
+import Caption from "./Caption.vue";
 export default {
   name: "PhotoGalleryListItem",
   props: ["title", "teaser"],
+  components: {
+    Caption
+  },
   methods: {
     getLink(title) {
       return `/photos/${title.toLowerCase()}`;
@@ -32,6 +40,9 @@ export default {
     a {
       text-decoration: none;
     }
+    p {
+      margin: 1rem 0 3rem 0;
+    }
   }
   &__teaser {
     height: 100vw;
@@ -43,12 +54,23 @@ export default {
     @include breakpoint(tablet) {
       width: 35em;
       height: 35em;
-      margin: 5rem 0;
     }
 
     &:hover {
       background-size: 120%;
       background-position: 50% 50%;
+    }
+  }
+  &__caption-container {
+    display: block;
+    @include breakpoint(tablet) {
+      display: none;
+    }
+  }
+  &__caption {
+    display: none;
+    @include breakpoint(tablet) {
+      display: block;
     }
   }
 }

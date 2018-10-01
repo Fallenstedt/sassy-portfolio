@@ -4,6 +4,7 @@ $overlayHome: 2;
 
 //color
 $charcoal: #121212;
+$dandruff: #9e9e9e;
 $ash: #5d5656;
 $tomatoRed: #fb5b04;
 $spoiledTomato: #fd3a08;
@@ -28,6 +29,16 @@ $h2-font-sizes: (
   small: 10vw,
   medium: 8vw,
   large: 5vw
+);
+
+$h3-font-sizes: (
+  null: (
+    9vw,
+    1
+  ),
+  small: 8vw,
+  medium: 4vw,
+  large: 3vw
 );
 
 $p-font-sizes: (
@@ -131,6 +142,9 @@ h1 {
 }
 h2 {
   @include font-size($h2-font-sizes);
+}
+h3 {
+  @include font-size($h3-font-sizes);
 }
 
 p {
