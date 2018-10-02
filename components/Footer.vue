@@ -1,50 +1,59 @@
 <template>
   <footer class="container">
-  <div class="footer-name">
-    <p>Alex Fallenstedt</p>
-    <p><a class="footer-email" href="mailto:a.fallenstedt@gmail.com">a.fallenstedt@gmail.com</a></p>
-  </div>
-  <div class="footer-social">
-    <a target="_blank" href="https://github.com/fallenstedt" class="footer-social-icon">
-      <i class="fab fa-github" aria-hidden="true"></i> GitHub
-    </a>
-    <a target="_blank" href="https://www.linkedin.com/in/alexfallenstedt" class="footer-social-icon">
-      <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
-    </a>
-    <a target="_blank" href="https://500px.com/alexanderfallenstedt" class="footer-social-icon">
-      <i class="fab fa-500px" aria-hidden="true"></i> 500px
-    </a>
-    <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
-      <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
-    </a>
-    <div class="footer-links">
-      <nuxt-link to="/"><p>Home</p></nuxt-link>  
-      <nuxt-link to="/about"><p>About</p></nuxt-link>  
-      <nuxt-link to="/photos"><p>Photos</p></nuxt-link>  
+  <div class="spacer"></div>
+  <HorizontalBar></HorizontalBar>
+  <div class="footer-container">
+    <div class="footer-name">
+        <p>Alex Fallenstedt</p>
+        <p><a class="footer-email" href="mailto:a.fallenstedt@gmail.com">a.fallenstedt@gmail.com</a></p>
+    </div>
+    <div class="footer-social">
+      <a target="_blank" href="https://github.com/fallenstedt" class="footer-social-icon">
+        <i class="fab fa-github" aria-hidden="true"></i> GitHub
+      </a>
+      <a target="_blank" href="https://www.linkedin.com/in/alexfallenstedt" class="footer-social-icon">
+        <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+      </a>
+      <a target="_blank" href="https://500px.com/alexanderfallenstedt" class="footer-social-icon">
+        <i class="fab fa-500px" aria-hidden="true"></i> 500px
+      </a>
+      <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
+        <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
+      </a>
+      <div class="footer-links">
+        <nuxt-link to="/"><p>Home</p></nuxt-link>  
+        <nuxt-link to="/about"><p>About</p></nuxt-link>  
+        <nuxt-link to="/photos"><p>Photos</p></nuxt-link>  
+      </div>
     </div>
   </div>
+ 
 </footer>
 </template>
 
 <script>
+import HorizontalBar from "./HorizontalBar.vue";
 export default {
-  name: "Footer"
+  name: "Footer",
+  components: {
+    HorizontalBar
+  }
 };
 </script>
 <style lang="scss">
 @import "assets/app.variables.scss";
-footer {
+.spacer {
+  margin-top: rem(30px);
+}
+.footer-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-top: rem(30px);
   p {
     margin: rem(15px) 0;
     font-size: rem(20px);
     color: $dandruff;
-  }
-  .footer-name,
-  .footer-social {
-    margin-top: rem(30px);
   }
   .footer-email {
     text-decoration: none;
