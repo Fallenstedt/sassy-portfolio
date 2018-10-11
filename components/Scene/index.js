@@ -22,7 +22,7 @@ export default class Scene {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
-    this.grid = new Grid(20, 20, 5);
+    this.grid = new Grid(10, 10, 5);
     this.init();
     this.setWidthAndHeightOfCanvas();
   }
@@ -51,6 +51,8 @@ export default class Scene {
     this.positionCamera();
     this.grid.mesh.rotation.x = Math.PI / 2;
     this.scene.add(this.grid.mesh);
+    this.grid.mesh.position.x = 25;
+    this.grid.mesh.position.y = -20;
     this.animate();
   }
 
@@ -74,7 +76,6 @@ export default class Scene {
     TWEEN.update(delta);
     if (this.renderer) {
       this.renderer.render(this.scene, this.camera);
-      this.camera.rotation.z = Math.sin(0.00003 * delta);
     }
   }
 
