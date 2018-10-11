@@ -20,7 +20,7 @@
     </div>
     <Footer />
     <button @click="showModal = true"> hi</button>
-    <Modal [showModal] = "false"></Modal>
+    <!-- <Modal [showModal]="false"></Modal> -->
   </div>
 </template>
 

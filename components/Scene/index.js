@@ -22,7 +22,7 @@ export default class Scene {
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setClearColor(0xf5f5f5, 1);
     this.animate = this.animate.bind(this);
-    this.grid = new Grid(10, 10, 5);
+    this.grid = new Grid(5, 5, 10);
     this.init();
     this.setWidthAndHeightOfCanvas();
   }
@@ -64,9 +64,10 @@ export default class Scene {
   }
 
   positionCamera() {
-    this.camera.position.z = 65;
-    this.camera.position.y = -50;
-    this.camera.position.x = 50;
+    this.camera.position.z = 85;
+    this.camera.position.y = -15;
+    this.camera.position.x = 45;
+    this.camera.rotation.x = (-15 * Math.PI) / 180;
   }
 
   animate(delta) {
@@ -98,8 +99,9 @@ export default class Scene {
 
 class Box {
   constructor(x, y, z, color) {
-    this.current = { y: -100 };
-    this.target = { y: Math.random() * 40 };
+    const startEnd = Math.random() * (Math.random() * -99);
+    this.current = { y: startEnd };
+    this.target = { y: startEnd * -1 + 200 };
     this.geom = new THREE.BoxGeometry(x, y, z);
     this.mat = new THREE.MeshLambertMaterial();
     this.mesh = new THREE.Mesh(this.geom, this.mat);
@@ -111,18 +113,16 @@ class Box {
       this.mesh.position.y = this.current.y;
       this.mesh.rotation.x = this.current.y / 10;
       this.mesh.rotation.z = this.current.y / (this.current.y * 9);
+      if (this.mesh.position.y >= 800) {
+        this.mesh.position.y = -100;
+      }
     };
     const easing = TWEEN.Easing.Elastic.InOut;
     const tweenHead = new TWEEN.Tween(this.current)
-      .to(this.target, 2000)
-      .easing(easing)
-      .onUpdate(update.bind(this));
-
-    const tweenMiddle = new TWEEN.Tween(this.current)
-      .to(this.target, 6000)
-      .easing(easing)
-      .onUpdate(update.bind(this));
-    tweenHead.chain(tweenMiddle);
+      .to(this.target, 8000)
+      .delay(Math.random() * 4001)
+      .onUpdate(update.bind(this))
+      .repeat(Infinity);
 
     return tweenHead;
   }
