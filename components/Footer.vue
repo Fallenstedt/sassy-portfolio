@@ -1,7 +1,6 @@
 <template>
   <footer class="container">
   <div class="spacer"></div>
-  <HorizontalBar></HorizontalBar>
   <div class="footer-container">
     <div class="footer-name">
         <p>Alex Fallenstedt</p>
@@ -23,7 +22,7 @@
       <div class="footer-links">
         <nuxt-link to="/"><p>Home</p></nuxt-link>  
         <nuxt-link to="/about"><p>About</p></nuxt-link>  
-        <nuxt-link to="/photos"><p>Photos</p></nuxt-link>  
+        <!-- <nuxt-link to="/photos"><p>Photos</p></nuxt-link>   -->
       </div>
     </div>
   </div>
@@ -43,7 +42,7 @@ export default {
 <style lang="scss">
 @import "assets/app.variables.scss";
 .spacer {
-  margin-top: rem(30px);
+  // margin-top: rem(30px);
 }
 .footer-container {
   display: flex;
