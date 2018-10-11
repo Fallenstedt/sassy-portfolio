@@ -22,7 +22,7 @@
       <div class="footer-links">
         <nuxt-link to="/"><p>Home</p></nuxt-link>  
         <nuxt-link to="/about"><p>About</p></nuxt-link>  
-        <nuxt-link to="/photos"><p>Photos</p></nuxt-link>  
+        <!-- <nuxt-link to="/photos"><p>Photos</p></nuxt-link>   -->
       </div>
     </div>
   </div>
