@@ -20,7 +20,8 @@
     "nuxt": "^1.0.0",
     "nuxt-sass-resources-loader": "^2.0.4",
     "sass-loader": "^7.1.0",
-    "three": "^0.96.0"
+    "three": "^0.96.0",
+    "vue-my-photos": "^1.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

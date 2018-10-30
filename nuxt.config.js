@@ -1,48 +1,49 @@
 module.exports = {
+  plugins: [{ src: '~/plugins/vue-my-photos.js', ssr: false }],
   /*
   ** Headers of the page
   */
   head: {
-    title: "Alex Fallenstedt",
+    title: 'Alex Fallenstedt',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        hid: "description",
-        name: "description",
-        content: "Alex Fallenstedt&apos;s portfolio website"
+        hid: 'description',
+        name: 'description',
+        content: 'Alex Fallenstedt&apos;s portfolio website'
       }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
-        rel: "stylesheet",
-        href: "https://use.fontawesome.com/releases/v5.2.0/css/brands.css",
+        rel: 'stylesheet',
+        href: 'https://use.fontawesome.com/releases/v5.2.0/css/brands.css',
         integrity:
-          "sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE",
-        crossorigin: "anonymous"
+          'sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE',
+        crossorigin: 'anonymous'
       },
       {
-        rel: "stylesheet",
-        href: "https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css",
+        rel: 'stylesheet',
+        href: 'https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css',
         integrity:
-          "sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6",
-        crossorigin: "anonymous"
+          'sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6',
+        crossorigin: 'anonymous'
       }
     ]
   },
 
-  css: ["~/assets/css/skeleton.css", "~/assets/css/normalize.css"],
+  css: ['~/assets/css/skeleton.css', '~/assets/css/normalize.css'],
 
   /*
   ** Customize the progress bar color
   */
-  loading: { color: "#fd3a08" },
+  loading: { color: '#fd3a08' },
   /*
   ** Modules
   */
-  modules: ["nuxt-sass-resources-loader"],
-  sassResources: ["@/assets/app.variables.scss"],
+  modules: ['nuxt-sass-resources-loader'],
+  sassResources: ['@/assets/app.variables.scss'],
   /*
   ** Build configuration
   */
@@ -53,9 +54,9 @@ module.exports = {
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /(node_modules)/
         });
       }
@@ -63,10 +64,10 @@ module.exports = {
   },
   generate: {
     routes: [
-      "/photos/weddings",
-      "/photos/world",
-      "/photos/recent",
-      "/photos/people"
+      '/photos/weddings',
+      '/photos/world',
+      '/photos/recent',
+      '/photos/people'
     ]
   }
 };

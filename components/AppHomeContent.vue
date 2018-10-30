@@ -2,8 +2,8 @@
   <div class="app-home__content">
     <div class="container">
       <h2><nuxt-link to="/about">About</nuxt-link></h2>
-      <!-- <h2><nuxt-link to="/photos">Photos</nuxt-link></h2>-->
-      <h2><a href="https://500px.com/alexanderfallenstedt" target="_blank">Photos</a></h2>
+      <h2><nuxt-link to="/photos">Photos</nuxt-link></h2>
+      <!-- <h2><a href="https://500px.com/alexanderfallenstedt" target="_blank">Photos</a></h2> -->
       <h2><a href="https://github.com/Fallenstedt" target="_blank">GitHub</a></h2>    
     </div>
   </div>
@@ -11,12 +11,12 @@
 
 <script>
 export default {
-  name: "AppHomeContent"
+  name: 'AppHomeContent'
 };
 </script>
 
 <style lang="scss">
-@import "assets/app.variables.scss";
+@import 'assets/app.variables.scss';
 .app-home__content {
   position: absolute;
   width: 100%;
