@@ -15,10 +15,10 @@
   </li>
 </template>
 <script>
-import Caption from "./Caption.vue";
+import Caption from './Caption.vue';
 export default {
-  name: "PhotoGalleryListItem",
-  props: ["title", "teaser"],
+  name: 'PhotoGalleryListItem',
+  props: ['title', 'teaser'],
   components: {
     Caption
   },
@@ -30,7 +30,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "assets/app.variables.scss";
+@import 'assets/app.variables.scss';
 
 .gallery-list {
   &__item {
@@ -49,7 +49,9 @@ export default {
     width: 100%;
     background-size: 100%;
     background-position: 50% 50%;
-    transition: all 0.2s ease-out;
+    // background-size: cover;
+    background-repeat: none;
+    transition: background-size 0.2s ease-out;
 
     @include breakpoint(tablet) {
       width: 35em;
@@ -58,6 +60,7 @@ export default {
 
     &:hover {
       background-size: 120%;
+      transition: all 0.2s ease-out;
       background-position: 50% 50%;
     }
   }
