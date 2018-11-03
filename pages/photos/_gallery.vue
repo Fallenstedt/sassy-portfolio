@@ -50,10 +50,11 @@ export default {
     showLightbox(imageName) {
       this.$refs.lightbox.show(imageName);
     },
+    getParam() {
+      return Object.values(this.$router.history.current.params).pop();
+    },
     capitalizeParam() {
-      return Object.values(this.$router.history.current.params)
-        .pop()
-        .replace(/^\w/, c => c.toUpperCase());
+      return this.getParam().replace(/^\w/, c => c.toUpperCase());
     }
   }
 };
