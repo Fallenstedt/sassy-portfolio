@@ -21,7 +21,7 @@ async function generateFileList() {
     const dirFile = path.join(readLocation, gallery);
     result[gallery] = [];
     fs.readdirSync(dirFile).forEach(file => {
-      result[gallery].push(file);
+      result[gallery].push({ name: `/gallery/${gallery}/${file}` });
     });
   });
   return result;
