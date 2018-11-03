@@ -30,7 +30,8 @@ export default {
       galleries: [
         {
           title: 'Abstract',
-          teaser: '/abstract/alex-fallenstedt-abstract-photography-2.jpg',
+          teaser:
+            '/gallery/abstract/alex-fallenstedt-abstract-photography-2.jpg',
           altTitle: 'some alt'
         },
         {
