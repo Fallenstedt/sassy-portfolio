@@ -5,8 +5,9 @@
   "author": "Alex Fallenstedt <a.fallenstedt@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
+    "dev": "npm run build:path && nuxt",
+    "build:path": "node ./path-builder/index.js",
+    "build": "npm run build:path && nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "deploy": "aws s3 sync dist s3://fallenstedt.com",
@@ -20,7 +21,8 @@
     "nuxt": "^1.0.0",
     "nuxt-sass-resources-loader": "^2.0.4",
     "sass-loader": "^7.1.0",
-    "three": "^0.96.0"
+    "three": "^0.96.0",
+    "vue-my-photos": "^1.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

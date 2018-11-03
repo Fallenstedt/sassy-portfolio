@@ -19,9 +19,9 @@
   </div>
 </template>
 <script>
-import PhotoGalleryListItem from "./PhotoGalleryListItem";
+import PhotoGalleryListItem from './PhotoGalleryListItem';
 export default {
-  name: "PhotoGalleryList",
+  name: 'PhotoGalleryList',
   components: {
     PhotoGalleryListItem
   },
@@ -29,24 +29,24 @@ export default {
     return {
       galleries: [
         {
-          title: "World",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
+          title: 'Abstract',
+          teaser: '/abstract/alex-fallenstedt-abstract-photography-2.jpg',
+          altTitle: 'some alt'
         },
         {
-          title: "People",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
+          title: 'World',
+          teaser: 'https://via.placeholder.com/350x350',
+          altTitle: 'some alt'
         },
         {
-          title: "Weddings",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
+          title: 'People',
+          teaser: 'https://via.placeholder.com/350x350',
+          altTitle: 'some alt'
         },
         {
-          title: "Recent",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
+          title: 'Weddings',
+          teaser: 'https://via.placeholder.com/350x350',
+          altTitle: 'some alt'
         }
       ]
     };
@@ -54,7 +54,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "assets/app.variables.scss";
+@import 'assets/app.variables.scss';
 .gallery-list {
   @include breakpoint(tablet) {
     display: none;

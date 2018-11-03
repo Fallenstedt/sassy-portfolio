@@ -1,3 +1,7 @@
+
+# generated files
+static/images.json
+
 # dependencies
 node_modules
 
