@@ -1,9 +1,9 @@
-import * as THREE from "three";
-import TWEEN from "@tweenjs/tween.js";
+import * as THREE from 'three';
+import TWEEN from '@tweenjs/tween.js';
 
 export default class Scene {
   constructor(canvas) {
-    window.addEventListener("resize", this.onWindowResize.bind(this), false);
+    window.addEventListener('resize', this.onWindowResize.bind(this), false);
 
     this.canvas = canvas;
     this.scene = new THREE.Scene();
@@ -31,7 +31,7 @@ export default class Scene {
     // Iterate through all properties of this object.
     Object.keys(this).forEach(key => {
       // Recursively call dispose() if possible.
-      if (typeof this[key].dispose === "function") {
+      if (typeof this[key].dispose === 'function') {
         this[key].dispose();
       }
       // Remove any reference.
@@ -40,7 +40,7 @@ export default class Scene {
   }
 
   cleanUp() {
-    window.removeEventListener("resize", this.onWindowResize.bind(this), false);
+    window.removeEventListener('resize', this.onWindowResize.bind(this), false);
     this.dispose();
   }
 
@@ -117,10 +117,9 @@ class Box {
         this.mesh.position.y = -100;
       }
     };
-    const easing = TWEEN.Easing.Elastic.InOut;
     const tweenHead = new TWEEN.Tween(this.current)
       .to(this.target, 8000)
-      .delay(Math.random() * 4001)
+      .delay(Math.random() * 10001)
       .onUpdate(update.bind(this))
       .repeat(Infinity);
 
@@ -140,9 +139,10 @@ class Grid {
     const meshGroup = new THREE.Group();
     for (let x = 0; x < this.x; x++) {
       for (let y = 0; y < this.y; y++) {
-        const c = new Box(3, 3, 3, "0xc1533d");
+        const c = new Box(3, 3, 3, '0xc1533d');
         c.mesh.position.x = x * this.gutter;
         c.mesh.position.z = y * this.gutter;
+        c.mesh.position.y = Math.random() * (-100 + 150) - 100;
         c.tween.start();
         this.group.push(c);
         meshGroup.add(c.mesh);

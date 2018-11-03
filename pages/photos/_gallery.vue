@@ -20,7 +20,6 @@
       <Lightbox id="mylightbox"
           ref="lightbox"
           :images="images"
-          :timeoutDuration="5000"
       ></Lightbox>
     </div>
     <Footer />
