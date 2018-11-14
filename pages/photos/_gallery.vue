@@ -1,5 +1,5 @@
 <template>
-  <div class="gallery-container">
+  <div class="gallery">
     <div class="container">
       <Title>{{this.getTitle}}</Title>
       <Caption>
@@ -9,18 +9,14 @@
       <Caption isHeadline="true">
         Cool check it out
       </Caption>
-      <div class="gallery-container__row">
-        <div class="gallery-container__column" v-for="(image, index) in images" :key="index">
-          
-          <img :src="image.name" alt="" @click="showLightbox(image.name)">
-
-        </div>
-        
-      </div>
+      <ImageGallery
+        :images="images">
+      </ImageGallery>
       <Lightbox id="mylightbox"
           ref="lightbox"
           :images="images"
-      ></Lightbox>
+          @clicked="onClickChild">
+      </Lightbox>
     </div>
     <Footer />
   </div>
@@ -31,6 +27,7 @@ import Footer from '../../components/Footer.vue';
 import Title from '../../components/Title.vue';
 import Caption from '../../components/Caption.vue';
 import HorizontalBar from '../../components/HorizontalBar.vue';
+import ImageGallery from '../../components/ImageGallery.vue';
 import Lightbox from 'vue-my-photos';
 import imgNames from 'static/images.json';
 
@@ -46,7 +43,16 @@ export default {
     Title,
     Caption,
     HorizontalBar,
-    Lightbox
+    Lightbox,
+    ImageGallery
+  },
+  mounted() {
+    this.$root.$on(
+      'imgClicked',
+      function(imageName) {
+        this.$refs.lightbox.show(imageName);
+      }.bind(this)
+    );
   },
   computed: {
     getTitle() {
@@ -54,9 +60,7 @@ export default {
     }
   },
   methods: {
-    showLightbox(imageName) {
-      this.$refs.lightbox.show(imageName);
-    },
+    onClickChild(imageName) {},
     getParam() {
       return Object.values(this.$router.history.current.params).pop();
     },
@@ -68,39 +72,9 @@ export default {
 </script>
 <style lang="scss">
 @import 'assets/app.variables.scss';
-.gallery-container {
+
+.gallery {
   padding-top: $navHeight * 1.5;
-  &__row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 4px;
-    // border: 2px solid red;
-  }
-  &__column {
-    flex: 20%;
-    max-height: 300px;
-    min-height: 250px;
-
-    // max-width: 20%;
-    padding: 4px;
-    @media screen and (max-width: 800px) {
-      flex: 40%;
-      // max-width: 40%;
-    }
-
-    @media screen and (max-width: 600px) {
-      flex: 100%;
-      // max-width: 100%;
-    }
-
-    img {
-      vertical-align: middle;
-      object-fit: cover; /* also try 'contain' and 'cover' */
-      object-position: top left;
-      width: 100%;
-      height: 100%;
-    }
-  }
 }
 .lightbox-close {
   font-size: 50px !important;
