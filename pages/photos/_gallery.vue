@@ -50,7 +50,9 @@ export default {
     this.$root.$on(
       'imgClicked',
       function(imageName) {
-        this.$refs.lightbox.show(imageName);
+        if (this.$refs && this.$refs.lightbox) {
+          this.$refs.lightbox.show(imageName);
+        }
       }.bind(this)
     );
   },
