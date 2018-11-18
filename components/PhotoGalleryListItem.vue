@@ -49,19 +49,13 @@ export default {
     width: 100%;
     background-size: 100%;
     background-position: 50% 50%;
-    // background-size: cover;
+    background-size: cover;
     background-repeat: none;
     transition: background-size 0.2s ease-out;
 
     @include breakpoint(tablet) {
       width: 35em;
       height: 35em;
-    }
-
-    &:hover {
-      background-size: 120%;
-      transition: all 0.2s ease-out;
-      background-position: 50% 50%;
     }
   }
   &__caption-container {

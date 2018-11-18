@@ -65,6 +65,7 @@ module.exports = {
   generate: {
     routes: [
       '/photos/weddings',
+      '/photos/nature',
       '/photos/world',
       '/photos/recent',
       '/photos/people'

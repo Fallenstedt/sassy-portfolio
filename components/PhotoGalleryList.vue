@@ -35,6 +35,11 @@ export default {
           altTitle: 'some alt'
         },
         {
+          title: 'Nature',
+          teaser: '/gallery/nature/alex-fallenstedt-nature-photography-2.jpg',
+          altTitle: 'some alt'
+        },
+        {
           title: 'World',
           teaser: 'https://via.placeholder.com/350x350',
           altTitle: 'some alt'
