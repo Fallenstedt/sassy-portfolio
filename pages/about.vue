@@ -10,7 +10,7 @@
       <HorizontalBar></HorizontalBar>
       <Caption
         isHeadline="true"
-      >I use a scoop of JavaScript in his coffee every morning. I also do photography.</Caption>
+      >I use a scoop of JavaScript in my coffee every morning. I also do photography.</Caption>
     </div>
     <div class="about-container__image">
       <img src="/fallenstedt.png" alt="Alex fallenstedt self portrait">
