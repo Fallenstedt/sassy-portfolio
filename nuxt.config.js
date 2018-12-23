@@ -1,8 +1,8 @@
 module.exports = {
   plugins: [{ src: '~/plugins/vue-my-photos.js', ssr: false }],
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: 'Alex Fallenstedt',
     meta: [
@@ -11,7 +11,8 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'Alex Fallenstedt&apos;s portfolio website'
+        content:
+          'Alex Fallenstedt is a web developer who strives for test-driven development, translating business requirements into technical requirements, and an agile based development model. He considers these to be the primary elements for delivering quality and maintainable software with high-confidence.'
       }
     ],
     link: [
@@ -36,21 +37,21 @@ module.exports = {
   css: ['~/assets/css/skeleton.css', '~/assets/css/normalize.css'],
 
   /*
-  ** Customize the progress bar color
-  */
+   ** Customize the progress bar color
+   */
   loading: { color: '#fd3a08' },
   /*
-  ** Modules
-  */
+   ** Modules
+   */
   modules: ['nuxt-sass-resources-loader'],
   sassResources: ['@/assets/app.variables.scss'],
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** Run ESLint on save
-    */
+     ** Run ESLint on save
+     */
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
