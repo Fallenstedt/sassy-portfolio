@@ -102,7 +102,7 @@ class Box {
     const startEnd = Math.random() * (Math.random() * -99);
     this.current = { y: startEnd };
     this.target = { y: startEnd * -1 + 200 };
-    this.geom = new THREE.BoxGeometry(x, y, z);
+    this.geom = new THREE.BoxBufferGeometry(x, y, z);
     this.mat = new THREE.MeshLambertMaterial();
     this.mesh = new THREE.Mesh(this.geom, this.mat);
     this.tween = this.makeTween();

@@ -13,12 +13,12 @@ $navHeight: 80px;
 //variables
 $h1-font-sizes: (
   null: (
-    48px,
+    8vw,
     1
   ),
   small: 55px,
   medium: 65px,
-  large: 11vw
+  large: 8vw
 );
 
 $h2-font-sizes: (
@@ -43,15 +43,15 @@ $h3-font-sizes: (
 
 $p-font-sizes: (
   null: (
-    15px,
+    19px,
     1.5
   ),
-  small: 16px,
+  small: 17px,
   medium: (
-    17px,
+    20px,
     1.7
   ),
-  large: 19px
+  large: 21px
 );
 
 $breakpoints: (
@@ -102,7 +102,7 @@ $browser-context: 16;
 @mixin make-font-size($fs-font-size) {
   // If $fs-font-size is a list, include
   // both font-size and line-height
-  @if type-of($fs-font-size) == "list" {
+  @if type-of($fs-font-size) == 'list' {
     font-size: nth($fs-font-size, 1);
     @if (length($fs-font-size) > 1) {
       line-height: nth($fs-font-size, 2);

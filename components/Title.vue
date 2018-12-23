@@ -1,5 +1,9 @@
 <template>
-  <h1><span class="title-container__bg-span"><slot></slot></span></h1>
+  <h1>
+    <span class="title-container__bg-span">
+      <slot></slot>
+    </span>
+  </h1>
 </template>
 
 <script>
@@ -17,7 +21,7 @@ export default {
   flex-direction: column;
   &__bg-span {
     background-image: url("/5.jpg");
-    background-size: cover;
+    background-size: contain;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

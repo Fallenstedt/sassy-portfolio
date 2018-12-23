@@ -1,11 +1,7 @@
 <template>
-  
-  <nav class="app-nav"
-  [class.app-nav__no-events]="isNavOpen">
+  <nav class="app-nav" [class.app-nav__no-events]="isNavOpen">
     <div class="app-nav__fixed">
-      <div class="app-nav__controls">
-        <NavBarLogo></NavBarLogo>
-      </div>
+      <div class="app-nav__controls"></div>
     </div>
   </nav>
 </template>
@@ -23,6 +19,7 @@ export default {
     };
   }
 };
+// <NavBarLogo></NavBarLogo>
 </script>
 
 <style lang="scss">
