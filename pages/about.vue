@@ -5,14 +5,12 @@
       <div class="about-container__image-containerized">
         <img src="/fallenstedt.png" alt="Alex fallenstedt self portrait">
       </div>
-      <Caption>
-        Alex is a Creative Technologist at EY. He works with various web technologies to create business intelligence tools, websites, and web apps.
-        In the past he has photographed weddings and for a Portland magazine.
-      </Caption>
+      <Caption>I am a web developer who strives for test-driven development, translating business requirements into technical requirements, and an agile based development model.</Caption>
+      <Caption>I consider these to be the primary elements for delivering quality and maintainable software with high-confidence.</Caption>
       <HorizontalBar></HorizontalBar>
       <Caption
         isHeadline="true"
-      >He uses a scoop of JavaScript in his coffee every morning. He also does photography.</Caption>
+      >I use a scoop of JavaScript in his coffee every morning. I also do photography.</Caption>
     </div>
     <div class="about-container__image">
       <img src="/fallenstedt.png" alt="Alex fallenstedt self portrait">

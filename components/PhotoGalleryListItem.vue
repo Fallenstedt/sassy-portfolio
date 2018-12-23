@@ -1,24 +1,21 @@
 <template>
-    <li class="gallery-list__item">
-      <nuxt-link :to="getLink(title)">
-      <div 
-      class="gallery-list__teaser"
-      :style="{backgroundImage: `url(${teaser})`}">
-      </div>
+  <li class="gallery-list__item">
+    <nuxt-link :to="getLink(title)">
+      <div class="gallery-list__teaser" :style="{backgroundImage: `url(${teaser})`}"></div>
       <div class="gallery-list__caption">
         <Caption isHeadline="true">{{title}}</Caption>
       </div>
       <div class="gallery-list__caption-container container">
         <Caption isHeadline="true">{{title}}</Caption>
       </div>
-      </nuxt-link>
+    </nuxt-link>
   </li>
 </template>
 <script>
-import Caption from './Caption.vue';
+import Caption from "./Caption.vue";
 export default {
-  name: 'PhotoGalleryListItem',
-  props: ['title', 'teaser'],
+  name: "PhotoGalleryListItem",
+  props: ["title", "teaser"],
   components: {
     Caption
   },
@@ -30,7 +27,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import 'assets/app.variables.scss';
+@import "assets/app.variables.scss";
 
 .gallery-list {
   &__item {
@@ -54,8 +51,8 @@ export default {
     transition: background-size 0.2s ease-out;
 
     @include breakpoint(tablet) {
-      width: 35em;
-      height: 35em;
+      width: 30em;
+      height: 30em;
     }
   }
   &__caption-container {

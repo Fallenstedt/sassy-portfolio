@@ -32,14 +32,17 @@ export default {
 
 <style lang="scss">
 .scene {
+  height: 97vh;
   overflow: hidden;
   margin: 10px;
+  background-color: #f5f5f5;
   &__scene-container {
     width: inherit;
     height: inherit;
     overflow: hidden;
   }
   &__canvas {
+    opacity: 0.5;
     border-radius: 3px;
     overflow: hidden;
     margin: 0;

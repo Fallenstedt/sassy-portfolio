@@ -3,17 +3,19 @@
     <div class="container">
       <Title>I'm Alex Fallenstedt</Title>
       <HorizontalBar></HorizontalBar>
-      <Caption></Caption>
-      <p>A web developer who strives for test-driven development, translating business requirements into technical requirements, and an agile based development model.</p>
-      <p>I consider these to be the primary elements for delivering quality and maintainable software with high-confidence.</p>
+      <Caption isHeadline="true">Web Developer &amp; Photographer</Caption>
+      <Caption>Find out
+        <nuxt-link to="/about">more about me</nuxt-link>&nbsp;or
+        <a href="https://www.linkedin.com/in/alexfallenstedt">view my resume</a>
+      </Caption>
     </div>
   </div>
 </template>
 
 <script>
-import Title from "../components/Title.vue";
-import Caption from "../components/Caption.vue";
-import HorizontalBar from "../components/HorizontalBar.vue";
+import Title from "../Title.vue";
+import Caption from "../Caption.vue";
+import HorizontalBar from "../HorizontalBar.vue";
 export default {
   name: "AppHomeContent",
   components: {

@@ -103,7 +103,12 @@ class Box {
     this.current = { y: startEnd };
     this.target = { y: startEnd * -1 + 200 };
     this.geom = new THREE.BoxBufferGeometry(x, y, z);
-    this.mat = new THREE.MeshLambertMaterial();
+    this.mat = new THREE.MeshLambertMaterial({
+      color: 0xf5f5f5,
+      emissive: 0xf5f5f5,
+      emissiveIntensity: 0.1,
+      transparent: true
+    });
     this.mesh = new THREE.Mesh(this.geom, this.mat);
     this.tween = this.makeTween();
   }
