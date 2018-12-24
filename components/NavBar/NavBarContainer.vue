@@ -2,20 +2,25 @@
   <nav class="app-nav" [class.app-nav__no-events]="isNavOpen">
     <div class="app-nav__fixed">
       <NavBarLogo/>
-      <!-- <NavButton @openNav="onOpenNav"/> -->
+      <NavButton @openNav="onOpenNav"/>
     </div>
-    <!-- <div :class="{ 'app-nav__menu-open': isNavOpen }" class="app-nav__menu">Hey</div> -->
+    <NavBarMenu :isNavOpen="isNavOpen"/>
+    <NavBarOverlay @closeNav="onCloseNav" :isNavOpen="isNavOpen"/>
   </nav>
 </template>
 
 <script>
 import NavBarLogo from "./NavBarLogo.vue";
 import NavButton from "./NavButton.vue";
+import NavBarOverlay from "./NavBarOverlay.vue";
+import NavBarMenu from "./NavBarMenu.vue";
 export default {
   name: "NavBarContainer",
   components: {
     NavBarLogo,
-    NavButton
+    NavButton,
+    NavBarOverlay,
+    NavBarMenu
   },
   data: function() {
     return {
@@ -24,6 +29,9 @@ export default {
   },
   methods: {
     onOpenNav(e) {
+      this.isNavOpen = e;
+    },
+    onCloseNav(e) {
       this.isNavOpen = e;
     }
   }
@@ -44,17 +52,6 @@ export default {
   }
   &__no-events {
     pointer-events: none;
-  }
-  &__menu {
-    position: fixed;
-    z-index: $overlayNav;
-    right: -100%;
-    width: 200px;
-    height: 100vh;
-    background-color: white;
-    &-open {
-      right: 0;
-    }
   }
 }
 </style>

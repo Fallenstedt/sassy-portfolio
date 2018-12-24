@@ -4,7 +4,8 @@
       <Title>I'm Alex Fallenstedt</Title>
       <HorizontalBar></HorizontalBar>
       <Caption isHeadline="true">Web Developer &amp; Photographer</Caption>
-      <Caption>Find out
+      <Caption>
+        Find out
         <nuxt-link to="/about">more about me</nuxt-link>&nbsp;or
         <a href="https://www.linkedin.com/in/alexfallenstedt">view my resume</a>
       </Caption>
@@ -24,11 +25,6 @@ export default {
     HorizontalBar
   }
 };
-
-// <h2><nuxt-link to="/about">About</nuxt-link></h2>
-//       <h2><nuxt-link to="/photos">Photos</nuxt-link></h2>
-//       <!-- <h2><a href="https://500px.com/alexanderfallenstedt" target="_blank">Photos</a></h2> -->
-//       <h2><a href="https://github.com/Fallenstedt" target="_blank">GitHub</a></h2>
 </script>
 
 <style lang="scss">
@@ -45,6 +41,7 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: $overlayHome;
+    margin-top: $navHeight/2;
     a {
       text-decoration: none;
       color: $charcoal;
