@@ -159,13 +159,6 @@ h2 {
   font-weight: 900;
 }
 
-a {
-  font-weight: bold;
-  &:hover {
-    color: $spoiledTomato;
-  }
-}
-
 .horizontal-bar {
   display: block;
   height: 0.575rem;
@@ -185,6 +178,17 @@ a {
   font-size: 2.25rem;
   line-height: 3.25rem;
   letter-spacing: -0.025rem;
+}
+
+a,
+.bland-link {
+  font-weight: bold;
+  text-decoration: none;
+  color: $charcoal;
+  transition: all 0.2s ease-in;
+  &:hover {
+    color: $tomatoRed;
+  }
 }
 
 ::selection {

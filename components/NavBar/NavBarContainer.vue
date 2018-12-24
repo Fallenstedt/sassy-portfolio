@@ -4,7 +4,7 @@
       <NavBarLogo/>
       <NavButton @openNav="onOpenNav"/>
     </div>
-    <NavBarMenu :isNavOpen="isNavOpen"/>
+    <NavBarMenu :isNavOpen="isNavOpen" :links="links" @closeNav="onCloseNav"/>
     <NavBarOverlay @closeNav="onCloseNav" :isNavOpen="isNavOpen"/>
   </nav>
 </template>
@@ -24,7 +24,8 @@ export default {
   },
   data: function() {
     return {
-      isNavOpen: false
+      isNavOpen: false,
+      links: [{ name: "Home", route: "/" }, { name: "About", route: "/about" }]
     };
   },
   methods: {

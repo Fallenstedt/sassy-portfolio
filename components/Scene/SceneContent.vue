@@ -7,7 +7,10 @@
       <Caption>
         Find out
         <nuxt-link to="/about">more about me</nuxt-link>&nbsp;or
-        <a href="https://www.linkedin.com/in/alexfallenstedt">view my resume</a>
+        <a
+          class="bland-link"
+          href="https://www.linkedin.com/in/alexfallenstedt"
+        >view my resume</a>
       </Caption>
     </div>
   </div>
@@ -41,15 +44,6 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: $overlayHome;
-    margin-top: $navHeight/2;
-    a {
-      text-decoration: none;
-      color: $charcoal;
-      transition: all 0.2s ease-in;
-      &:hover {
-        color: $tomatoRed;
-      }
-    }
   }
 }
 </style>

@@ -1,22 +1,22 @@
 <template>
   <ul :class="{ 'app-nav__menu-open': isNavOpen }" class="app-nav__menu">
-    <li>
-      <nuxt-link to="/">
-        <Caption>Home</Caption>
-      </nuxt-link>
-    </li>
-    <li>
-      <nuxt-link to="about">About</nuxt-link>
-    </li>
+    <Caption v-for="link in links" :key="link.name">
+      <nuxt-link @click.native="closeNav" :to="link.route">{{link.name}}</nuxt-link>
+    </Caption>
   </ul>
 </template>
 <script>
 import Caption from "../Caption.vue";
 export default {
   name: "NavBarMenu",
-  props: ["isNavOpen"],
+  props: ["isNavOpen", "links"],
   components: {
     Caption
+  },
+  methods: {
+    closeNav() {
+      this.$emit("closeNav", false);
+    }
   }
 };
 </script>
