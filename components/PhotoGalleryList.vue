@@ -31,28 +31,24 @@ export default {
         {
           title: "Abstract",
           teaser:
-            "/gallery/abstract/alex-fallenstedt-abstract-photography-2.jpg",
-          altTitle: "some alt"
+            "/gallery/abstract/alex-fallenstedt-abstract-photography-2.jpg"
         },
         {
           title: "Nature",
-          teaser: "/gallery/nature/alex-fallenstedt-nature-photography-2.jpg",
-          altTitle: "some alt"
-        },
-        {
-          title: "World",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
-        },
-        {
-          title: "People",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
+          teaser: "/gallery/nature/alex-fallenstedt-nature-photography-2.jpg"
         },
         {
           title: "Weddings",
-          teaser: "https://via.placeholder.com/350x350",
-          altTitle: "some alt"
+          teaser:
+            "/gallery/weddings/alex-fallenstedt-wedding-photography-22.jpg"
+        },
+        {
+          title: "Place",
+          teaser: "/gallery/place/alex-fallenstedt-landscape-photography-5.jpg"
+        },
+        {
+          title: "People",
+          teaser: "/gallery/people/alex-fallenstedt-portrait-photography-15.jpg"
         }
       ]
     };

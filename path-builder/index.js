@@ -1,37 +1,31 @@
 const fs = require('fs');
 const path = require('path');
-const { promisify } = require('util');
-const readdir = promisify(fs.readdir);
-
 const readLocation = path.resolve(__dirname, '..', 'static', 'gallery');
 const writeLocation = path.resolve(__dirname, '..', 'static');
 
-async function main() {
-  const dataToWrite = await generateFileList();
-  writeJsonFile(dataToWrite);
+function main() {
+  writeJsonFile(generateFileList());
 }
 
-async function generateFileList() {
+function generateFileList() {
   const result = {};
-  const galleryNames = await readdir(readLocation)
-    .then(names => names)
-    .catch(err => err);
-
-  galleryNames.forEach(gallery => {
+  const galleryNames = fs.readdirSync(readLocation).map(gallery => {
     const dirFile = path.join(readLocation, gallery);
     result[gallery] = [];
     fs.readdirSync(dirFile).forEach(file => {
       result[gallery].push({ name: `/gallery/${gallery}/${file}` });
+      console.log(file)
     });
-  });
+  })
+  console.log('writing...')
   return result;
 }
 
-async function writeJsonFile(fileToWrite) {
-  await fs.writeFile(
+function writeJsonFile(fileToWrite) {
+  fs.writeFileSync(
     `${writeLocation}/images.json`,
     JSON.stringify(fileToWrite)
-  );
+  )
   console.log('done!');
 }
 

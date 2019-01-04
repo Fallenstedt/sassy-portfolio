@@ -4,13 +4,9 @@
       <Title>I'm Alex Fallenstedt</Title>
       <HorizontalBar></HorizontalBar>
       <Caption isHeadline="true">Web Developer &amp; Photographer</Caption>
-      <Caption>
-        Find out
+      <Caption>Find out
         <nuxt-link to="/about">more about me</nuxt-link>&nbsp;or
-        <a
-          class="bland-link"
-          href="https://www.linkedin.com/in/alexfallenstedt"
-        >view my resume</a>
+        <nuxt-link to="/photos">view my photos</nuxt-link>
       </Caption>
     </div>
   </div>

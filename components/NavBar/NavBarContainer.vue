@@ -25,7 +25,7 @@ export default {
   data: function() {
     return {
       isNavOpen: false,
-      links: [{ name: "Home", route: "/" }, { name: "About", route: "/about" }]
+      links: [{ name: "Home", route: "/" }, { name: "About", route: "/about" }, { name: "Photos", route: "/photos" }]
     };
   },
   methods: {

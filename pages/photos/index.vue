@@ -11,11 +11,9 @@
       </Caption>
     </div>
     <PhotoGalleryList></PhotoGalleryList>
-    <Footer />
   </div>
 </template>
 <script>
-import Footer from '../../components/Footer.vue';
 import Title from '../../components/Title.vue';
 import Caption from '../../components/Caption.vue';
 import HorizontalBar from '../../components/HorizontalBar.vue';
@@ -24,7 +22,6 @@ export default {
   components: {
     Title,
     Caption,
-    Footer,
     HorizontalBar,
     PhotoGalleryList
   }
