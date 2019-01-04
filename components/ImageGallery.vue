@@ -1,17 +1,17 @@
 <template>
   <section class="imgs">
-    <div class="imgs__img-box" v-for="(image, index) in images" :key="index">    
-      <img :src="image.name" alt="" @click="handleClick(image.name)">
+    <div class="imgs__img-box" v-for="(image, index) in images" :key="index">
+      <img :src="image.name" alt @click="handleClick(image.name)">
     </div>
-  </section>  
+  </section>
 </template>
 <script>
 export default {
-  name: 'Gallery',
-  props: ['images'],
+  name: "Gallery",
+  props: ["images"],
   methods: {
     handleClick(imgName) {
-      this.$root.$emit('imgClicked', imgName);
+      this.$root.$emit("imgClicked", imgName);
     }
   }
 };
@@ -21,13 +21,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   &::after {
-    content: '';
+    content: "";
     flex-grow: 999999999;
   }
   &__img-box {
     flex-grow: 1;
     margin: 2px;
-    background-color: violet;
+    background-color: transparent;
     height: 250px;
     img {
       cursor: pointer;
