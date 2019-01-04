@@ -49,6 +49,11 @@ export default {
         {
           title: "People",
           teaser: "/gallery/people/alex-fallenstedt-portrait-photography-15.jpg"
+        },
+        {
+          title: "Commercial",
+          teaser:
+            "/gallery/commercial/alex-fallenstedt-commercial-photography-1.jpg"
         }
       ]
     };
