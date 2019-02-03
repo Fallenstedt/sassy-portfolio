@@ -9,23 +9,20 @@ function main() {
 
 function generateFileList() {
   const result = {};
-  const galleryNames = fs.readdirSync(readLocation).map(gallery => {
+  console.log('finding images...');
+  fs.readdirSync(readLocation).map(gallery => {
     const dirFile = path.join(readLocation, gallery);
     result[gallery] = [];
     fs.readdirSync(dirFile).forEach(file => {
       result[gallery].push({ name: `/gallery/${gallery}/${file}` });
-      console.log(file)
     });
-  })
-  console.log('writing...')
+  });
+  console.log('writing...');
   return result;
 }
 
 function writeJsonFile(fileToWrite) {
-  fs.writeFileSync(
-    `${writeLocation}/images.json`,
-    JSON.stringify(fileToWrite)
-  )
+  fs.writeFileSync(`${writeLocation}/images.json`, JSON.stringify(fileToWrite));
   console.log('done!');
 }
 
