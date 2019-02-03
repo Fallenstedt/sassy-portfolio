@@ -14,7 +14,8 @@ function handleResponse() {
       data += chunk;
     });
     resp.on('end', () => {
-      writeBlogPosts(JSON.parse(data));
+      const s = entity(JSON.parse(data));
+      writeBlogPosts(s);
     });
   };
 }
@@ -23,6 +24,14 @@ function writeBlogPosts(posts) {
   console.log('writing posts...');
   fs.writeFileSync(`${writeLocation}/posts.json`, JSON.stringify(posts));
   console.log('done writing posts!');
+}
+
+function entity(list) {
+  const createEntity = (entities, item) => {
+    let entityID = `${item.slug}`;
+    return { ...entities, [entityID]: item };
+  };
+  return list.reduce(createEntity, {});
 }
 
 main();
