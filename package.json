@@ -5,9 +5,10 @@
   "author": "Alex Fallenstedt <a.fallenstedt@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "npm run build:path && nuxt",
+    "dev": "npm run build:path && npm run build:posts && nuxt",
+    "build:posts": "node ./blogs/index.js",
     "build:path": "node ./path-builder/index.js",
-    "build": "npm run build:path && nuxt build",
+    "build": "npm run build:path &&  npm run build:posts && nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "deploy": "aws s3 sync dist s3://fallenstedt.com",
