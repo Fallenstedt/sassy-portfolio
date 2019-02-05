@@ -6,7 +6,8 @@
       <Caption isHeadline="true">Web Developer &amp; Photographer</Caption>
       <Caption>Find out
         <nuxt-link to="/about">more about me</nuxt-link>&nbsp;or
-        <nuxt-link to="/photos">view my photos</nuxt-link>
+        <nuxt-link to="/photos">view my photos</nuxt-link>. I also
+        <nuxt-link to="/blog">blog about programming</nuxt-link>&nbsp;once in a while.
       </Caption>
     </div>
   </div>

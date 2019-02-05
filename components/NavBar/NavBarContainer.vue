@@ -25,7 +25,12 @@ export default {
   data: function() {
     return {
       isNavOpen: false,
-      links: [{ name: "Home", route: "/" }, { name: "About", route: "/about" }, { name: "Photos", route: "/photos" }]
+      links: [
+        { name: "Home", route: "/" },
+        { name: "About", route: "/about" },
+        { name: "Photos", route: "/photos" },
+        { name: "Blog", route: "/blog" }
+      ]
     };
   },
   methods: {

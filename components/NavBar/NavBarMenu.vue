@@ -30,7 +30,7 @@ export default {
     top: 0;
     right: -150%;
     margin: 0;
-    padding: 50px;
+    padding: 0 50px !important;
     z-index: $overlayNav + 5;
     display: flex;
     flex-direction: column;
@@ -39,6 +39,7 @@ export default {
     list-style: none;
     transition: right 0.25s ease-in;
     &-open {
+      padding-top: 0;
       right: 0;
     }
   }

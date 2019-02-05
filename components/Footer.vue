@@ -1,33 +1,47 @@
 <template>
   <footer class="container">
-  <div class="spacer"></div>
-  <div class="footer-container">
-    <div class="footer-name">
+    <div class="spacer"></div>
+    <div class="footer-container">
+      <div class="footer-name">
         <p>Alex Fallenstedt</p>
-        <p><a class="footer-email" href="mailto:a.fallenstedt@gmail.com">a.fallenstedt@gmail.com</a></p>
-    </div>
-    <div class="footer-social">
-      <a target="_blank" href="https://github.com/fallenstedt" class="footer-social-icon">
-        <i class="fab fa-github" aria-hidden="true"></i> GitHub
-      </a>
-      <a target="_blank" href="https://www.linkedin.com/in/alexfallenstedt" class="footer-social-icon">
-        <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
-      </a>
-      <a target="_blank" href="https://500px.com/alexanderfallenstedt" class="footer-social-icon">
-        <i class="fab fa-500px" aria-hidden="true"></i> 500px
-      </a>
-      <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
-        <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
-      </a>
-      <div class="footer-links">
-        <nuxt-link to="/"><p>Home</p></nuxt-link>  
-        <nuxt-link to="/about"><p>About</p></nuxt-link>  
-        <nuxt-link to="/photos"><p>Photos</p></nuxt-link>  
+        <p>
+          <a class="footer-email" href="mailto:a.fallenstedt@gmail.com">a.fallenstedt@gmail.com</a>
+        </p>
+      </div>
+      <div class="footer-social">
+        <a target="_blank" href="https://github.com/fallenstedt" class="footer-social-icon">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        </a>
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/in/alexfallenstedt"
+          class="footer-social-icon"
+        >
+          <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+        </a>
+        <a target="_blank" href="https://500px.com/alexanderfallenstedt" class="footer-social-icon">
+          <i class="fab fa-500px" aria-hidden="true"></i> 500px
+        </a>
+        <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
+          <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
+        </a>
+        <div class="footer-links">
+          <nuxt-link to="/">
+            <p>Home</p>
+          </nuxt-link>
+          <nuxt-link to="/about">
+            <p>About</p>
+          </nuxt-link>
+          <nuxt-link to="/photos">
+            <p>Photos</p>
+          </nuxt-link>
+          <nuxt-link to="/blog">
+            <p>Blog</p>
+          </nuxt-link>
+        </div>
       </div>
     </div>
-  </div>
- 
-</footer>
+  </footer>
 </template>
 
 <script>

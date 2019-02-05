@@ -2,6 +2,7 @@
   <div class="post-container">
     <div class="container">
       <Title>{{post.title.rendered}}</Title>
+      <p>{{getDate(post.date)}}</p>
       <HorizontalBar></HorizontalBar>
       <p v-html="post.content.rendered"></p>
     </div>
@@ -49,6 +50,13 @@ export default {
 .posts {
   &__post-title {
     font-size: 1px;
+  }
+
+  .wp-block-code {
+    background-color: #000;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
   }
 }
 </style>
