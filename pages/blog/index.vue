@@ -53,6 +53,9 @@ export default {
 @import "assets/app.variables.scss";
 .blog-container {
   padding-top: $navHeight * 1.5;
+  a {
+    font-weight: normal;
+  }
 }
 
 .posts {
