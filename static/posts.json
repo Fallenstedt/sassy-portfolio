@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Building Widgets On Demand with Flutter",
+    "date": "Feb 10, 2018",
+    "description": "There are many ways to display a large list of items when building your app. Say you had to display an infinite amount of list items that a user can scroll through. Naively, you can fetch thousands of list items and build them all. This can work, however, you most likely will have frustrated users with insane load times.",
+    "link": "https://dev.to/fallenstedt/building-widgets-on-demand-with-flutter-48dd"
+  },
+  {
+    "title": "Creating environments in Flutter",
+    "date": "Feb 04, 2018",
+    "description": "A litmus test for whether an app has all config correctly factored out of the code is whether the codebase could be made open source at any moment, without compromising any credentials.",
+    "link": "https://dev.to/fallenstedt/creating-environments-in-flutter-36h"
+  },
+  {
+    "title": "Scan Operator For Mini Redux Stores",
+    "date": "Feb 02, 2018",
+    "description": "I was placed on an Angular project that did not have a state management system like Redux or ngrx. I saw this as an opportunity to gently introduce state management using RxJS.",
+    "link": "https://dev.to/fallenstedt/scan-operator-for-mini-redux-stores-41m9"
+  }
+]

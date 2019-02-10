@@ -25,6 +25,9 @@
         <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
           <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
         </a>
+        <a target="_blank" href="https://dev.to/fallenstedt" class="footer-social-icon">
+          <i class="fab fa-dev"></i> Dev
+        </a>
         <div class="footer-links">
           <nuxt-link to="/">
             <p>Home</p>

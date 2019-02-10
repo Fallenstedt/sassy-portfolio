@@ -1,7 +1,6 @@
 
 # generated files
 static/images.json
-static/posts.json
 
 # dependencies
 node_modules

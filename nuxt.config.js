@@ -20,16 +20,16 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://use.fontawesome.com/releases/v5.2.0/css/brands.css',
+        href: 'https://use.fontawesome.com/releases/v5.7.1/css/brands.css',
         integrity:
-          'sha384-nT8r1Kzllf71iZl81CdFzObMsaLOhqBU1JD2+XoAALbdtWaXDOlWOZTR4v1ktjPE',
+          'sha384-BKw0P+CQz9xmby+uplDwp82Py8x1xtYPK3ORn/ZSoe6Dk3ETP59WCDnX+fI1XCKK',
         crossorigin: 'anonymous'
       },
       {
         rel: 'stylesheet',
-        href: 'https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css',
+        href: 'https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css',
         integrity:
-          'sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6',
+          'sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+',
         crossorigin: 'anonymous'
       }
     ]
