@@ -10,23 +10,23 @@
       </div>
       <div class="footer-social">
         <a target="_blank" href="https://github.com/fallenstedt" class="footer-social-icon">
-          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+          <i class="fab fa-github" aria-hidden="true"></i>
         </a>
         <a
           target="_blank"
           href="https://www.linkedin.com/in/alexfallenstedt"
           class="footer-social-icon"
         >
-          <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
         </a>
         <a target="_blank" href="https://500px.com/alexanderfallenstedt" class="footer-social-icon">
-          <i class="fab fa-500px" aria-hidden="true"></i> 500px
+          <i class="fab fa-500px" aria-hidden="true"></i>
         </a>
         <a target="_blank" href="https://twitter.com/fallenstedt" class="footer-social-icon">
-          <i class="fab fa-twitter" aria-hidden="true"></i> Twitter
+          <i class="fab fa-twitter" aria-hidden="true"></i>
         </a>
         <a target="_blank" href="https://dev.to/fallenstedt" class="footer-social-icon">
-          <i class="fab fa-dev"></i> Dev
+          <i class="fab fa-dev"></i>
         </a>
         <div class="footer-links">
           <nuxt-link to="/">
