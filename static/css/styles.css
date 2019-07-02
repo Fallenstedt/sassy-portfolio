@@ -1,0 +1,12 @@
+@import url("/css/normalize.css");
+@import url("/css/skeleton.css");
+@import url("/css/fonts.css");
+@import url("/css/nav.css");
+
+.horizontal-bar {
+  display: block;
+  height: 0.575rem;
+  margin-bottom: 1.5rem;
+  width: 4.5rem;
+  background-color: #fb5b04;
+}
