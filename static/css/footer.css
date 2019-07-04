@@ -1,0 +1,20 @@
+footer {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.footer-contact p {
+  line-height: 0;
+  font-size: 12px;
+}
+
+.footer-icons {
+  display: flex;
+  justify-content: flex-end;
+}
+.social-icon {
+  font-size: 1.2em;
+  padding: 10px;
+}

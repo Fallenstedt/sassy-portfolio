@@ -31,8 +31,8 @@
         this._addEventListeners();
       }
 
-      attributeChangedCallback(name, oldValue, newValue) {
-        if (ATTR.IS_NAV_OPEN) {
+      attributeChangedCallback(name, _oldValue, newValue) {
+        if (name == ATTR.IS_NAV_OPEN) {
           const overlay = this.shadowRoot.querySelector(".nav-overlay");
           this._toggleOverlay(newValue, overlay);
         }
@@ -47,11 +47,9 @@
       }
 
       _addEventListeners() {
-        this.closeNavButton.addEventListener(
-          "click",
-          this.toggleNav.bind(this)
+        [this.closeNavButton, this.openNavButton].map(bttn =>
+          bttn.addEventListener("click", this.toggleNav.bind(this))
         );
-        this.openNavButton.addEventListener("click", this.toggleNav.bind(this));
       }
 
       _createShadowDom() {
@@ -62,9 +60,19 @@
       }
       _toggleOverlay(newValue, overlay) {
         if (newValue == "true") {
+          // show overlay
           overlay.classList.remove("hide");
+
+          //lock body
+          document.body.style.position = "fixed";
+          document.body.style.top = `-${window.scrollY}px`;
         } else {
+          //hide overlay
           overlay.classList.add("hide");
+
+          //unlock body
+          document.body.style.position = "";
+          document.body.style.top = "";
         }
       }
     }
