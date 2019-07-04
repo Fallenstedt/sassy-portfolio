@@ -4,6 +4,7 @@ languageCode = "en-us"
 title = "Alex Fallenstedt"
 
 [params]
+  email = "a.fallenstedt@gmail.com"
   homePhrase = "Web Developer & Photographer"
   homeText = "I am a programmer who strives for test-driven development, translating business requirements into technical requirements, and an agile based development model. I consider these to be the primary elements for delivering quality and maintainable software with high-confidence. When I am not programming, I am doing photography and exploring Oregon's outdoors."
   bar = "butts"
