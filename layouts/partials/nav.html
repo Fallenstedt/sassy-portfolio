@@ -1,41 +1,163 @@
-<nav class="nav">
-  <ul>
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a href="/about">About</a>
-    </li>
-    <li>
-      <a href="/code">Code</a>
-    </li>
-    <li>
-      <a href="/photos">Photos</a>
-    </li>
-    <li>
-      <a href="/blog">Blog</a>  
-    </li>
-  </ul>
-</nav>
-<button id="nav-open" class="nav-open">&#9776;</button>
+<template id="app-nav">
+  <nav>
+    <div>
+        <a href="/">
+          <div class= "logo">
+            <img src="/alex-fallenstedt-logo.png" alt="Alex Fallenstedt">
+          </div>
+        </a>  
+    </div>
+    <button id="nav-open" class="nav-button">&#9776;</button>
+    
+    <div class="nav-desktop">
+      <ul>
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/code">Code</a>
+        </li>
+        <li>
+          <a href="/photos">Photos</a>
+        </li>
+        <li>
+          <a href="/blog">Blog</a>  
+        </li>
+      </ul>
+    </div>
 
-<nav class="nav-mobile hide" id="nav-mobile">
-  <button id="nav-close" class="nav-close">&#x2717;</button>
-  <ul>
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a href="/about">About</a>
-    </li>
-    <li>
-      <a href="/code">Code</a>
-    </li>
-    <li>
-      <a href="/photos">Photos</a>
-    </li>
-    <li>
-      <a href="/blog">Blog</a>  
-    </li>
-  </ul>
-</nav>
+    <div class="nav-overlay hide">
+      <button id="nav-close" class="nav-button">&#x2717;</button>
+      <ul>
+        <li>
+          <a href="/about">Home</a>
+        </li>
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/code">Code</a>
+        </li>
+        <li>
+          <a href="/photos">Photos</a>
+        </li>
+        <li>
+          <a href="/blog">Blog</a>  
+        </li>
+      </ul>
+    </div> 
+  </nav>
+
+  <style>
+    .logo {
+      position: relative;
+      width: 150px;
+      height: 60px;
+    }
+    
+    .logo img {
+      width: 150px;
+      height: inherit;
+      object-fit: contain;
+    }
+    .nav-button {
+      border: none;
+      background-color: transparent;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .nav-overlay {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.98);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      transition: opacity 0.1s;
+    }
+
+    .nav-overlay ul {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .nav-overlay li {
+      text-align: center;
+      min-width: 90px;
+      padding: 15px;
+      margin: 5px 0;
+    }
+
+    .nav-overlay a, .nav-desktop a {
+      color: rgb(51, 51, 51);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .nav-overlay a {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+
+    .nav-overlay #nav-close {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 17px 23px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    nav ul {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav ul li {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      line-height: 0;
+    }
+
+    nav ul li a {
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: color 0.5s;
+    }
+
+    nav ul li a:hover {
+      color: black;
+    }
+
+    @media (min-width: 750px) {
+      #nav-open {
+        display: none;
+      }
+    }
+
+    @media (max-width: 750px) {
+      .nav-desktop {
+        display: none;
+      }
+    }
+
+    .hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</template>
+
+<app-nav></app-nav>

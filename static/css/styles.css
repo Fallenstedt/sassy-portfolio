@@ -1,7 +1,6 @@
 @import url("/css/normalize.css");
 @import url("/css/skeleton.css");
 @import url("/css/fonts.css");
-@import url("/css/nav.css");
 
 .horizontal-bar {
   display: block;
