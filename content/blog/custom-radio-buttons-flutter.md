@@ -47,7 +47,9 @@ The form we'll create allows a user to choose their favorite food. We'll begin b
 ```dart
 // snip...
 // create an enum of options
+// Invalid is used when no option is selected
 enum Food {
+  Invalid,
   Cookies,
   Pizza,
   IceCream,
@@ -199,3 +201,109 @@ class MyRadioButton<T> extends StatelessWidget {
 INCLUDE 2 INK WELL gif
 
 ## Form State
+
+Without using blocs, we need a way to update the groupValue state in the parent widget so that our radio buttons can know who is selected. To do this, we can pass a function from our parent to our child that sets state. Here, I created a function called `updateGroupValue` in our class `_MyFormState`. It sets the State of groupValue.
+
+```dart
+// in _MyFormState
+updateGroupValue(dynamic value) => setState(() => groupValue = value);
+```
+
+I also did a little refactor with how our radio buttons are build. I create an iterable of food values that do not include `Foo.Invalid`, then use a list comprehension to create them. I also created a new property in `MyRadioButton` to pass a callback to each radio option.
+
+```dart
+    // In _MyFormState
+    // Create our radio buttons by a list comprehension
+    // Pass a callback to each radio button to update our form's state
+    final Iterable<Food> validFood = Food.values.where(
+      (f) => f != Food.Invalid,
+    );
+
+    final List<Widget> options = [
+      for (var value in validFood)
+        MyRadioButton<Food>(
+          groupValue: groupValue,
+          value: value,
+          onTap: updateGroupValue,
+        )
+    ];
+```
+
+Knowing this, `MyForm` should look like this now. It creates radio options, each with their own callback.
+
+```dart
+class MyForm extends StatefulWidget {
+  @override
+  _MyFormState createState() => _MyFormState();
+}
+
+class _MyFormState extends State<MyForm> {
+  Food groupValue = Food.Invalid;
+
+  @override
+  Widget build(BuildContext context) {
+    // Create our radio buttons by a list comprehension
+    // Pass a callback to each radio button to update our form's state
+    final Iterable<Food> validFood = Food.values.where(
+      (f) => f != Food.Invalid,
+    );
+
+    final List<Widget> options = [
+      for (var value in validFood)
+        MyRadioButton<Food>(
+          groupValue: groupValue,
+          value: value,
+          onTap: updateGroupValue, //MyRadioButton now gets a callback
+        )
+    ];
+
+    return Scaffold(
+      body: Container(
+        height: double.infinity,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: options,
+          ),
+        ),
+      ),
+    );
+  }
+
+  updateGroupValue(dynamic value) => setState(() => groupValue = value);
+}
+```
+
+Our radio buttons now need to know about this callback. We'll use a typedef to keep track of this callback function. A common usage pattern of typedef in Dart is defining a callback interface. The callback we pass into `MyRadioButton<T>` matches that definition. I couldn't figure out how to have a typedef understand our generics, but this works for now.
+
+```dart
+typedef void OnTapCallback(dynamic value);
+
+class MyRadioButton<T> extends StatelessWidget {
+  final T value;
+  final T groupValue;
+  final OnTapCallback onTap;
+
+  MyRadioButton({
+    @required this.value,
+    @required this.groupValue,
+    @required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      // When the user taps the button, update the form's groupValue
+      onTap: () => onTap(value),
+      child: Container(
+        height: 40.0,
+        width: 200.0,
+        child: Text(
+          value.toString(),
+        ),
+      ),
+    );
+  }
+}
+```
