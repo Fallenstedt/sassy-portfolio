@@ -2,6 +2,7 @@
 baseURL = "http://fallenstedt.com/"
 languageCode = "en-us"
 title = "Alex Fallenstedt"
+paginate = 10
 
 [params]
   email = "a.fallenstedt@gmail.com"

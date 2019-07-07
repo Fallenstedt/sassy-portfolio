@@ -1,10 +1,13 @@
 ---
 title: "Custom Radio Buttons in Flutter"
+date: 2019-07-06
+draft: true
+description: Building your own custom widgets in Flutter is not that scary at all. By combining multiple types of widgets, we can create our own reusable radio buttons.
 ---
 
 So you've tried out Flutter and you've made a few basic apps. You're tasked to create a form and decide to use their Radio Button widget. It works great initially, but you don't like the padding, you can't adjust the icons, and overall it's too limited based on the designs you were handed.
 
-> Gee, I wonder if I could create my own custom radio options.
+> Gee, I wonder if I could create my own custom flutter widgets.
 
 Well you're in luck because I had to create some custom radio buttons and learned some fun things along the way.
 

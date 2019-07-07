@@ -3,9 +3,10 @@
   <h1>
     {{.Title}}
   </h1>
-  <p>
-    {{ .Params.foo }}
-  </p>
+  {{if .Date }}
+  <time>{{.Date.Format "Jan 02, 2006"}}</time>
+  <hr>
+  {{end}}
   <p>
     {{ .Content | markdownify }}
   </p>

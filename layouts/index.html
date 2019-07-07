@@ -3,8 +3,17 @@
   <div>
     <h1>I'm Alex Fallenstedt</h1>
     <div class="horizontal-bar"></div>
-    <h3>{{ .Site.Params.homePhrase | markdownify }}</h3>
-    <p>Find out more about me or view my photos. I also blog about programming once in a while.</p>
+    <h4>{{ .Site.Params.homePhrase | markdownify }}</h4>
+
+    <p>
+      {{$posts := (.Site.GetPage "section" "blog").Pages.ByDate.Reverse}}
+      Find out more <a href="/about">about me</a> or <a target="_blank" href="https://500px.com/alexanderfallenstedt">view my photos.</a>
+      You can also read my latest blog post 
+      {{ range first 1 $posts }}
+        <a href="{{.Permalink}}">{{.Title}}</a>.
+      {{ end }}
+    </p>
+
   </div>
   {{ partial "footer.html" . }}
 </div>

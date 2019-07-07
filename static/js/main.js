@@ -26,7 +26,8 @@
         this._createShadowDom();
 
         this.openNavButton = this.shadowRoot.getElementById("nav-open");
-        this.closeNavButton = this.shadowRoot.getElementById("nav-close");
+        // this.closeNavButton = this.shadowRoot.getElementById("nav-close");
+        this.overlay = this.shadowRoot.querySelector(".nav-overlay");
 
         this._addEventListeners();
       }
@@ -47,7 +48,7 @@
       }
 
       _addEventListeners() {
-        [this.closeNavButton, this.openNavButton].map(bttn =>
+        [this.openNavButton, this.overlay].map(bttn =>
           bttn.addEventListener("click", this.toggleNav.bind(this))
         );
       }

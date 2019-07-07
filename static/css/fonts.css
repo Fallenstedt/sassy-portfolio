@@ -6,12 +6,17 @@ a {
   font-family: Georgia, "Times New Roman", serif;
 }
 
+a:hover {
+  color: #fb5b04;
+}
+
 h1,
 h2,
 h3 {
   font-weight: 600;
 }
 
-p {
+p,
+.pagination > .page-item > .page-link {
   font-size: 18px;
 }
