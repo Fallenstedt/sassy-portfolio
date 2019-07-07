@@ -1,5 +1,5 @@
 # SITE
-baseURL = "http://fallenstedt.com/"
+baseURL = "https://fallenstedt.com/"
 languageCode = "en-us"
 title = "Alex Fallenstedt"
 paginate = 10
