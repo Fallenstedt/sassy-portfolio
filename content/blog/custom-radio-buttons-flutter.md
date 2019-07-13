@@ -1,8 +1,8 @@
 ---
-title: "Custom Radio Buttons in Flutter"
+title: "Custom Widgets in Flutter"
 date: 2019-07-06
 draft: false
-description: Building your own custom widgets in Flutter is not that scary at all. By combining multiple types of widgets, we can create our own reusable radio buttons.
+description: Building your own custom widgets in Flutter is not easy scary at all. By combining multiple types of widgets, we can create anything we want..
 ---
 
 You're tasked to create a native mobile app which has a form. The form requires radio buttons and you decide to use Flutters Radio Button Widget. It works great, but you don't like the padding, you can't add icons, and overall it's too limited based on the designs you were handed.
@@ -15,7 +15,7 @@ In this Flutter tutorial, we will create a custom radio button. You will learn h
 - Handle user interaction
 - Trigger animations
 
-## The Skeleton
+## Skeleton
 
 Here is the app we are starting with. It creates a home screen with the text hello.
 
@@ -46,9 +46,9 @@ class HomeScreen extends StatelessWidget {
 
 <hr>
 
-## Radio Buttons Class
+## Radio Buttons
 
-A radio button's state can be derived from what value it represents, and what value the group of radio buttons have. To define values of our radio button, We can create an enum of `Food` which holds our 5 options where one of them is `Invalid`. A radio button is inavalid when the user has not interacted it the form yet.
+A radio button's state can be derived from what value it represents, and what value the group of radio buttons have. To define values of our radio button, We can create an enum of `Food` which holds our 5 options where one of them is `Invalid`. A radio button is inavalid when the user has not interacted with the form yet.
 
 ```dart
 // snip...
@@ -78,7 +78,7 @@ class MyRadioButton extends StatelessWidget {
 }
 ```
 
-This code is not that great because the enum is tightly coupled to the `MyRadioButton` class. What would happen if we needed a favorite food radio group, and a favorite sport radio group? Or any `n` groups for that matter? Let's use generics to improve `MyRadioButton`. We'll say that `T` can be any type enum. In the future, we may want our form to contain `MyRadioButton<Food>` and `MyRadioButton<Drink>`.
+This code is not that great because the enum is tightly coupled to the `MyRadioButton` class. What would happen if we needed a food radio group, and a drink radio group? Or any `n` groups for that matter? Let's use generics to improve `MyRadioButton`. We'll say that `T` can be any type enum. In the future, we may want our form to contain `MyRadioButton<Food>` and `MyRadioButton<Drink>`.
 
 ```dart
 // ...snip
@@ -97,11 +97,11 @@ class MyRadioButton<T> extends StatelessWidget {
 }
 ```
 
-# left off here
+<hr>
 
-With some radio button logic in place, let's create a StatefulWidget. This will be where the `groupValue` for our form lives. You could tuck this value into a BLoC for an extra challenge. The Form widget will construct a list of options from our `Food` enum, and tuck this list of widgets into a Column. Notice how the generic is used in each `MyRadioButton`. To get you up to speed, your code should look like this now:
+## Form
 
-INCLUDE 1.JPG HERE.
+With a basic radio button, let's create a form with our `Food` enum. Our form will be a stateful widget so we can communicate the `groupValue`, or the selected radio button, in that form.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -120,20 +120,20 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Center(
-      child: MyForm(),
+      child: MyForm(), // MyForm is used here
     );
   }
 }
 
+// Create a StatefulWidget
 class MyForm extends StatefulWidget {
   @override
   _MyFormState createState() => _MyFormState();
 }
 
 class _MyFormState extends State<MyForm> {
-  Food groupValue = Food.Invalid;
+  Food groupValue = Food.Invalid; // The current selected value in the form is invalid.
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +176,8 @@ class MyRadioButton<T> extends StatelessWidget {
 }
 
 ```
+
+INCLUDE 1.JPG HERE.
 
 <hr>
 
