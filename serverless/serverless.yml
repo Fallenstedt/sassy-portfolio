@@ -1,0 +1,21 @@
+service: galleries
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  galleries:
+    handler: src/galleries.getGalleries
+    events:
+      - http:
+          path: /galleries
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                bucket: true
