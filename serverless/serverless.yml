@@ -6,10 +6,20 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+      Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/*"
+  environment:
+    ORIGINALS_S3: fallenstedt-photography-portfolio-originals
+    PROCESSED_S3: fallenstedt-photography-portfolio
+    CLOUDFRONT: http://d308su1ezw5mrw.cloudfront.net
 
 functions:
   galleries:
-    handler: src/galleries.getGalleries
+    handler: src/galleries.handler
     events:
       - http:
           path: /galleries
@@ -19,3 +29,10 @@ functions:
             parameters:
               querystrings:
                 bucket: true
+
+  resizer:
+    handler: src/resizer.handler
+    events:
+      - s3:
+        bucket: ${env:ORIGINALS_S3}
+        event: s3:ObjectCreated:*

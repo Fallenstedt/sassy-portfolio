@@ -1,10 +1,8 @@
 "use strict";
-
+const promisifyS3 = require("../lib/promsify-s3");
 const s3 = require("../lib/s3");
 
-module.exports.getGalleries = async (event, _context) => {
-  const { queryStringParameters } = event;
-
+module.exports.handler = async ({ queryStringParameters }, _context) => {
   const doesNotHaveQueryStringBucket =
     !queryStringParameters || !("bucket" in queryStringParameters);
 
@@ -18,21 +16,24 @@ module.exports.getGalleries = async (event, _context) => {
   }
 
   try {
-    const { CommonPrefixes } = await s3.getDirectories(
-      queryStringParameters.bucket
-    );
+    const { bucket } = queryStringParameters;
+    const dirs = await s3.getDirectories(bucket);
+
+    let [files] = await s3.getAllFiles(dirs, bucket);
+    files = s3.filterForFileNames(files);
+    files = s3.appendCloudFrontUrl(files);
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        data: CommonPrefixes
+        data: files
       })
     };
   } catch (e) {
     return {
-      statusCode: e.statusCode,
+      statusCode: e.statusCode || 500,
       body: JSON.stringify({
-        data: e.message
+        data: e.message || "Internal Server Error"
       })
     };
   }

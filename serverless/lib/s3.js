@@ -1,19 +1,27 @@
-const AWS = require("aws-sdk");
-const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+"use strict";
+
+const promisifyS3 = require("./promsify-s3");
 
 module.exports = {
-  getDirectories(Bucket) {
-    return new Promise((resolve, reject) => {
-      s3.listObjectsV2(
-        {
-          Bucket,
-          Delimiter: "/"
-        },
-        (e, d) => {
-          if (e) reject(e);
-          if (d) resolve(d);
-        }
-      );
+  async getDirectories(bucket) {
+    const d = await promisifyS3.getDirectories(bucket);
+    return d.CommonPrefixes;
+  },
+  async getAllFiles(dirs, bucket) {
+    return await Promise.all(
+      dirs.map(async ({ Prefix }) => {
+        return await promisifyS3.getFilesInDirectory(bucket, Prefix);
+      })
+    );
+  },
+  appendCloudFrontUrl(files) {
+    files = files.map(f => `${process.env.CLOUDFRONT}/${f.Key}`);
+    return files;
+  },
+  filterForFileNames(files) {
+    files = files.Contents.filter(f => {
+      return f.Key != files.Prefix;
     });
+    return files;
   }
 };
