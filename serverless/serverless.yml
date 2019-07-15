@@ -25,10 +25,6 @@ functions:
           path: /galleries
           method: get
           cors: true
-          request:
-            parameters:
-              querystrings:
-                bucket: true
 
   resizer:
     handler: src/resizer.handler

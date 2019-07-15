@@ -1,25 +1,11 @@
 "use strict";
-const promisifyS3 = require("../lib/promsify-s3");
 const s3 = require("../lib/s3");
 
-module.exports.handler = async ({ queryStringParameters }, _context) => {
-  const doesNotHaveQueryStringBucket =
-    !queryStringParameters || !("bucket" in queryStringParameters);
-
-  if (doesNotHaveQueryStringBucket) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        data: "Query string 'bucket' is required"
-      })
-    };
-  }
-
+module.exports.handler = async () => {
   try {
-    const { bucket } = queryStringParameters;
-    const dirs = await s3.getDirectories(bucket);
+    const dirs = await s3.getDirectories(process.env.PROCESSED_S3);
 
-    let [files] = await s3.getAllFiles(dirs, bucket);
+    let [files] = await s3.getAllFiles(dirs, process.env.PROCESSED_S3);
     files = s3.filterForFileNames(files);
     files = s3.appendCloudFrontUrl(files);
 
