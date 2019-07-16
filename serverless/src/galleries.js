@@ -11,13 +11,22 @@ module.exports.handler = async () => {
 
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
+      },
       body: JSON.stringify({
         data: files
       })
     };
   } catch (e) {
+    console.log(e);
     return {
       statusCode: e.statusCode || 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true
+      },
       body: JSON.stringify({
         data: e.message || "Internal Server Error"
       })

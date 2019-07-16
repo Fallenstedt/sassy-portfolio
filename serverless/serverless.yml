@@ -5,15 +5,18 @@ plugins:
 
 provider:
   name: aws
+  stage: ${opt:stage, 'dev'}
+  region: us-west-2
   runtime: nodejs10.x
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - s3:ListBucket
         - s3:PutObject
         - s3:GetObject
       Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/*"
   environment:
-    ORIGINALS_S3: fallenstedt-photography-portfolio-originals
+    ORIGINALS_S3: photos-originals
     PROCESSED_S3: fallenstedt-photography-portfolio
     CLOUDFRONT: http://d308su1ezw5mrw.cloudfront.net
 
@@ -30,5 +33,5 @@ functions:
     handler: src/resizer.handler
     events:
       - s3:
-        bucket: ${env:ORIGINALS_S3}
+        bucket: { env:ORIGINALS_S3 }
         event: s3:ObjectCreated:*
