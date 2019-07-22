@@ -1,5 +1,5 @@
 "use strict";
-const s3 = require("../lib/s3");
+const s3 = require("/opt/s3");
 
 module.exports.handler = async () => {
   try {

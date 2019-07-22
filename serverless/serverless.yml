@@ -3,6 +3,9 @@ service: galleries
 plugins:
   - serverless-offline
 
+custom:
+  originals: fallenstedt-photography-originals
+
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
@@ -16,13 +19,20 @@ provider:
         - s3:GetObject
       Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/*"
   environment:
-    ORIGINALS_S3: photos-originals
+    ORIGINALS_S3: ${self:custom.originals}
     PROCESSED_S3: fallenstedt-photography-portfolio
     CLOUDFRONT: http://d308su1ezw5mrw.cloudfront.net
+
+layers:
+  galleryFinder:
+    path: lib
+    description: Contains s3 wrapper for lambda.
 
 functions:
   galleries:
     handler: src/galleries.handler
+    layers:
+      - { Ref: GalleryFinderLambdaLayer }
     events:
       - http:
           path: /galleries
@@ -31,7 +41,9 @@ functions:
 
   resizer:
     handler: src/resizer.handler
+    layers:
+      - { Ref: GalleryFinderLambdaLayer }
     events:
       - s3:
-        bucket: { env:ORIGINALS_S3 }
-        event: s3:ObjectCreated:*
+          bucket: ${self:custom.originals}-${opt:stage}
+          event: s3:ObjectCreated:*

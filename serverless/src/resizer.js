@@ -4,6 +4,6 @@ module.exports.handler = async event => {
   //When a *directory* is added, get all files
   //pipe them into sharp
   //put each image into processed s3 in their respective directory.
-  console.log(event);
+  console.log(event.Records[0].s3);
   console.log("I can get files from this bucket", process.env.ORIGINALS_S3);
 };
