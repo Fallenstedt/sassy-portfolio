@@ -15,13 +15,12 @@ module.exports = {
     );
   },
   appendCloudFrontUrl(files) {
-    files = files.map(f => `${process.env.CLOUDFRONT}/${f.Key}`);
-    return files;
+    return files.map(f => `${process.env.CLOUDFRONT}/${f.Key}`);
   },
   filterForFileNames(files) {
-    files = files.Contents.filter(f => {
+    const excludeDirectory = files.Contents.filter(f => {
       return f.Key != files.Prefix;
     });
-    return files;
+    return excludeDirectory;
   }
 };
