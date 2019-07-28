@@ -16,9 +16,17 @@ provider:
     - Effect: Allow
       Action:
         - s3:ListBucket
+      Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/"
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
         - s3:PutObject
         - s3:GetObject
       Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/*"
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
+      Resource: "arn:aws:s3:::fallenstedt-photography-originals/"
     - Effect: Allow
       Action:
         - s3:ListBucket
@@ -29,6 +37,13 @@ provider:
     ORIGINALS_S3: ${self:custom.originals}
     PROCESSED_S3: ${self:custom.processed}
     CLOUDFRONT: http://d308su1ezw5mrw.cloudfront.net
+
+# resources:
+#   Resources:
+#     galleriesOriginalPhotos:
+#       Type: AWS::S3::Bucket,
+#       Properties:
+#         BucketName: ${self:custom.originals}
 
 layers:
   galleryFinder:
