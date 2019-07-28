@@ -5,10 +5,11 @@ plugins:
 
 custom:
   originals: fallenstedt-photography-originals
+  processed: fallenstedt-photography-portfolio
 
 provider:
   name: aws
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage}
   region: us-west-2
   runtime: nodejs10.x
   iamRoleStatements:
@@ -18,9 +19,15 @@ provider:
         - s3:PutObject
         - s3:GetObject
       Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/*"
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
+        - s3:PutObject
+        - s3:GetObject
+      Resource: "arn:aws:s3:::fallenstedt-photography-originals/*"
   environment:
     ORIGINALS_S3: ${self:custom.originals}
-    PROCESSED_S3: fallenstedt-photography-portfolio
+    PROCESSED_S3: ${self:custom.processed}
     CLOUDFRONT: http://d308su1ezw5mrw.cloudfront.net
 
 layers:
@@ -45,5 +52,5 @@ functions:
       - { Ref: GalleryFinderLambdaLayer }
     events:
       - s3:
-          bucket: ${self:custom.originals}-${opt:stage}
+          bucket: ${self:custom.originals}
           event: s3:ObjectCreated:*
