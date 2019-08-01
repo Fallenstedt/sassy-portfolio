@@ -4,9 +4,8 @@ plugins:
   - serverless-offline
 
 custom:
-  originals: fallenstedt-photography-originals
+  originals: fallenstedt-photography-originals-${self:provider.stage}
   processed: fallenstedt-photography-portfolio
-
 provider:
   name: aws
   stage: ${opt:stage}
@@ -16,23 +15,23 @@ provider:
     - Effect: Allow
       Action:
         - s3:ListBucket
-      Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/"
+      Resource: "arn:aws:s3:::${self:custom.processed}/"
     - Effect: Allow
       Action:
         - s3:ListBucket
         - s3:PutObject
         - s3:GetObject
-      Resource: "arn:aws:s3:::fallenstedt-photography-portfolio/*"
+      Resource: "arn:aws:s3:::${self:custom.processed}/*"
     - Effect: Allow
       Action:
         - s3:ListBucket
-      Resource: "arn:aws:s3:::fallenstedt-photography-originals/"
+      Resource: "arn:aws:s3:::${self:custom.originals}/"
     - Effect: Allow
       Action:
         - s3:ListBucket
         - s3:PutObject
         - s3:GetObject
-      Resource: "arn:aws:s3:::fallenstedt-photography-originals/*"
+      Resource: "arn:aws:s3:::${self:custom.originals}/*"
   environment:
     ORIGINALS_S3: ${self:custom.originals}
     PROCESSED_S3: ${self:custom.processed}
@@ -40,10 +39,23 @@ provider:
 
 # resources:
 #   Resources:
-#     galleriesOriginalPhotos:
-#       Type: AWS::S3::Bucket,
+#     GalleriesOriginalPhotos:
+#       Type: AWS::S3::Bucket
 #       Properties:
-#         BucketName: ${self:custom.originals}
+#         BucketName: ${self:custom.processed}
+#     GalleriesOriginalBucketPolicy:
+#       Type: AWS::S3::BucketPolicy
+#       DependsOn: GalleriesOriginalPhotos
+#       Properties:
+#         Bucket: !Ref GalleriesOriginalPhotos
+#         PolicyDocument:
+#           Statement:
+#             - Action: s3:GetObject
+#               Effect: Allow
+#               Principal:
+#                 AWS:
+#                   - Fn::GetAtt: [ResizerLambdaFunction, Arn]
+#               Resource: arn:aws:s3:::${self:custom.processed}/*
 
 layers:
   galleryFinder:
@@ -54,7 +66,7 @@ functions:
   galleries:
     handler: src/galleries.handler
     layers:
-      - { Ref: GalleryFinderLambdaLayer }
+      - Ref: GalleryFinderLambdaLayer
     events:
       - http:
           path: /galleries
@@ -64,7 +76,7 @@ functions:
   resizer:
     handler: src/resizer.handler
     layers:
-      - { Ref: GalleryFinderLambdaLayer }
+      - Ref: GalleryFinderLambdaLayer
     events:
       - s3:
           bucket: ${self:custom.originals}

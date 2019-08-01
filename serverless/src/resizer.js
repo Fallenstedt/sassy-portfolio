@@ -7,8 +7,8 @@ module.exports.handler = async event => {
   const ProcessedBucket = process.env.PROCESSED_S3;
 
   console.log("Key", Key);
-  console.log("originals", OriginalsBucket);
-  console.log("processed", ProcessedBucket);
+  console.log("Original S3 Bucket", OriginalsBucket);
+  console.log("Processed S3 Bucket", ProcessedBucket);
 
   if (!Key) {
     throw "Cannot resize image without a file path";
@@ -24,14 +24,8 @@ module.exports.handler = async event => {
 
     const uploadedData = await uploadFinished;
 
-    return {
-      status: 200,
-      data: JSON.stringify(uploadedData)
-    };
+    console.log("Resize complete", uploadedData);
   } catch (e) {
     console.log("something exploded", e.message);
   }
-
-  //2019-07-24T04:42:12.324Z bada6cbc-9009-4734-9e22-d35b1c1d5a05 INFO pics/cyberscan.gif
-  console.log("I can get files from this bucket", process.env.ORIGINALS_S3);
 };
