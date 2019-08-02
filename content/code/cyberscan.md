@@ -28,7 +28,7 @@ One of the best parts about this project was building SVG animations. The iceber
 
 gif of scanning each part go here
 
-The entire iceberg is controlled by an `IcebergController`. This controller takes some `values`, a `groupValue`. `groupValue` represents the currently selected value, while `values` represented all possible values. Exactly how a radio button would perform.
+The entire iceberg is controlled by an `IcebergController`. This controller takes some `values` and a `groupValue`. The `groupValue` represents the currently selected value, while `values` represented all possible values. Exactly how a radio button would perform.
 
 Each option controls what content it should show or hide. So when an option is selected, it should show it's content and trigger an SVG animation.
 
@@ -62,4 +62,46 @@ export class IcebergController {
       }
     }
   }
+```
+
+The animation is triggered by passing a reference of specific SVGAnimationElements to a seperate controller. When the animation is triggered by a user, we call `SVGAnimationElement.beginElement()`. This starts a chain reaction of events in the svg. Any `<animate>` element with a `data-anim` attribute is a trigger that starts a cascade of other animations elements.
+
+```html
+<svg>
+  <defs>
+   <linearGradient x1="0%" y1="100%" x2="0%" y2="0%" id="deepWebGradient">
+    <stop offset="0.0" stop-color="#50E3C2" stop-opacity="0.0" />
+    <stop stop-color="#50E3C2" stop-opacity="1.0">
+      <!-- animate trigger -->
+      <!-- draws gradient to 50% of iceberg at 1.05s -->
+      <animate id="deepWebScan" data-anim="animate-deep-web" attributeType="XML" attributeName="offset" from="0.0" to="0.50"
+        dur="1.05s" begin="indefinite" fill="freeze" restart="whenNotActive" repeatCount="1"/>
+
+      <!-- sets stop-opacity to 0 (fadeout) after #deepWebScan ends -->
+      <animate id="deepWebFadeout" attributeType="XML" attributeName="stop-opacity" from="1" to="0.0"
+      dur="1.0s" begin="deepWebScan.end" fill="freeze" restart="whenNotActive" repeatCount="1"/>
+
+      <!-- resets gradient to offset of 0 after #deepWebFadeout ends -->
+      <animate id="deepWebReset" attributeType="XML" attributeName="offset" from="" to="0.0"
+        dur="0.01" begin="deepWebFadeout.end" fill="freeze" restart="whenNotActive" repeatCount="1"/>
+
+      <!-- resets stop-opacity to 1 after #deepWebRest ends -->
+      <animate attributeType="XML" attributeName="stop-opacity" from="" to="1"
+      dur="0.01" begin="deepWebReset.end" fill="freeze" restart="whenNotActive" repeatCount="1"/>
+    </stop>
+      <stop stop-color="#50E3C2" stop-opacity="0.0">
+      <!-- animate trigger -->
+      <!-- draws gradient to 50% of iceberg at 1.0s -->
+      <animate data-anim="animate-deep-web" attributeType="XML" attributeName="offset" from="0" to="0.50"
+        dur="1.0s" begin="indefinite" fill="freeze" restart="whenNotActive"/>
+
+      <!-- resets gradient to offset of 0 after #deepWebFadeout ends -->
+      <animate attributeType="XML" attributeName="offset" from="" to="0.0"
+      dur="0.01" begin="deepWebFadeout.end" fill="freeze" restart="whenNotActive" repeatCount="1"/>
+    </stop>
+  </defs>
+  <g>
+   <!-- rest of svg that consumes one of many linearGradient animations -->
+  </g>
+</svg>
 ```
