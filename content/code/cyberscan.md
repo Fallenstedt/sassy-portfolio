@@ -1,6 +1,7 @@
 ---
 title: "Cyberscan"
 date: 2019-06-29T15:06:48-07:00
+image: "foo/bar/get/an/image"
 draft: false
 ---
 
@@ -8,21 +9,13 @@ CyberScan is a free dark web monitoring service. It scans your email address acr
 
 I had 3 weeks to create a single page site that gives a potential customer to try out CyberScan for free. The requirements were that the site should:
 
-- Load incredibly fast
-- Have excellent SEO
-- Be visually exciting
+- Load fast
+- SEO friendly
+- Be fun
 
-The website was released at 2019 Blackhat where it had over a billion visiotrs\*. The website had 102ms loadtimes and had a bundled size of only 329kb. Google's lighthouse scores were all at 100%.
+The website was released at 2019 Blackhat where it had over a billion visiotrs\*.
 
-## How it was built
-
-For a site to load incredibly fast, it meant that it needed the fewest dependecies as possible. The smallest file I could have was a single HTML file. I did not reach for a framework like React, Angular, or Vue because they provided too many tools for what this site needed.
-
-For the designs I was given, I knew I would need SASS to help modularize my styles. The naming convention for all styles abided by [BEM](http://getbem.com/introduction/). Additionally, I knew that TypeScript would be fun to have to create controllers for parts of the site that needed interaction.
-
-All of this was tucked into a custom webpack config that transpiled my JS to es5, added vendor prefixes to my css, and hashed all my assets. The only dependency the site had was normalize.css
-
-## SVG Animations
+## Icerberg SVG Animation
 
 One of the best parts about this project was building SVG animations. The iceberg was broken down to three parts where a user could scan the surface web, dark web, and deep web to learn more about each part of the internet.
 
@@ -64,25 +57,27 @@ export class IcebergController {
   }
 ```
 
-The animation is triggered by passing a reference of specific SVGAnimationElements to a seperate controller. When the animation is triggered by a user, we call `SVGAnimationElement.beginElement()`. This starts a chain reaction of events in the svg. Any `<animate>` element with a `data-anim` attribute is a trigger that starts a cascade of other animations elements.
+The animation is triggered by passing a SVGAnimationElements reference to a seperate controller. When the animation is triggered by a user, we call `SVGAnimationElement.beginElement()`. This starts a chain reaction of events in the svg. Any `<animate>` element with a `data-anim` attribute is a trigger that starts a cascade of other animations elements. I opted for using animate elements here as it was easier to control the animation of a gradient by seperate elements rather than JavaScript. When reading the code, I could understand what is happening as I read it from top to bottom.
+
+Each animation element manipulates the stop value of the linear gradient. By increasing the `offset` attribute of the stop element, we can control the length of the linear gradient. This example, we are increasing the linear gradient from 0 to 0.50, fading the graident out, and then resetting the offset and opacity values.
 
 ```html
 <svg>
   <defs>
-   <linearGradient x1="0%" y1="100%" x2="0%" y2="0%" id="deepWebGradient">
+   <linearGradient x1="0%" y1="100%" x2="0%" y2="0%">
     <stop offset="0.0" stop-color="#50E3C2" stop-opacity="0.0" />
     <stop stop-color="#50E3C2" stop-opacity="1.0">
       <!-- animate trigger -->
       <!-- draws gradient to 50% of iceberg at 1.05s -->
-      <animate id="deepWebScan" data-anim="animate-deep-web" attributeType="XML" attributeName="offset" from="0.0" to="0.50"
+      <animate data-anim="animate-deep-web" attributeType="XML" attributeName="offset" from="0.0" to="0.50"
         dur="1.05s" begin="indefinite" fill="freeze" restart="whenNotActive" repeatCount="1"/>
 
       <!-- sets stop-opacity to 0 (fadeout) after #deepWebScan ends -->
-      <animate id="deepWebFadeout" attributeType="XML" attributeName="stop-opacity" from="1" to="0.0"
+      <animate attributeType="XML" attributeName="stop-opacity" from="1" to="0.0"
       dur="1.0s" begin="deepWebScan.end" fill="freeze" restart="whenNotActive" repeatCount="1"/>
 
       <!-- resets gradient to offset of 0 after #deepWebFadeout ends -->
-      <animate id="deepWebReset" attributeType="XML" attributeName="offset" from="" to="0.0"
+      <animate attributeType="XML" attributeName="offset" from="" to="0.0"
         dur="0.01" begin="deepWebFadeout.end" fill="freeze" restart="whenNotActive" repeatCount="1"/>
 
       <!-- resets stop-opacity to 1 after #deepWebRest ends -->
@@ -104,4 +99,118 @@ The animation is triggered by passing a reference of specific SVGAnimationElemen
    <!-- rest of svg that consumes one of many linearGradient animations -->
   </g>
 </svg>
+```
+
+## Loader Animation
+
+The loading animation was approached differently. Each circle is a path, where the line is a dash that grows from 0px to the circumfrence of that circle. With SVGs, you can customize the appearance of a dashed line with [stroke-dashoffset](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset) and [stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).
+
+Setting both the circle's stroke-dashoffset and stroke-dasharray equal to the circle's circumfrence returns an invisible line.
+
+```html
+<svg>
+  ...
+  <!-- circle has radius `r` of 84 -->
+  <circle cx="90" cy="90" r="84" stroke-width="12" />
+</svg>
+```
+
+```typescript
+
+// TS
+class CircleDrawer {
+  circle: SVGCircleElement;
+  circumference: number;
+
+  constructor(circle: SVGCircleElement, circumference: number) {
+    this.circle = circle;
+    this.circumference = circumference;
+
+    <!-- Make circle invisible -->
+    this.circle.style.strokeDasharray = this.circumference.toString();
+    this.circle.style.strokeDashoffset = this.circumference.toString();
+  }
+
+}
+```
+
+To animate the circle you must decrease the circles `strokeDashoffset` over time. When set to 0, the circle is a single dash whose length is the circle's circumference.
+
+```typescript
+  class CircleDrawer {
+
+  circle: SVGCircleElement;
+  circumference: number;
+
+  constructor(circle: SVGCircleElement, circumference: number) {
+    this.circle = circle;
+    this.circumference = circumference;
+
+    <!-- Make circle invisible -->
+    this.circle.style.strokeDasharray = this.circumference.toString();
+    this.circle.style.strokeDashoffset = this.circumference.toString();
+  }
+
+  public animateCircle({
+    duration = 2000,
+    delay = 200
+  } = {}): void {
+
+    // Create a function that will decrease the strokeDashoffset over time
+    const decreaseOffsetCallback = this.decreaseStrokeDashOffset(
+      this.circle,
+      this.circumference
+    );
+
+    // on every frame rendered, draw more of the circle and ease out at the end.
+    setTimeout(() => {
+      this.tween({
+        onUpdate: decreaseOffsetCallback,
+        ease: this.easeOut,
+        duration
+      });
+      this.setText("SCANNING DARK WEB");
+    }, delay);
+  }
+
+  private tween({
+    from = 0,
+    to = 1,
+    duration = 3000,
+    onUpdate = () => {},
+    ease = this.easeOut
+  } = {}): void {
+    const delta = to - from;
+    const startTime = performance.now();
+
+    function update(currentTime: number) {
+      const elapsed: number = currentTime - startTime;
+      const currentProgress: number = Math.min(elapsed / duration, 1);
+      const nextProgress: number = from + ease(currentProgress) * delta;
+
+      if (onUpdate) {
+        onUpdate(nextProgress);
+      }
+      if (currentProgress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+    requestAnimationFrame(update);
+  }
+
+
+  private easeOut(progress: number, power = 2): number {
+    return 1 - (1 - progress) ** power;
+  }
+
+  private decreaseStrokeDashOffset(
+    circle: SVGCircleElement,
+    circumference: number,
+    nextValue: number
+  ): void {
+      const nextDashOffset: number = circumference * (1 - value);
+      circle.style.strokeDashoffset = nextDashOffset.toString();
+    };
+  }
+}
 ```
