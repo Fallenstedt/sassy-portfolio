@@ -2,18 +2,14 @@
   "name": "serverless",
   "version": "1.0.0",
   "description": "serverless function to get items from a private s3 bucket",
-  "main": "handler.js",
+  "main": "main.js",
   "scripts": {
-    "start": "cd serverless && serverless offline",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack"
   },
   "author": "Alex Fallenstedt",
   "license": "ISC",
   "devDependencies": {
-    "serverless-offline": "^5.8.0"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.501.0",
-    "sharp": "^0.22.1"
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6"
   }
 }
