@@ -4,8 +4,7 @@
   "description": "serverless function to get items from a private s3 bucket",
   "main": "main.js",
   "scripts": {
-    "start": "webpack | hugo server",
-    "debug": "webpack --display-error-details"
+    "start": "webpack --display-error-details | hugo server"
   },
   "author": "Alex Fallenstedt",
   "license": "ISC",

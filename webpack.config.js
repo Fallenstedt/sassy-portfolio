@@ -7,7 +7,7 @@ module.exports = {
   mode: "production",
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "static/js")
+    path: path.resolve(__dirname, "static")
   },
   module: {
     rules: [
@@ -41,7 +41,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       //Writes all styles to a single style.css file.
 
-      filename: "static/css/[name].css"
+      filename: "css/[name].css"
     })
   ]
 };
