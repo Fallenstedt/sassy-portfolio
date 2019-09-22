@@ -1,20 +1,16 @@
 {{ define "main" }}
 <div class="home">
-  <div>
-    <h1>I'm Alex Fallenstedt</h1>
-    <div class="horizontal-bar"></div>
-    <h4>{{ .Site.Params.homePhrase | markdownify }}</h4>
+  <h1>I'm Alex Fallenstedt</h1>
+  <div class="horizontal-bar"></div>
+  <h4>{{ .Site.Params.homePhrase | markdownify }}</h4>
 
-    <p>
-      {{$posts := (.Site.GetPage "section" "blog").Pages.ByDate.Reverse}}
-      Find out more <a href="/about">about me</a> or <a target="_blank" href="https://500px.com/alexanderfallenstedt">view my photos.</a>
-      You can also read my latest blog post 
-      {{ range first 1 $posts }}
-        <a href="{{.Permalink}}">{{.Title}}</a>.
-      {{ end }}
-    </p>
-
-  </div>
-  {{ partial "footer.html" . }}
+  <p>
+    {{$posts := (.Site.GetPage "section" "blog").Pages.ByDate.Reverse}}
+    Find out more <a href="/about">about me</a> or <a target="_blank" href="https://500px.com/alexanderfallenstedt">view my photos.</a>
+    You can also read my latest blog post 
+    {{ range first 1 $posts }}
+      <a href="{{.Permalink}}">{{.Title}}</a>.
+    {{ end }}
+  </p>
 </div>
 {{ end }}
