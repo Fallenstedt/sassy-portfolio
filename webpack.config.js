@@ -45,31 +45,3 @@ module.exports = {
     })
   ]
 };
-
-// {
-//   test: /\.css$/,
-//   use: [
-//     {
-//       loader: MiniCssExtractPlugin.loader,
-//     },
-//     'css-loader',
-//   ],
-// },
-// {
-//   test: [/.css$|.scss$/],
-//   use: [
-//     {
-//       loader: "file-loader",
-//       options: {
-//         name: "[name].css",
-//         outputPath: "../css/"
-//       }
-//     },
-//     {
-//       loader: "sass-loader",
-//       options: {
-//         outputStyle: "compressed"
-//       }
-//     }
-//   ]
-// }

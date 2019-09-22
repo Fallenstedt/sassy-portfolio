@@ -1,6 +1,14 @@
 import "./styles/main.scss";
-import { createNavBar } from "./nav";
+import { Nav } from "./nav";
 import { prism } from "./prism";
-createNavBar();
 prism();
-console.log("h");
+
+let nav: Nav;
+
+const overlay = <HTMLDivElement>document.querySelector(".nav-overlay");
+const toggleNav = <HTMLButtonElement>document.querySelector(".nav-button");
+
+if (toggleNav && overlay) {
+  nav = new Nav({ toggleNav, overlay });
+  nav.init();
+}
