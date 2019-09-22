@@ -9,7 +9,7 @@ draft: false
 </div>
 <div class="horizontal-bar"></div>
 
-#### I build for web and mobile using Dart, Go, and JavaScript.
+#### I build web applications and mobile apps
 
 <p>
   I am a software engineer who strives for test-driven development, translating business requirements into technical requirements, and an agile based development model.

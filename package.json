@@ -4,12 +4,23 @@
   "description": "serverless function to get items from a private s3 bucket",
   "main": "main.js",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack | hugo server",
+    "debug": "webpack --display-error-details"
   },
   "author": "Alex Fallenstedt",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "babel-loader": "^8.0.6",
+    "autoprefixer": "^9.6.1",
     "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.6",
+    "mini-css-extract-plugin": "^0.7.0",
+    "node-sass": "^4.12.0",
+    "css-loader": "^3.1.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0"
   }
 }

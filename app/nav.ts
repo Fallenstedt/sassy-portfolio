@@ -4,17 +4,21 @@ export function createNavBar() {
   };
   window.customElements.define(
     "app-nav",
-    class extends HTMLElement {
+    class Nav extends HTMLElement {
+      public openNavButton: HTMLElement;
+      public overlay: HTMLElement;
+      public template: HTMLTemplateElement;
+
       static get observedAttributes() {
         return [ATTR.IS_NAV_OPEN];
       }
 
       get open() {
-        return this.hasAttribute(ATTR.IS_NAV_OPEN);
+        return this.hasAttribute(ATTR.IS_NAV_OPEN).toString();
       }
-      set open(val) {
+      set open(val: string) {
         // Reflect the value of open as HTML attribute
-        if (val) {
+        if (val === "true") {
           this.setAttribute(ATTR.IS_NAV_OPEN, val);
         } else {
           this.removeAttribute(ATTR.IS_NAV_OPEN);
@@ -54,7 +58,7 @@ export function createNavBar() {
       }
 
       _createShadowDom() {
-        this.template = document.getElementById("app-nav");
+        this.template = <HTMLTemplateElement>document.getElementById("app-nav");
         this.attachShadow({ mode: "open" }).appendChild(
           this.template.content.cloneNode(true)
         );

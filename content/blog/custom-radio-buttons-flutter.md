@@ -1,7 +1,7 @@
 ---
 title: "Custom Widgets in Flutter"
 date: 2019-07-06
-draft: false
+draft: true
 description: Building your own custom widgets in Flutter is not easy scary at all. By combining multiple types of widgets, we can create anything we want..
 ---
 
