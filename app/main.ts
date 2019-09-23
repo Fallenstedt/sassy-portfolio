@@ -1,5 +1,6 @@
 import "./styles/main.scss";
 import { Nav } from "./nav";
+import { LazyLoader } from "./lazy-load";
 import { prism } from "./prism";
 prism();
 
@@ -12,3 +13,5 @@ if (toggleNav && overlay) {
   nav = new Nav({ toggleNav, overlay });
   nav.init();
 }
+
+new LazyLoader("");
