@@ -5,15 +5,30 @@
   </header>
   {{.Content}}
 </article>
-<ul class="blog-preview-container">
+<ul class="blog-preview">
   <!-- Ranges through content/posts/*.md -->
   {{ range .Paginator.Pages }}
   <a href="{{.Permalink}}">
-    <li class="blog-preview">
-      <h4>{{.Title}}</h4>
-      <time>{{.Date.Format "Jan 02, 2006"}}</time>
-      <hr>
-      <p>{{.Description}}</p>
+    <li>
+      {{ if .Params.Preview}}
+        <div class="preview-img">
+          <img 
+            class="lazy"
+            data-placeholder="/img/placeholder.png"
+            data-src="{{.Params.Preview}}"
+            alt="">
+        </div>
+      {{end}}
+      <div class="preview-content">
+        <h4>{{.Title}}</h4>
+        {{ if .Date}}
+          <time>{{.Date.Format "Jan 02, 2006"}}</time>
+        {{end}}
+        {{if .Description}}
+          <hr>
+          <p>{{.Description}}</p>
+        {{end}}
+      </div>
     </li>
   </a>
   {{ end }}
