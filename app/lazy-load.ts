@@ -77,6 +77,7 @@ export class LazyLoader {
     if (src) {
       // @ts-ignore
       node[targetAttr] = src;
+      console.log(node);
       node.removeAttribute(sourceAttr);
     }
   }

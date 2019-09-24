@@ -1,0 +1,10 @@
+<div class="gallery">
+  {{ range $i, $imgsrc :=  $.Page.Params.Images }}
+  <div class="gallery-img">
+    <img 
+      class="lazy"
+      src="/img/placeholder.png"
+      data-src="{{$imgsrc}}" alt="">
+  </div>
+  {{ end }}
+</div>

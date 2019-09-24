@@ -5,7 +5,7 @@ draft: false
 ---
 
 <div class="img-container">
-  <img src="/img/alex-fallenstedt.jpg"/>
+  <img class="lazy" src="/img/placeholder.png" data-src="/img/alex-fallenstedt.jpg" alt="Alex Fallenstedt portrait"/>
 </div>
 <div class="horizontal-bar"></div>
 
