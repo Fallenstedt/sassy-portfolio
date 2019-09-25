@@ -83,4 +83,6 @@ When an element is intersecting, we call `loadMedia` and then we unobserve that 
 <img src="some/placeholder.jpg" data-src="some/large/image.jpg" class="lazy" />
 ```
 
+Our load media element will take this node and swap our `data-src` attribute with our `src` attribute. Once this swap occurs, the image is loaded.
+
 And that's it. Hopefully this inspires you to find other uses for Intersection Observer.
