@@ -1,7 +1,7 @@
 ---
 title: Testing NgRx Effects
 description: You are walking down the street sipping some coffee and you ask yourself, “How can I test my ngrx@7.4.0 effects?”. If you’re asking that question then this might help you.
-tags: ngrx, effects, angular, testing
+tags: ["ngrx", "angular"]
 date: 2019-04-19
 ---
 

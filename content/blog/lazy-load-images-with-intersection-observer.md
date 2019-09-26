@@ -1,7 +1,7 @@
 ---
 title: Lazy Load Images With Intersection Observer
 description: Loading many images at once? No! Stop that! Instead, load them when your user needs them. Every byte counts.
-tags: performance, typescript
+tags: ["performance"]
 date: 2019-09-23
 draft: false
 ---
