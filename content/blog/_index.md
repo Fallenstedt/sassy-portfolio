@@ -2,4 +2,4 @@
 title: Blog
 ---
 
-Notes on what I've learned about Angular, Flutter, and Firebase
+Notes about techniques & tech I have learned in my career.
