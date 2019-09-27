@@ -30,22 +30,16 @@
  */
 
 export class LazyLoader {
-  public active: number;
   public elements: any[];
   public maxWidth: string;
   public targetClass: string;
   public loadedClassName: string;
-  public documentEvents: string[];
-  public windowEvents: string[];
 
   constructor(targetClass: string) {
-    this.active = 0; // Used for throttling. Only relevant if IntersectionObserver is unsupported.
     this.elements = [];
     this.maxWidth = "640px";
     this.targetClass = targetClass ? targetClass : ".lazy";
     this.loadedClassName = "loaded";
-    this.documentEvents = ["scroll", "touchmove"];
-    this.windowEvents = ["orientationchange", "resize"];
 
     this.init();
   }
@@ -122,7 +116,7 @@ export class LazyLoader {
 
     // load <div> background image and apply it via css.
     if (media.tagName == "DIV" || media.tagName == "ARTICLE") {
-      const node = backgroundNode({
+      const node = this.backgroundNode({
         node: media,
         loadedClassName: this.loadedClassName
       });
@@ -166,28 +160,28 @@ export class LazyLoader {
   removeVideoElements(e: HTMLVideoElement) {
     return e.tagName !== "VIDEO";
   }
-}
 
-function backgroundNode({
-  node,
-  loadedClassName
-}: {
-  node: HTMLElement;
-  loadedClassName: string;
-}) {
-  let src = node.getAttribute("data-background-image-url");
-  let show = () => {
-    requestAnimationFrame(() => {
-      node.style.backgroundImage = `url(${src})`;
-      node.classList.add(loadedClassName);
-    });
-  };
+  backgroundNode({
+    node,
+    loadedClassName
+  }: {
+    node: HTMLElement;
+    loadedClassName: string;
+  }) {
+    let src = node.getAttribute("data-background-image-url");
+    let show = () => {
+      requestAnimationFrame(() => {
+        node.style.backgroundImage = `url(${src})`;
+        node.classList.add(loadedClassName);
+      });
+    };
 
-  return {
-    load: () => {
-      let img = new Image();
-      img.src = src ? src : "";
-      img.onload = show;
-    }
-  };
+    return {
+      load: () => {
+        let img = new Image();
+        img.src = src ? src : "";
+        img.onload = show;
+      }
+    };
+  }
 }
