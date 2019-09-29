@@ -22,12 +22,15 @@
  */
 
 export class LazyLoader {
-  private elements: Element[] = [];
+  private elements!: Element[];
   private targetClass: string;
-  private maxWidth = "640px";
-  private loadedClassName = "loaded";
+  private maxWidth: string;
+  private loadedClassName: string;
 
   constructor(targetClass: string) {
+    this.elements = [];
+    this.maxWidth = "640px";
+    this.loadedClassName = "loaded";
     this.targetClass = targetClass ? targetClass : ".lazy";
     this.init();
   }
