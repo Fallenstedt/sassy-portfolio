@@ -1,7 +1,7 @@
 ---
 title: Lazy Load Images With Intersection Observer
 description: Loading many images at once? No! Stop that! Instead, load them when your user needs them. Every byte counts.
-tags: ["performance"]
+tags: ["performance", "typescript"]
 date: 2019-09-23
 draft: false
 ---
@@ -16,7 +16,16 @@ When an image scrolls into view, we load an image.
 {{< youtube 4n_khk_stMU >}}
 </div>
 
-Start with a class whose elements are images with the class 'lazy'.
+The elements we load in are `img` elements with some specific attributes.
+
+```html
+<img src="some/placeholder.jpg" data-src="some/large/image.jpg" class="lazy" />
+<img src="some/placeholder.jpg" data-src="some/large/image.jpg" class="lazy" />
+<img src="some/placeholder.jpg" data-src="some/large/image.jpg" class="lazy" />
+...
+```
+
+Each element has a `src` and a `data-src`. To load the image, we need to swap the values of these attributes when the user sees the image. Wth the Intersection Observer, this is called "intersecting". When an element is intersecting, we call `loadMedia` and then we unobserve that element. Start with a class whose elements are images with the class 'lazy'.
 
 ```typescript
 export class LazyLoader {
@@ -28,14 +37,14 @@ export class LazyLoader {
     this.init();
   }
 
-  init() {
+  private init() {
     this.elements = this.getElements();
     if (this.elements.length) {
       const mediaObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.loadMedia(entry.target);
-            mediaObserver.unobserve(entry.target);
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            this.loadMedia(e.target);
+            mediaObserver.unobserve(e.target);
           }
         });
       });
@@ -43,14 +52,13 @@ export class LazyLoader {
     }
   }
 
-  getElements() {
-    return [].slice.call(document.querySelectorAll(this.targetClass));
+  private getElements() {
+    return Array.from(document.querySelectorAll(this.targetClass));
   }
 
-  loadMedia(node: any) {
+  private loadMedia(node: Element) {
     const src = node.getAttribute("data-src");
     if (src) {
-      // @ts-ignore
       node["src"] = src;
       node.removeAttribute("data-src");
     }
@@ -58,7 +66,7 @@ export class LazyLoader {
 }
 ```
 
-When created, we invoke `init` whose purpose is to create a `mediaObserver`. This observer listens for the elements you feed into it and invokes a function with those elements only when it is intersecting. See [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). Once you have created the observer, you need to give it a target element to watch. This is where we call `mediaObserver.observe(element)`.
+When created, we invoke `init` whose purpose is to create a `mediaObserver`. This observer listens for the elements you feed into it and invokes a function with those elements only when it is intersecting. Once you have created the observer, you need to give it a target element to watch. This is where we call `mediaObserver.observe(element)`.
 
 ```typescript
   init() {
@@ -75,12 +83,6 @@ When created, we invoke `init` whose purpose is to create a `mediaObserver`. Thi
       this.elements.forEach(element => mediaObserver.observe(element));
     }
   }
-```
-
-When an element is intersecting, we call `loadMedia` and then we unobserve that element. The elements we load in are `img` elements with some specific attributes.
-
-```html
-<img src="some/placeholder.jpg" data-src="some/large/image.jpg" class="lazy" />
 ```
 
 Our load media element will take this node and swap our `data-src` attribute with our `src` attribute. Once this swap occurs, the image is loaded.

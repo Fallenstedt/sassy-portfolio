@@ -1,12 +1,4 @@
 /**
- * Creates a new LazyLoader.
- *
- * Will search for images and video elements that have a class of 'lazy'
- * It will then Target the element's `data-src` / data-srcset property and then
- * Lazily load the content with an IntersectionObserver or
- * a fallback method for ancient browswers.
- *
- *
  * How `<img>` tags should be made
  *  `<img
    class="lazy"
@@ -30,23 +22,17 @@
  */
 
 export class LazyLoader {
-  public elements: any[];
-  public maxWidth: string;
-  public targetClass: string;
-  public loadedClassName: string;
+  private elements: Element[] = [];
+  private targetClass: string;
+  private maxWidth = "640px";
+  private loadedClassName = "loaded";
 
   constructor(targetClass: string) {
-    this.elements = [];
-    this.maxWidth = "640px";
     this.targetClass = targetClass ? targetClass : ".lazy";
-    this.loadedClassName = "loaded";
-
     this.init();
   }
-  /**
-   * Adds event listeners on DOMContentLoader to begin lazy loader
-   */
-  init() {
+
+  private init(): void {
     this.elements = this.queryDOMForElementsWithClass();
     if (this.isMobileDevice()) {
       // Let video elements use their placeholder images instead. Don't load the video on mobile
@@ -54,41 +40,38 @@ export class LazyLoader {
     }
     // If we have elements for to lazy laod
     if (this.elements.length) {
-      const mediaObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.loadMedia(<HTMLElement>entry.target);
-            mediaObserver.unobserve(entry.target);
-          }
-        });
-      });
+      const mediaObserver = new IntersectionObserver(
+        (entries: IntersectionObserverEntry[]) => {
+          entries.forEach((e: IntersectionObserverEntry) => {
+            if (e.isIntersecting) {
+              this.loadMedia(<HTMLElement>e.target);
+              mediaObserver.unobserve(e.target);
+            }
+          });
+        }
+      );
       this.elements.forEach(element => mediaObserver.observe(element));
     }
   }
 
-  replaceAttr(node: HTMLElement, sourceAttr: string, targetAttr: string) {
+  private replaceAttr(
+    node: HTMLElement,
+    sourceAttr: string,
+    targetAttr: string
+  ): void {
     const src = node.getAttribute(sourceAttr);
     if (src) {
       // @ts-ignore
       node[targetAttr] = src;
-      console.log(node);
       node.removeAttribute(sourceAttr);
     }
   }
 
-  /**
-   * Loads the media when called.
-   * @param {DOMElement} media A dom element which contains a data attribute for the content tha tneeds to be lazy loaded
-   */
-  loadMedia(media: HTMLVideoElement): void;
-  loadMedia(media: HTMLPictureElement): void;
-  loadMedia(media: HTMLImageElement): void;
-  loadMedia(media: HTMLMediaElement): void;
-  loadMedia(media: HTMLElement) {
+  private loadMedia(media: _MediaElemnt): void {
     // load <video>
     if (media.tagName == "VIDEO") {
-      [].slice.call(media.querySelectorAll("source")).forEach(source => {
-        this.replaceAttr(source, "data-src", "src");
+      Array.from(media.querySelectorAll("source")).forEach(s => {
+        this.replaceAttr(s, "data-src", "src");
       });
       (<HTMLVideoElement>media).load();
     }
@@ -100,12 +83,12 @@ export class LazyLoader {
       (<HTMLPictureElement>media.parentNode).tagName &&
       (<HTMLPictureElement>media.parentNode).tagName == "PICTURE"
     ) {
-      [].slice
-        .call(media.parentNode.querySelectorAll("source"))
-        .forEach(source => {
-          this.replaceAttr(source, "data-src", "src");
-          this.replaceAttr(source, "data-srcset", "srcset");
-        });
+      Array.from(media.parentNode.querySelectorAll("source")).forEach(
+        (s: HTMLSourceElement) => {
+          this.replaceAttr(s, "data-src", "src");
+          this.replaceAttr(s, "data-srcset", "srcset");
+        }
+      );
     }
 
     // load <img>
@@ -126,62 +109,45 @@ export class LazyLoader {
     media.classList.add(this.loadedClassName);
   }
 
-  /**
-   *
-   * @param {DOMElement} media The media that has been loaded and needs to removed from `this.elements` array
-   * @return A function that returns a boolean if a media element is in `this.elements`
-   */
-  filterLazyLoadedElement(media: HTMLElement) {
-    return this.elements.filter(elementToLoad => {
-      return elementToLoad !== media;
-    });
-  }
-
-  /**
-   * Checks if the window is under a certain width
-   * @return boolean
-   */
-  isMobileDevice() {
+  private isMobileDevice(): boolean {
     return window.matchMedia(`(max-width: ${this.maxWidth}`).matches;
   }
 
-  /**
-   * Returns an array of DOM elements that have the target class
-   * @return Array<DOMElements>
-   */
-  queryDOMForElementsWithClass() {
-    return [].slice.call(document.querySelectorAll(this.targetClass));
+  private queryDOMForElementsWithClass(): Element[] {
+    return Array.from(document.querySelectorAll(this.targetClass));
   }
 
-  /**
-   * Checks if a DOM object's tagName is 'VIDEO'
-   * @param {object} e an DOM object
-   */
-  removeVideoElements(e: HTMLVideoElement) {
+  private removeVideoElements(e: Element): boolean {
     return e.tagName !== "VIDEO";
   }
 
-  backgroundNode({
+  private backgroundNode({
     node,
     loadedClassName
   }: {
     node: HTMLElement;
     loadedClassName: string;
   }) {
-    let src = node.getAttribute("data-background-image-url");
-    let show = () => {
-      requestAnimationFrame(() => {
-        node.style.backgroundImage = `url(${src})`;
-        node.classList.add(loadedClassName);
-      });
-    };
-
+    const src = node.getAttribute("data-background-image-url");
     return {
       load: () => {
-        let img = new Image();
+        const img = new Image();
         img.src = src ? src : "";
-        img.onload = show;
+        img.onload = () => {
+          requestAnimationFrame(() => {
+            node.style.backgroundImage = `url(${src})`;
+            node.classList.add(loadedClassName);
+          });
+        };
       }
     };
   }
 }
+
+type _MediaElemnt =
+  | HTMLElement
+  | HTMLMediaElement
+  | HTMLImageElement
+  | HTMLPictureElement
+  | HTMLSourceElement
+  | HTMLVideoElement;
