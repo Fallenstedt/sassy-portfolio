@@ -6,7 +6,7 @@ date: 2019-09-29
 draft: false
 ---
 
-Dart is a single threaded language, but it comes with a handy [compute](https://api.flutter.dev/flutter/foundation/compute.html) function to spawn isolates. In a nutshell, the compute function is useful for doing extra work on a different thread so your flutter app does not experience "jank". Jank occurs when the UI doesn’t render smoothly. For example, every so often, a frame takes 10 times longer to render, so it gets dropped, and the animation visibly jerks.
+Dart is a single threaded language, but it comes with a handy [compute](https://api.flutter.dev/flutter/foundation/compute.html) function to spawn isolates. In a nutshell, the compute function is useful for doing extra work on a different "thread"--it's actually an isolate--so your flutter app does not experience "jank". Jank occurs when the UI doesn’t render smoothly. For example, every so often, a frame takes 10 times longer to render, so it gets dropped, and the animation visibly jerks.
 
 To use compute, you need a function and data. `compute` will return a future of whatever your function returns.
 

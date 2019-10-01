@@ -9,11 +9,20 @@
   }
 
   &-overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
     border: 2px solid red;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+    transition: opacity 0.1s;
+  }
+
+  .hide {
+    opacity: 0;
+    pointer-events: none;
   }
 }

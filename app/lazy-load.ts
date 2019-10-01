@@ -10,7 +10,7 @@
    alt="some pic">`
  *
  * How `<video>` elements should be made
- *   `<video id="video"
+*   `<video id="video"
       class="lazy"
       poster="path/to/poster.jpg">
       <source data-src="path/to/video.webm" type="video/webm">
