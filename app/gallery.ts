@@ -1,25 +1,29 @@
-import { fromEvent, Observable, Subject, throwError } from "rxjs";
-import { takeUntil, tap, take, scan } from "rxjs/operators";
+import { fromEvent, Observable, Subject, BehaviorSubject } from "rxjs";
+import { takeUntil, tap, take } from "rxjs/operators";
+import { Observed } from "./observed";
 
-export class Gallery {
+export class Gallery implements Observed {
+  private selectedImage: BehaviorSubject<Event | null>;
   private unsubscribe!: Subject<void>;
-  private images!: Array<Observable<Event>>;
-  private overlay!: Element | null;
 
-  constructor() {
+  constructor(public images: Array<HTMLImageElement>, public overlay: Element) {
+    this.images = images;
+    this.overlay = overlay;
+
     this.unsubscribe = new Subject<void>();
-    this.images = this.queryImages(".gallery-img");
-
-    this.overlay = this.getElement(".gallery-overlay");
+    this.selectedImage = new BehaviorSubject<Event | null>(null);
     this.listenForUnload();
     this.init();
   }
 
-  private init(): void {
-    this.images.forEach((i: Observable<Event>) => i.subscribe());
+  public init(): void {
+    this.queryImagesObservable(".gallery-img").forEach((i: Observable<Event>) =>
+      i.subscribe()
+    );
+    this.queryOverlayObservable().subscribe();
   }
 
-  private listenForUnload() {
+  public listenForUnload() {
     return fromEvent(window, "unload")
       .pipe(
         tap(() => this.unsubscribe.next()),
@@ -28,7 +32,7 @@ export class Gallery {
       .subscribe(() => {});
   }
 
-  private queryImages(className: string): Array<Observable<Event>> {
+  private queryImagesObservable(className: string): Array<Observable<Event>> {
     const images = <HTMLImageElement[]>(
       Array.from(document.querySelectorAll(className))
     );
@@ -36,21 +40,31 @@ export class Gallery {
       (i: HTMLImageElement) =>
         fromEvent(i, "click").pipe(
           takeUntil(this.unsubscribe),
-          tap(i => console.log(i, "was clicked")),
+          tap(i => this.selectedImage.next(i)),
           tap(() => this.showOverlay())
         )
     );
     return imageObservables;
   }
 
-  private showOverlay() {
-    if (this.overlay) {
-      this.overlay.classList.remove("hide");
-    }
+  private queryOverlayObservable(): Observable<Event> {
+    const overlayObservable: Observable<Event> = fromEvent(
+      this.overlay,
+      "click"
+    ).pipe(
+      takeUntil(this.unsubscribe),
+      tap(() => console.log("overlay was clicked")),
+      tap(() => this.hideOverlay())
+    );
+
+    return overlayObservable;
   }
 
-  private getElement(className: string): Element | null {
-    const element = document.querySelector(className);
-    return element;
+  private showOverlay(): void {
+    this.overlay.classList.remove("hide");
+  }
+
+  private hideOverlay(): void {
+    this.overlay.classList.add("hide");
   }
 }

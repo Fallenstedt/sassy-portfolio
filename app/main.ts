@@ -10,7 +10,14 @@ createLazyLoader();
 createGallery();
 
 function createGallery() {
-  new Gallery();
+  const overlay: Element | null = document.querySelector(".gallery-overlay");
+  const images: Array<HTMLImageElement> = Array.from(
+    document.querySelectorAll(".gallery-img")
+  );
+  if (!overlay && !images) {
+    return;
+  }
+  new Gallery(images, <Element>overlay);
 }
 
 function createLazyLoader() {
