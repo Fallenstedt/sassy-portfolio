@@ -20,6 +20,10 @@ footer {
 .social-icon {
   font-size: 1.2em;
   padding: 10px;
+
+  &:nth-child(1) {
+    padding-left: 0 !important;
+  }
 }
 
 #footer {
