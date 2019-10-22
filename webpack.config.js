@@ -5,6 +5,7 @@ module.exports = {
   entry: ["./app/main.ts"],
   watch: true,
   mode: "production",
+  devtool: "source-map",
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "static")
