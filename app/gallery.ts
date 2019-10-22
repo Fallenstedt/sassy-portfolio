@@ -1,14 +1,28 @@
-import { fromEvent, Observable, Subject, BehaviorSubject } from "rxjs";
-import { takeUntil, tap, take } from "rxjs/operators";
+import {
+  fromEvent,
+  Observable,
+  Subject,
+  BehaviorSubject,
+  of,
+  EMPTY
+} from "rxjs";
+import { takeUntil, tap, take, map, concatMap } from "rxjs/operators";
 import { Observed } from "./observed";
+import { MediaLoader } from "./styles/shared/media-loader";
 
-export class Gallery implements Observed {
+export class Gallery extends MediaLoader implements Observed {
   private selectedImage: BehaviorSubject<Event | null>;
   private unsubscribe!: Subject<void>;
 
-  constructor(public images: Array<HTMLImageElement>, public overlay: Element) {
+  constructor(
+    public images: Array<HTMLImageElement>,
+    public overlay: Element,
+    public carouselImages: Array<HTMLImageElement>
+  ) {
+    super();
     this.images = images;
     this.overlay = overlay;
+    this.carouselImages = carouselImages;
 
     this.unsubscribe = new Subject<void>();
     this.selectedImage = new BehaviorSubject<Event | null>(null);
@@ -21,6 +35,52 @@ export class Gallery implements Observed {
       i.subscribe()
     );
     this.queryOverlayObservable().subscribe();
+    this.selectedImage
+      .asObservable()
+      .pipe(
+        takeUntil(this.unsubscribe),
+        concatMap(e => {
+          if (e && e.srcElement) {
+            const s: HTMLImageElement = e.srcElement as HTMLImageElement;
+            return of(s);
+          } else {
+            return EMPTY;
+          }
+        }),
+        map((signal: HTMLImageElement) => {
+          if (signal && signal.attributes) {
+            return signal.attributes.getNamedItem("src");
+          }
+        })
+      )
+      .subscribe(signal => {
+        if (signal) {
+          const nextSrc = signal.value;
+          const nextImg = this.carouselImages.find(imageContainer => {
+            const image = imageContainer.querySelector("img");
+
+            if (image == null) {
+              throw "Image container must contain an image";
+            }
+
+            const carouselDataSrc = image.attributes.getNamedItem("data-src");
+            console.log(image.attributes);
+            if (carouselDataSrc == null) {
+              throw "Source cannot be null";
+            }
+
+            if (carouselDataSrc.value === nextSrc) {
+              return image;
+            }
+          });
+
+          if (nextImg == null) {
+            throw "Image cannot be null";
+          }
+
+          nextImg.src = nextSrc;
+        }
+      });
   }
 
   public listenForUnload() {
@@ -40,7 +100,8 @@ export class Gallery implements Observed {
       (i: HTMLImageElement) =>
         fromEvent(i, "click").pipe(
           takeUntil(this.unsubscribe),
-          tap(i => this.selectedImage.next(i)),
+          tap(e => e.preventDefault()),
+          tap(e => this.selectedImage.next(e)),
           tap(() => this.showOverlay())
         )
     );
@@ -53,11 +114,18 @@ export class Gallery implements Observed {
       "click"
     ).pipe(
       takeUntil(this.unsubscribe),
-      tap(() => console.log("overlay was clicked")),
-      tap(() => this.hideOverlay())
+      tap(e => e.preventDefault()),
+      tap(() => {
+        this.hideOverlay();
+        this.resetState();
+      })
     );
 
     return overlayObservable;
+  }
+
+  private resetState() {
+    this.selectedImage.next(null);
   }
 
   private showOverlay(): void {

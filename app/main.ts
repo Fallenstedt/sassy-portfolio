@@ -14,10 +14,14 @@ function createGallery() {
   const images: Array<HTMLImageElement> = Array.from(
     document.querySelectorAll(".gallery-img")
   );
-  if (!overlay && !images) {
+  const carouselImages: Array<HTMLImageElement> = Array.from(
+    document.querySelectorAll(".carousel-img")
+  );
+
+  if (!overlay && !images.length && !carouselImages.length) {
     return;
   }
-  new Gallery(images, <Element>overlay);
+  new Gallery(images, <Element>overlay, carouselImages);
 }
 
 function createLazyLoader() {

@@ -1,3 +1,5 @@
+import { MediaLoader } from "./styles/shared/media-loader";
+
 /**
  * How `<img>` tags should be made
  *  `<img
@@ -21,13 +23,14 @@
  * @param {string} targetClass the class attached to elements that need to be lazyily loaded. Defaults to '.lazy'
  */
 
-export class LazyLoader {
+export class LazyLoader extends MediaLoader {
   private elements!: Element[];
   private targetClass: string;
   private maxWidth: string;
   private loadedClassName: string;
 
   constructor(targetClass: string) {
+    super();
     this.elements = [];
     this.maxWidth = "640px";
     this.loadedClassName = "loaded";
@@ -54,19 +57,6 @@ export class LazyLoader {
         }
       );
       this.elements.forEach(element => mediaObserver.observe(element));
-    }
-  }
-
-  private replaceAttr(
-    node: HTMLElement,
-    sourceAttr: string,
-    targetAttr: string
-  ): void {
-    const src = node.getAttribute(sourceAttr);
-    if (src) {
-      // @ts-ignore
-      node[targetAttr] = src;
-      node.removeAttribute(sourceAttr);
     }
   }
 
