@@ -1,5 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: ["./app/main.ts"],
@@ -7,8 +9,8 @@ module.exports = {
   mode: "production",
   devtool: "source-map",
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "static")
+    filename: "js/[name].[hash].js",
+    path: path.resolve(__dirname, "static", "bundle")
   },
   module: {
     rules: [
@@ -39,10 +41,15 @@ module.exports = {
     extensions: [".js", ".ts"]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       //Writes all styles to a single style.css file.
 
-      filename: "css/[name].css"
+      filename: "css/[name].[hash].css"
+    }),
+    new ManifestPlugin({
+      fileName: "../../data/manifest.json",
+      publicPath: "bundle/"
     })
   ]
 };

@@ -1,6 +1,5 @@
 ---
 title: Creating environments in Flutter
-published: true
 description: A litmus test for whether an app has all config correctly factored out of the code is whether the codebase could be made open source at any moment, without compromising any credentials.
 date: 2019-02-24
 tags: ["flutter", "dart"]

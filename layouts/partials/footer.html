@@ -23,4 +23,5 @@
     </a>
   </div>
 </footer>
-<script src="{{ "main.js" | relURL }}"></script>
+<script src="{{ index .Site.Data.manifest "main.js" | relURL }}"></script>
+
