@@ -4,7 +4,8 @@ import {
   Subject,
   BehaviorSubject,
   of,
-  EMPTY
+  EMPTY,
+  Subscription
 } from "rxjs";
 import { takeUntil, tap, take, map, concatMap } from "rxjs/operators";
 import { Observed } from "./observed";
@@ -55,35 +56,41 @@ export class Gallery extends MediaLoader implements Observed {
       )
       .subscribe(signal => {
         if (signal) {
-          const nextSrc = signal.value;
-          const nextImg = this.carouselImages.find(imageContainer => {
-            const image = imageContainer.querySelector("img");
+          const selectedImageSrc = signal.value;
+          const carouselImageContainer = this.carouselImages.find(
+            this.findSelectedImageInCarousel(selectedImageSrc)
+          );
 
-            if (image == null) {
-              throw "Image container must contain an image";
+          if (carouselImageContainer) {
+            const image = carouselImageContainer.querySelector("img");
+            if (image) {
+              this.replaceAttr(image, "data-src", "src");
             }
-
-            const carouselDataSrc = image.attributes.getNamedItem("data-src");
-            console.log(image.attributes);
-            if (carouselDataSrc == null) {
-              throw "Source cannot be null";
-            }
-
-            if (carouselDataSrc.value === nextSrc) {
-              return image;
-            }
-          });
-
-          if (nextImg == null) {
-            throw "Image cannot be null";
           }
-
-          nextImg.src = nextSrc;
         }
       });
   }
 
-  public listenForUnload() {
+  private findSelectedImageInCarousel(
+    selectedImageSrc: string
+  ): (
+    value: HTMLImageElement,
+    index: number,
+    obj: HTMLImageElement[]
+  ) => HTMLElement | undefined {
+    return imageContainer => {
+      const image = imageContainer.querySelector("img");
+      if (image == null) {
+        throw "Image container must contain an image";
+      }
+      const carouselDataSrc = image.attributes.getNamedItem("data-src");
+      if (carouselDataSrc && carouselDataSrc.value === selectedImageSrc) {
+        return image;
+      }
+    };
+  }
+
+  public listenForUnload(): Subscription {
     return fromEvent(window, "unload")
       .pipe(
         tap(() => this.unsubscribe.next()),
