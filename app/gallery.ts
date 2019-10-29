@@ -32,35 +32,35 @@ export class Gallery extends MediaLoader implements Observed {
   }
 
   public init(): void {
-    this.queryImagesObservable(".gallery-img").forEach((i: Observable<Event>) =>
-      i.subscribe()
+    this.listenForGalleryImageClick(".gallery-img").forEach(
+      (i: Observable<Event>) => i.subscribe()
     );
-    this.queryOverlayObservable().subscribe();
-    this.selectedImage
-      .asObservable()
-      .pipe(
-        takeUntil(this.unsubscribe),
-        concatMap(e => {
-          if (e && e.srcElement) {
-            const s: HTMLImageElement = e.srcElement as HTMLImageElement;
-            return of(s);
-          } else {
-            return EMPTY;
-          }
-        }),
-        map((signal: HTMLImageElement) => {
-          if (signal && signal.attributes) {
-            return signal.attributes.getNamedItem("src");
-          }
-        })
-      )
-      .subscribe(signal => {
+    this.toggleOverlayVisibility().subscribe();
+    this.findSelectedImageInCarouselAndLoad().subscribe(() => {});
+  }
+
+  private findSelectedImageInCarouselAndLoad() {
+    return this.selectedImage.asObservable().pipe(
+      takeUntil(this.unsubscribe),
+      concatMap(e => {
+        if (e && e.srcElement) {
+          const s: HTMLImageElement = e.srcElement as HTMLImageElement;
+          return of(s);
+        } else {
+          return EMPTY;
+        }
+      }),
+      map((signal: HTMLImageElement) => {
+        if (signal && signal.attributes) {
+          return signal.attributes.getNamedItem("src");
+        }
+      }),
+      tap(signal => {
         if (signal) {
           const selectedImageSrc = signal.value;
           const carouselImageContainer = this.carouselImages.find(
             this.findSelectedImageInCarousel(selectedImageSrc)
           );
-
           if (carouselImageContainer) {
             const image = carouselImageContainer.querySelector("img");
             if (image) {
@@ -68,7 +68,8 @@ export class Gallery extends MediaLoader implements Observed {
             }
           }
         }
-      });
+      })
+    );
   }
 
   private findSelectedImageInCarousel(
@@ -99,7 +100,9 @@ export class Gallery extends MediaLoader implements Observed {
       .subscribe(() => {});
   }
 
-  private queryImagesObservable(className: string): Array<Observable<Event>> {
+  private listenForGalleryImageClick(
+    className: string
+  ): Array<Observable<Event>> {
     const images = <HTMLImageElement[]>(
       Array.from(document.querySelectorAll(className))
     );
@@ -115,7 +118,7 @@ export class Gallery extends MediaLoader implements Observed {
     return imageObservables;
   }
 
-  private queryOverlayObservable(): Observable<Event> {
+  private toggleOverlayVisibility(): Observable<Event> {
     const overlayObservable: Observable<Event> = fromEvent(
       this.overlay,
       "click"
