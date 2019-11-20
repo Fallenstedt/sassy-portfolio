@@ -1,4 +1,3 @@
-import "regenerator-runtime/runtime";
 import "./styles/main.scss";
 import { Nav } from "./nav";
 import { LazyLoader } from "./lazy-load";

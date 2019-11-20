@@ -2,9 +2,12 @@ export class TweetDto {
   public id: string;
   public message: string;
 
-  constructor(data: string) {
-    const tweet: { id: string; message: string } = JSON.parse(data);
-    this.id = tweet.id;
-    this.message = tweet.message;
+  constructor(data: any) {
+    this.id = data["id"];
+    this.message = data["message"];
+  }
+
+  static createEmptyDto() {
+    return new TweetDto({ id: "-1", message: "" });
   }
 }

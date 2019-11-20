@@ -5,7 +5,6 @@ export class HttpClient {
     url: string,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<string>> {
-    const d = await axios.get(url, config);
-    return d;
+    return await axios.get(url, config);
   }
 }
