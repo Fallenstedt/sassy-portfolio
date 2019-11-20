@@ -1,21 +1,35 @@
 footer {
   margin-top: 50px;
   margin-bottom: 50px;
-  display: flex;
-  flex-direction: column;
   position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   bottom: 0;
   height: 6.5rem;
+
+  @media (max-width: 889px) {
+    width: auto;
+    flex-direction: column;
+  }
 }
-.footer-contact p {
-  line-height: 0;
+
+.footer-contact p,
+.footer-tweet p {
   font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-tweet {
+  padding-bottom: 50px;
+  p {
+    max-width: 450px;
+  }
 }
 
 .footer-icons {
   display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
 }
 .social-icon {
   font-size: 1.2em;

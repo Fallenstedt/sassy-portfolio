@@ -1,4 +1,4 @@
-import { MediaLoader } from "./styles/shared/media-loader";
+import { MediaLoader } from "../shared/media-loader";
 
 /**
  * How `<img>` tags should be made

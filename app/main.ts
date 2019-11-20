@@ -1,41 +1,43 @@
 import "./styles/main.scss";
-import { Nav } from "./nav";
-import { LazyLoader } from "./lazy-load";
-import { prism } from "./prism";
-import { Gallery } from "./gallery";
-import { LatestTweet } from "./scripts/lib/services/latest-tweet";
+import { Nav } from "./scripts/lib/core/nav";
+import { LazyLoader } from "./scripts/lib/core/lazy-load";
+import { prism } from "./scripts/lib/core/prism";
+import { LatestTweetService } from "./scripts/lib/services/tweet/latest-tweet";
 import { TweetDto } from "./scripts/lib/models/tweet-dto";
+import { StoredTweetService } from "./scripts/lib/services/tweet/stored-tweet";
+import { ObtainTweet } from "./scripts/lib/services/tweet/obtain-tweet";
 
+new LazyLoader("");
 prism();
 createNav();
-createLazyLoader();
-createGallery();
-getTweet().then(data => {
-  console.log(data);
-});
 
-async function getTweet(): Promise<TweetDto> {
-  const tweetService = new LatestTweet();
-  const tweet = await tweetService.getLatestTweet();
-  return tweet;
-}
-function createGallery() {
-  const overlay: Element | null = document.querySelector(".gallery-overlay");
-  const images: Array<HTMLImageElement> = Array.from(
-    document.querySelectorAll(".gallery-img")
-  );
-  const carouselImages: Array<HTMLImageElement> = Array.from(
-    document.querySelectorAll(".carousel-img")
-  );
+getMyLatestTweet()
+  .then(t => {
+    const latestTweetHolder = document.querySelector(".latest-tweet");
+    if (latestTweetHolder) {
+      latestTweetHolder.innerHTML = t.message;
+    }
+  })
+  .catch(() => {
+    const title = document.querySelector(".latest-tweet-title");
+    if (title) {
+      title.innerHTML = "";
+    }
+  });
 
-  if (!overlay && !images.length && !carouselImages.length) {
-    return;
+async function getMyLatestTweet() {
+  let tweet: TweetDto;
+  const storedTweetStrategy = new StoredTweetService();
+  const context = new ObtainTweet(storedTweetStrategy);
+
+  tweet = await context.obtainTweet();
+  if (tweet.id === "") {
+    context.setStrategy(new LatestTweetService());
+    tweet = await context.obtainTweet();
+    storedTweetStrategy.storeLatestTweet(tweet);
   }
-  new Gallery(images, <Element>overlay, carouselImages);
-}
 
-function createLazyLoader() {
-  new LazyLoader("");
+  return Promise.resolve(tweet);
 }
 
 function createNav() {
@@ -45,5 +47,7 @@ function createNav() {
   if (toggleNav && overlay) {
     nav = new Nav({ toggleNav, overlay });
     nav.init();
+  } else {
+    throw "Nav items are not defined!";
   }
 }

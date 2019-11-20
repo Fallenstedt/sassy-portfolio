@@ -8,6 +8,6 @@ export class TweetDto {
   }
 
   static createEmptyDto() {
-    return new TweetDto({ id: "-1", message: "" });
+    return new TweetDto({ id: "", message: "" });
   }
 }

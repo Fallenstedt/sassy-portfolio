@@ -4,7 +4,7 @@ export class HttpClient {
   static async get(
     url: string,
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<string>> {
+  ): Promise<AxiosResponse<any>> {
     return await axios.get(url, config);
   }
 }

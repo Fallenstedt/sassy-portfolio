@@ -44,7 +44,6 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       //Writes all styles to a single style.css file.
-
       filename: "css/[name].[hash].css"
     }),
     new ManifestPlugin({
