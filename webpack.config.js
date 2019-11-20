@@ -4,7 +4,7 @@ const ManifestPlugin = require("webpack-manifest-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-  entry: ["./app/main.ts"],
+  entry: ["/node_modules/regenerator-runtime/runtime.js", "./app/main.ts"],
   watch: true,
   mode: "production",
   devtool: "source-map",
