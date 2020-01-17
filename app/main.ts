@@ -6,16 +6,24 @@ import { LatestTweetService } from "./scripts/lib/services/tweet/latest-tweet";
 import { TweetDto } from "./scripts/lib/models/tweet-dto";
 import { StoredTweetService } from "./scripts/lib/services/tweet/stored-tweet";
 import { ObtainTweet } from "./scripts/lib/services/tweet/obtain-tweet";
+import { buildSlickGallery } from "./scripts/lib/services/gallery/gallery";
 
 new LazyLoader("");
 prism();
 createNav();
+buildSlickGallery();
 
 getMyLatestTweet()
   .then(t => {
-    const latestTweetHolder = document.querySelector(".latest-tweet");
-    if (latestTweetHolder) {
-      latestTweetHolder.innerHTML = t.message;
+    if (t != null) {
+      const latestTweetHolder = document.querySelector(".latest-tweet");
+      const title = document.querySelector(".latest-tweet-title");
+      if (latestTweetHolder) {
+        latestTweetHolder.innerHTML = t.message;
+      }
+      if (title) {
+        title.innerHTML = "Latest Tweet";
+      }
     }
   })
   .catch(() => {
@@ -31,6 +39,7 @@ async function getMyLatestTweet() {
   const context = new ObtainTweet(storedTweetStrategy);
 
   tweet = await context.obtainTweet();
+
   if (tweet.id === "") {
     context.setStrategy(new LatestTweetService());
     tweet = await context.obtainTweet();

@@ -1,20 +1,20 @@
-<div class="gallery">
-  {{ range $i, $imgsrc :=  $.Page.Params.Images }}
-  <div class="gallery-img">
-    <img 
-      class="lazy"
-      src="/img/placeholder.png"
-      data-src="{{$imgsrc}}" alt="">
+{{ $images := .Page.Params.images }}
+{{ with $images }}
+
+<div class="gallery-container">
+  <!-- <img data-lazy="img/lazyfonz1.png"/> -->
+  {{ range $index, $img := . }}
+  <div class="gallery-img-container">
+    <img data-lazy="{{$img}}"/>
   </div>
-  {{ end }}
+  {{- end -}}
+</div>
+<div class="gallery-nav container">
+  {{ range $index, $img := . }}
+    <div class="gallery-img-container nav-item">
+      <img data-lazy="{{$img}}"/>
+    </div>
+  {{- end -}}
 </div>
 
-<div class="gallery-overlay hide">
-  {{ range $i, $imgsrc :=  $.Page.Params.Images }}
-  <div class="carousel-img">
-    <img 
-      src="/img/placeholder.png"
-      data-src="{{$imgsrc}}" alt="">
-  </div>
-  {{ end }}
-</div>
+{{end}}
