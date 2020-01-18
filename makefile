@@ -4,7 +4,7 @@ S3=aws s3
 BUCKET=s3://fallenstedt.com
 
 
-all: clean build purge upload
+all: clean build_web build_hugo purge upload
 clean:
 	@echo "Removing public/"
 	-rm -rf public/
