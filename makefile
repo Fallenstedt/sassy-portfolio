@@ -1,4 +1,5 @@
-HUGOCMD=hugo
+HUGO_CMD=hugo
+WEBPACK_CMD=npm run build:webpack
 S3=aws s3
 BUCKET=s3://fallenstedt.com
 
@@ -8,9 +9,13 @@ clean:
 	@echo "Removing public/"
 	-rm -rf public/
 	@echo "public/ removed"
-build:
+build_web:
+	@echo "building webpack in production mode"
+	${WEBPACK_CMD}
+	@echo "finished build webpack in production mode"
+build_hugo:
 	@echo "Building to /public"
-	${HUGOCMD}
+	${HUGO_CMD}
 	@echo "Built to /public"
 purge:
 	@echo "Cleaning S3 Bucket"
