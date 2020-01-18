@@ -2,7 +2,6 @@
 {{ with $images }}
 
 <div class="gallery-container">
-  <!-- <img data-lazy="img/lazyfonz1.png"/> -->
   {{ range $index, $img := . }}
   <div class="gallery-img-container">
     <img data-lazy="{{$img}}"/>
@@ -11,7 +10,7 @@
 </div>
 <div class="gallery-nav container">
   {{ range $index, $img := . }}
-    <div class="gallery-img-container nav-item">
+    <div class="gallery-nav-item">
       <img data-lazy="{{$img}}"/>
     </div>
   {{- end -}}

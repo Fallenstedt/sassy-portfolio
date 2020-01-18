@@ -23,9 +23,11 @@
 .gallery-nav {
   max-width: 80%;
 
-  .nav-item {
-    height: 100px;
-    margin: 10px;
+  .gallery-nav-item {
+    img {
+      height: 80px;
+      margin: 0 auto;
+    }
   }
 }
 

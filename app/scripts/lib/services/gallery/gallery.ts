@@ -16,6 +16,7 @@ export function buildSlickGallery() {
     slidesToScroll: 3,
     asNavFor: ".gallery-container",
     dots: true,
+    lazyLoad: "ondemand",
     centerMode: true,
     focusOnSelect: true,
     responsive: [
