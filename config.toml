@@ -54,8 +54,8 @@ name = "about"
 title = "About"
 url = "/"
 
-# [[menu.main]]
-# identifier = "blog"
-# name = "blog"
-# title = "Blog"
-# url = "/blog"
+[[menu.main]]
+identifier = "blog"
+name = "blog"
+title = "Blog"
+url = "/blog"

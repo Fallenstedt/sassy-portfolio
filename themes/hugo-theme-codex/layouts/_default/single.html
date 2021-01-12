@@ -23,6 +23,7 @@
           {{ template "_internal/disqus.html" . }}
           <footer class="post__footer">
             {{ partial "social-icons.html" .}}
+            {{ partial "latest-tweet.html" .}}
             <p>{{ replace .Site.Copyright "{year}" now.Year }}</p>
           </footer>
           </div>
