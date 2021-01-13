@@ -12,6 +12,13 @@
   }
 }
 
+.post__header {
+  a {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
 .post__header .tags__list {
   display: none;
   padding-left: 0;

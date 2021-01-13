@@ -13,12 +13,14 @@
       <div class="post__header">
         <time class="post__date" datetime="{{ .Date }}"
           >{{ .Date.Format $dateFormat }}</time>
+          <a href="{{.RelPermalink}}">
         <h2 class="post__title">
-          <a href="{{.RelPermalink}}">{{ .Title }}</a>
+          {{ .Title }}
         </h2>
         <p class="post__description">
-          <a href="{{.RelPermalink}}">{{ .Description }}</a>
+          {{ .Description }}
         </p>
+      </a>
         {{ partial "tags.html" .}}
       </div>
     </li>
