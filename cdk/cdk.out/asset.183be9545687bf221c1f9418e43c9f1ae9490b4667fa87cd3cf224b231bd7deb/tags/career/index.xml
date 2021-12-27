@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>career on Alex Fallenstedt</title>
+    <link>https://fallenstedt.com/tags/career/</link>
+    <description>Recent content in career on Alex Fallenstedt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© {year}</copyright>
+    <lastBuildDate>Tue, 12 Jan 2021 12:36:41 -0800</lastBuildDate><atom:link href="https://fallenstedt.com/tags/career/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Three Steps I Took to Get a Job Offer From Amazon</title>
+      <link>https://fallenstedt.com/blog/how-to-succeed-at-interviews/</link>
+      <pubDate>Tue, 12 Jan 2021 12:36:41 -0800</pubDate>
+      
+      <guid>https://fallenstedt.com/blog/how-to-succeed-at-interviews/</guid>
+      <description>Last year, I took the plunge and applied for a Frontend Engineering Position at Amazon. I knew little about the interview process and I had just one month to prepare for it. The result? I got an offer. In fact, the use of the interview techniques below granted me the opportunity to choose between two competing job offers. In this guide I will reveal the steps I took in order to become a competitive candidate.</description>
+    </item>
+    
+  </channel>
+</rss>

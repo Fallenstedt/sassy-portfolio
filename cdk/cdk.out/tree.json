@@ -1,0 +1,1944 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.137.0"
+        }
+      },
+      "FallenstedtSiteStack": {
+        "id": "FallenstedtSiteStack",
+        "path": "FallenstedtSiteStack",
+        "children": {
+          "StaticSite": {
+            "id": "StaticSite",
+            "path": "FallenstedtSiteStack/StaticSite",
+            "children": {
+              "Zone": {
+                "id": "Zone",
+                "path": "FallenstedtSiteStack/StaticSite/Zone",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Resource",
+                  "version": "1.137.0"
+                }
+              },
+              "cloudfront-OAI": {
+                "id": "cloudfront-OAI",
+                "path": "FallenstedtSiteStack/StaticSite/cloudfront-OAI",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FallenstedtSiteStack/StaticSite/cloudfront-OAI/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                      "aws:cdk:cloudformation:props": {
+                        "cloudFrontOriginAccessIdentityConfig": {
+                          "comment": "OAI for StaticSite"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-cloudfront.CfnCloudFrontOriginAccessIdentity",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-cloudfront.OriginAccessIdentity",
+                  "version": "1.137.0"
+                }
+              },
+              "SiteBucket": {
+                "id": "SiteBucket",
+                "path": "FallenstedtSiteStack/StaticSite/SiteBucket",
+                "children": {
+                  "Notifications": {
+                    "id": "Notifications",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteBucket/Notifications",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.Construct",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteBucket/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                      "aws:cdk:cloudformation:props": {
+                        "bucketName": "www.fallenstedt.com",
+                        "publicAccessBlockConfiguration": {
+                          "blockPublicAcls": true,
+                          "blockPublicPolicy": true,
+                          "ignorePublicAcls": true,
+                          "restrictPublicBuckets": true
+                        },
+                        "tags": [
+                          {
+                            "key": "aws-cdk:auto-delete-objects",
+                            "value": "true"
+                          },
+                          {
+                            "key": "aws-cdk:cr-owned:8163eb26",
+                            "value": "true"
+                          }
+                        ],
+                        "websiteConfiguration": {
+                          "indexDocument": "index.html",
+                          "errorDocument": "error.html"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.CfnBucket",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "Policy": {
+                    "id": "Policy",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteBucket/Policy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/SiteBucket/Policy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                          "aws:cdk:cloudformation:props": {
+                            "bucket": {
+                              "Ref": "StaticSiteSiteBucket1A888BC8"
+                            },
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "AWS": {
+                                      "Fn::GetAtt": [
+                                        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                        "Arn"
+                                      ]
+                                    }
+                                  },
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "StaticSiteSiteBucket1A888BC8",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "StaticSiteSiteBucket1A888BC8",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": "s3:GetObject",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "CanonicalUser": {
+                                      "Fn::GetAtt": [
+                                        "StaticSitecloudfrontOAI03C2A8A9",
+                                        "S3CanonicalUserId"
+                                      ]
+                                    }
+                                  },
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "StaticSiteSiteBucket1A888BC8",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/*"
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.CfnBucketPolicy",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketPolicy",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "AutoDeleteObjectsCustomResource": {
+                    "id": "AutoDeleteObjectsCustomResource",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteBucket/AutoDeleteObjectsCustomResource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "FallenstedtSiteStack/StaticSite/SiteBucket/AutoDeleteObjectsCustomResource/Default",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CfnResource",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CustomResource",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3.Bucket",
+                  "version": "1.137.0"
+                }
+              },
+              "SiteCertificate": {
+                "id": "SiteCertificate",
+                "path": "FallenstedtSiteStack/StaticSite/SiteCertificate",
+                "children": {
+                  "CertificateRequestorFunction": {
+                    "id": "CertificateRequestorFunction",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction",
+                    "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/ServiceRole",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnRole",
+                              "version": "1.137.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "acm:RequestCertificate",
+                                            "acm:DescribeCertificate",
+                                            "acm:DeleteCertificate",
+                                            "acm:AddTagsToCertificate"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": "*"
+                                        },
+                                        {
+                                          "Action": "route53:GetChange",
+                                          "Effect": "Allow",
+                                          "Resource": "*"
+                                        },
+                                        {
+                                          "Action": "route53:changeResourceRecordSets",
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Fn::Join": [
+                                              "",
+                                              [
+                                                "arn:",
+                                                {
+                                                  "Ref": "AWS::Partition"
+                                                },
+                                                ":route53:::hostedzone/Z2BZP5FQNYTUDQ"
+                                              ]
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "StaticSiteSiteCertificateCertificateRequestorFunctionServiceRoleDefaultPolicyFC20309A",
+                                    "roles": [
+                                      {
+                                        "Ref": "StaticSiteSiteCertificateCertificateRequestorFunctionServiceRole7FA09955"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                  "version": "1.137.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Policy",
+                              "version": "1.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Role",
+                          "version": "1.137.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.AssetStaging",
+                              "version": "1.137.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/Code/AssetBucket",
+                            "children": {
+                              "Notifications": {
+                                "id": "Notifications",
+                                "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/Code/AssetBucket/Notifications",
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/core.Construct",
+                                  "version": "1.137.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.BucketBase",
+                              "version": "1.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                          "version": "1.137.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorFunction/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "code": {
+                              "s3Bucket": {
+                                "Ref": "AssetParameters0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6ebS3Bucket4E3B9FF5"
+                              },
+                              "s3Key": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        0,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "AssetParameters0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6ebS3VersionKey452327A9"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Select": [
+                                        1,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "AssetParameters0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6ebS3VersionKey452327A9"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "role": {
+                              "Fn::GetAtt": [
+                                "StaticSiteSiteCertificateCertificateRequestorFunctionServiceRole7FA09955",
+                                "Arn"
+                              ]
+                            },
+                            "handler": "index.certificateRequestHandler",
+                            "runtime": "nodejs12.x",
+                            "timeout": 900
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.Function",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "CertificateRequestorResource": {
+                    "id": "CertificateRequestorResource",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorResource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "FallenstedtSiteStack/StaticSite/SiteCertificate/CertificateRequestorResource/Default",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CfnResource",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CustomResource",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-certificatemanager.DnsValidatedCertificate",
+                  "version": "1.137.0"
+                }
+              },
+              "Lambda": {
+                "id": "Lambda",
+                "path": "FallenstedtSiteStack/StaticSite/Lambda",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "FallenstedtSiteStack/StaticSite/Lambda/ServiceRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/Lambda/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "edgelambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FallenstedtSiteStack/StaticSite/Lambda/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "zipFile": "function handler(event) {\n\t\t\t\t\t\t\t\t\t\t\t\t\tvar request = event.request;\n\t\t\t\t\t\t\t\t\t\t\t\t\tvar uri = request.uri;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t// Check whether the URI is missing a file name.\n\t\t\t\t\t\t\t\t\t\t\t\t\tif (uri.endsWith('/')) {\n\t\t\t\t\t\t\t\t\t\t\t\t\t\trequest.uri += 'index.html';\n\t\t\t\t\t\t\t\t\t\t\t\t\t} \n\t\t\t\t\t\t\t\t\t\t\t\t\t// Check whether the URI is missing a file extension.\n\t\t\t\t\t\t\t\t\t\t\t\t\telse if (!uri.includes('.')) {\n\t\t\t\t\t\t\t\t\t\t\t\t\t\trequest.uri += '/index.html';\n\t\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\treturn request;\n\t\t\t\t\t\t\t\t\t\t\t\t}"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "StaticSiteLambdaServiceRoleB9F6D580",
+                            "Arn"
+                          ]
+                        },
+                        "handler": "index.handler",
+                        "runtime": "nodejs14.x"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.Function",
+                  "version": "1.137.0"
+                }
+              },
+              "LambdaVersion": {
+                "id": "LambdaVersion",
+                "path": "FallenstedtSiteStack/StaticSite/LambdaVersion",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FallenstedtSiteStack/StaticSite/LambdaVersion/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Version",
+                      "aws:cdk:cloudformation:props": {
+                        "functionName": {
+                          "Ref": "StaticSiteLambda07E8F0D0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.CfnVersion",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.Version",
+                  "version": "1.137.0"
+                }
+              },
+              "SiteDistribution": {
+                "id": "SiteDistribution",
+                "path": "FallenstedtSiteStack/StaticSite/SiteDistribution",
+                "children": {
+                  "CFDistribution": {
+                    "id": "CFDistribution",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteDistribution/CFDistribution",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
+                      "aws:cdk:cloudformation:props": {
+                        "distributionConfig": {
+                          "enabled": true,
+                          "defaultRootObject": "index.html",
+                          "httpVersion": "http2",
+                          "priceClass": "PriceClass_100",
+                          "ipv6Enabled": true,
+                          "origins": [
+                            {
+                              "id": "origin1",
+                              "domainName": {
+                                "Fn::GetAtt": [
+                                  "StaticSiteSiteBucket1A888BC8",
+                                  "RegionalDomainName"
+                                ]
+                              },
+                              "s3OriginConfig": {
+                                "originAccessIdentity": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "origin-access-identity/cloudfront/",
+                                      {
+                                        "Ref": "StaticSitecloudfrontOAI03C2A8A9"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              },
+                              "connectionAttempts": 3,
+                              "connectionTimeout": 10
+                            }
+                          ],
+                          "defaultCacheBehavior": {
+                            "allowedMethods": [
+                              "GET",
+                              "HEAD",
+                              "OPTIONS"
+                            ],
+                            "cachedMethods": [
+                              "GET",
+                              "HEAD"
+                            ],
+                            "compress": true,
+                            "forwardedValues": {
+                              "queryString": false,
+                              "cookies": {
+                                "forward": "none"
+                              }
+                            },
+                            "targetOriginId": "origin1",
+                            "viewerProtocolPolicy": "redirect-to-https",
+                            "lambdaFunctionAssociations": [
+                              {
+                                "eventType": "origin-request",
+                                "lambdaFunctionArn": {
+                                  "Ref": "StaticSiteLambdaVersion180AD4A5"
+                                }
+                              }
+                            ]
+                          },
+                          "aliases": [
+                            "www.fallenstedt.com"
+                          ],
+                          "viewerCertificate": {
+                            "acmCertificateArn": {
+                              "Fn::GetAtt": [
+                                "StaticSiteSiteCertificateCertificateRequestorResourceB92D481B",
+                                "Arn"
+                              ]
+                            },
+                            "sslSupportMethod": "sni-only",
+                            "minimumProtocolVersion": "TLSv1.1_2016"
+                          }
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-cloudfront.CfnDistribution",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-cloudfront.CloudFrontWebDistribution",
+                  "version": "1.137.0"
+                }
+              },
+              "SiteAliasRecord": {
+                "id": "SiteAliasRecord",
+                "path": "FallenstedtSiteStack/StaticSite/SiteAliasRecord",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FallenstedtSiteStack/StaticSite/SiteAliasRecord/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                      "aws:cdk:cloudformation:props": {
+                        "name": "www.fallenstedt.com.",
+                        "type": "A",
+                        "aliasTarget": {
+                          "hostedZoneId": {
+                            "Fn::FindInMap": [
+                              "AWSCloudFrontPartitionHostedZoneIdMap",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              "zoneId"
+                            ]
+                          },
+                          "dnsName": {
+                            "Fn::GetAtt": [
+                              "StaticSiteSiteDistributionCFDistribution500D676B",
+                              "DomainName"
+                            ]
+                          }
+                        },
+                        "hostedZoneId": "Z2BZP5FQNYTUDQ"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-route53.CfnRecordSet",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-route53.ARecord",
+                  "version": "1.137.0"
+                }
+              },
+              "Redirect": {
+                "id": "Redirect",
+                "path": "FallenstedtSiteStack/StaticSite/Redirect",
+                "children": {
+                  "RedirectCertificate": {
+                    "id": "RedirectCertificate",
+                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate",
+                    "children": {
+                      "CertificateRequestorFunction": {
+                        "id": "CertificateRequestorFunction",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction",
+                        "children": {
+                          "ServiceRole": {
+                            "id": "ServiceRole",
+                            "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/ServiceRole",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/ServiceRole/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                                  "aws:cdk:cloudformation:props": {
+                                    "assumeRolePolicyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sts:AssumeRole",
+                                          "Effect": "Allow",
+                                          "Principal": {
+                                            "Service": "lambda.amazonaws.com"
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "managedPolicyArns": [
+                                      {
+                                        "Fn::Join": [
+                                          "",
+                                          [
+                                            "arn:",
+                                            {
+                                              "Ref": "AWS::Partition"
+                                            },
+                                            ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                          ]
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.CfnRole",
+                                  "version": "1.137.0"
+                                }
+                              },
+                              "DefaultPolicy": {
+                                "id": "DefaultPolicy",
+                                "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/ServiceRole/DefaultPolicy",
+                                "children": {
+                                  "Resource": {
+                                    "id": "Resource",
+                                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/ServiceRole/DefaultPolicy/Resource",
+                                    "attributes": {
+                                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                      "aws:cdk:cloudformation:props": {
+                                        "policyDocument": {
+                                          "Statement": [
+                                            {
+                                              "Action": [
+                                                "acm:RequestCertificate",
+                                                "acm:DescribeCertificate",
+                                                "acm:DeleteCertificate",
+                                                "acm:AddTagsToCertificate"
+                                              ],
+                                              "Effect": "Allow",
+                                              "Resource": "*"
+                                            },
+                                            {
+                                              "Action": "route53:GetChange",
+                                              "Effect": "Allow",
+                                              "Resource": "*"
+                                            },
+                                            {
+                                              "Action": "route53:changeResourceRecordSets",
+                                              "Effect": "Allow",
+                                              "Resource": {
+                                                "Fn::Join": [
+                                                  "",
+                                                  [
+                                                    "arn:",
+                                                    {
+                                                      "Ref": "AWS::Partition"
+                                                    },
+                                                    ":route53:::hostedzone/Z2BZP5FQNYTUDQ"
+                                                  ]
+                                                ]
+                                              }
+                                            }
+                                          ],
+                                          "Version": "2012-10-17"
+                                        },
+                                        "policyName": "StaticSiteRedirectRedirectCertificateCertificateRequestorFunctionServiceRoleDefaultPolicy41CA8CA6",
+                                        "roles": [
+                                          {
+                                            "Ref": "StaticSiteRedirectRedirectCertificateCertificateRequestorFunctionServiceRoleDD4F3605"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "constructInfo": {
+                                      "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                                      "version": "1.137.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-iam.Policy",
+                                  "version": "1.137.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.Role",
+                              "version": "1.137.0"
+                            }
+                          },
+                          "Code": {
+                            "id": "Code",
+                            "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/Code",
+                            "children": {
+                              "Stage": {
+                                "id": "Stage",
+                                "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/Code/Stage",
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/core.AssetStaging",
+                                  "version": "1.137.0"
+                                }
+                              },
+                              "AssetBucket": {
+                                "id": "AssetBucket",
+                                "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/Code/AssetBucket",
+                                "children": {
+                                  "Notifications": {
+                                    "id": "Notifications",
+                                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/Code/AssetBucket/Notifications",
+                                    "constructInfo": {
+                                      "fqn": "@aws-cdk/core.Construct",
+                                      "version": "1.137.0"
+                                    }
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/aws-s3.BucketBase",
+                                  "version": "1.137.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                              "version": "1.137.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorFunction/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                              "aws:cdk:cloudformation:props": {
+                                "code": {
+                                  "s3Bucket": {
+                                    "Ref": "AssetParameters0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6ebS3Bucket4E3B9FF5"
+                                  },
+                                  "s3Key": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::Select": [
+                                            0,
+                                            {
+                                              "Fn::Split": [
+                                                "||",
+                                                {
+                                                  "Ref": "AssetParameters0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6ebS3VersionKey452327A9"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Select": [
+                                            1,
+                                            {
+                                              "Fn::Split": [
+                                                "||",
+                                                {
+                                                  "Ref": "AssetParameters0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6ebS3VersionKey452327A9"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "role": {
+                                  "Fn::GetAtt": [
+                                    "StaticSiteRedirectRedirectCertificateCertificateRequestorFunctionServiceRoleDD4F3605",
+                                    "Arn"
+                                  ]
+                                },
+                                "handler": "index.certificateRequestHandler",
+                                "runtime": "nodejs12.x",
+                                "timeout": 900
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                              "version": "1.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.Function",
+                          "version": "1.137.0"
+                        }
+                      },
+                      "CertificateRequestorResource": {
+                        "id": "CertificateRequestorResource",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorResource",
+                        "children": {
+                          "Default": {
+                            "id": "Default",
+                            "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectCertificate/CertificateRequestorResource/Default",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.CfnResource",
+                              "version": "1.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CustomResource",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-certificatemanager.DnsValidatedCertificate",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "RedirectBucket": {
+                    "id": "RedirectBucket",
+                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectBucket",
+                    "children": {
+                      "Notifications": {
+                        "id": "Notifications",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectBucket/Notifications",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.137.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectBucket/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                          "aws:cdk:cloudformation:props": {
+                            "publicAccessBlockConfiguration": {
+                              "blockPublicAcls": true,
+                              "blockPublicPolicy": true,
+                              "ignorePublicAcls": true,
+                              "restrictPublicBuckets": true
+                            },
+                            "websiteConfiguration": {
+                              "redirectAllRequestsTo": {
+                                "hostName": "www.fallenstedt.com",
+                                "protocol": "https"
+                              }
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.CfnBucket",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.Bucket",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "RedirectDistribution": {
+                    "id": "RedirectDistribution",
+                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectDistribution",
+                    "children": {
+                      "CFDistribution": {
+                        "id": "CFDistribution",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectDistribution/CFDistribution",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
+                          "aws:cdk:cloudformation:props": {
+                            "distributionConfig": {
+                              "comment": "Redirect to www.fallenstedt.com from fallenstedt.com",
+                              "enabled": true,
+                              "defaultRootObject": "",
+                              "httpVersion": "http2",
+                              "priceClass": "PriceClass_All",
+                              "ipv6Enabled": true,
+                              "origins": [
+                                {
+                                  "id": "origin1",
+                                  "domainName": {
+                                    "Fn::Select": [
+                                      2,
+                                      {
+                                        "Fn::Split": [
+                                          "/",
+                                          {
+                                            "Fn::GetAtt": [
+                                              "StaticSiteRedirectRedirectBucketDD843C33",
+                                              "WebsiteURL"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "customOriginConfig": {
+                                    "httpPort": 80,
+                                    "httpsPort": 443,
+                                    "originKeepaliveTimeout": 5,
+                                    "originReadTimeout": 30,
+                                    "originProtocolPolicy": "http-only",
+                                    "originSslProtocols": [
+                                      "TLSv1.2"
+                                    ]
+                                  },
+                                  "connectionAttempts": 3,
+                                  "connectionTimeout": 10
+                                }
+                              ],
+                              "defaultCacheBehavior": {
+                                "allowedMethods": [
+                                  "GET",
+                                  "HEAD"
+                                ],
+                                "cachedMethods": [
+                                  "GET",
+                                  "HEAD"
+                                ],
+                                "compress": true,
+                                "forwardedValues": {
+                                  "queryString": false,
+                                  "cookies": {
+                                    "forward": "none"
+                                  }
+                                },
+                                "targetOriginId": "origin1",
+                                "viewerProtocolPolicy": "redirect-to-https"
+                              },
+                              "aliases": [
+                                "fallenstedt.com"
+                              ],
+                              "viewerCertificate": {
+                                "acmCertificateArn": {
+                                  "Fn::GetAtt": [
+                                    "StaticSiteRedirectRedirectCertificateCertificateRequestorResourceC0A2D7C3",
+                                    "Arn"
+                                  ]
+                                },
+                                "sslSupportMethod": "sni-only"
+                              }
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-cloudfront.CfnDistribution",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-cloudfront.CloudFrontWebDistribution",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "RedirectAliasRecord968f78": {
+                    "id": "RedirectAliasRecord968f78",
+                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectAliasRecord968f78",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectAliasRecord968f78/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                          "aws:cdk:cloudformation:props": {
+                            "name": "fallenstedt.com.",
+                            "type": "A",
+                            "aliasTarget": {
+                              "hostedZoneId": {
+                                "Fn::FindInMap": [
+                                  "AWSCloudFrontPartitionHostedZoneIdMap",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  "zoneId"
+                                ]
+                              },
+                              "dnsName": {
+                                "Fn::GetAtt": [
+                                  "StaticSiteRedirectRedirectDistributionCFDistributionB784EA3B",
+                                  "DomainName"
+                                ]
+                              }
+                            },
+                            "hostedZoneId": "Z2BZP5FQNYTUDQ"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-route53.CfnRecordSet",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-route53.ARecord",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "RedirectAliasRecordSix968f78": {
+                    "id": "RedirectAliasRecordSix968f78",
+                    "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectAliasRecordSix968f78",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/Redirect/RedirectAliasRecordSix968f78/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Route53::RecordSet",
+                          "aws:cdk:cloudformation:props": {
+                            "name": "fallenstedt.com.",
+                            "type": "AAAA",
+                            "aliasTarget": {
+                              "hostedZoneId": {
+                                "Fn::FindInMap": [
+                                  "AWSCloudFrontPartitionHostedZoneIdMap",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  "zoneId"
+                                ]
+                              },
+                              "dnsName": {
+                                "Fn::GetAtt": [
+                                  "StaticSiteRedirectRedirectDistributionCFDistributionB784EA3B",
+                                  "DomainName"
+                                ]
+                              }
+                            },
+                            "hostedZoneId": "Z2BZP5FQNYTUDQ"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-route53.CfnRecordSet",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-route53.AaaaRecord",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-route53-patterns.HttpsRedirect",
+                  "version": "1.137.0"
+                }
+              },
+              "DeployWithInvalidation": {
+                "id": "DeployWithInvalidation",
+                "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation",
+                "children": {
+                  "AwsCliLayer": {
+                    "id": "AwsCliLayer",
+                    "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/AwsCliLayer",
+                    "children": {
+                      "Code": {
+                        "id": "Code",
+                        "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/AwsCliLayer/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/AwsCliLayer/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.AssetStaging",
+                              "version": "1.137.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/AwsCliLayer/Code/AssetBucket",
+                            "children": {
+                              "Notifications": {
+                                "id": "Notifications",
+                                "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/AwsCliLayer/Code/AssetBucket/Notifications",
+                                "constructInfo": {
+                                  "fqn": "@aws-cdk/core.Construct",
+                                  "version": "1.137.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-s3.BucketBase",
+                              "version": "1.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                          "version": "1.137.0"
+                        }
+                      },
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/AwsCliLayer/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
+                          "aws:cdk:cloudformation:props": {
+                            "content": {
+                              "s3Bucket": {
+                                "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3BucketAEADE8C7"
+                              },
+                              "s3Key": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::Select": [
+                                        0,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Select": [
+                                        1,
+                                        {
+                                          "Fn::Split": [
+                                            "||",
+                                            {
+                                              "Ref": "AssetParameterse9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68S3VersionKeyE415415F"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "description": "/opt/awscli/aws"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-lambda.CfnLayerVersion",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/lambda-layer-awscli.AwsCliLayer",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "CustomResourceHandler": {
+                    "id": "CustomResourceHandler",
+                    "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/CustomResourceHandler",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-lambda.SingletonFunction",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "Asset1": {
+                    "id": "Asset1",
+                    "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/Asset1",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/Asset1/Stage",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.AssetStaging",
+                          "version": "1.137.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/Asset1/AssetBucket",
+                        "children": {
+                          "Notifications": {
+                            "id": "Notifications",
+                            "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/Asset1/AssetBucket/Notifications",
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/core.Construct",
+                              "version": "1.137.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-s3.BucketBase",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "CustomResource": {
+                    "id": "CustomResource",
+                    "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/CustomResource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "FallenstedtSiteStack/StaticSite/DeployWithInvalidation/CustomResource/Default",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.CfnResource",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CustomResource",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-deployment.BucketDeployment",
+                  "version": "1.137.0"
+                }
+              },
+              "Site": {
+                "id": "Site",
+                "path": "FallenstedtSiteStack/StaticSite/Site",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.137.0"
+                }
+              },
+              "Certificate": {
+                "id": "Certificate",
+                "path": "FallenstedtSiteStack/StaticSite/Certificate",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.137.0"
+                }
+              },
+              "DistributionId": {
+                "id": "DistributionId",
+                "path": "FallenstedtSiteStack/StaticSite/DistributionId",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.137.0"
+                }
+              },
+              "WWWRootBucket": {
+                "id": "WWWRootBucket",
+                "path": "FallenstedtSiteStack/StaticSite/WWWRootBucket",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnOutput",
+                  "version": "1.137.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.137.0"
+            }
+          },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "FallenstedtSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "FallenstedtSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.AssetStaging",
+                  "version": "1.137.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "FallenstedtSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.137.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "FallenstedtSiteStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.137.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CustomResourceProvider",
+              "version": "1.137.0"
+            }
+          },
+          "AssetParameters": {
+            "id": "AssetParameters",
+            "path": "FallenstedtSiteStack/AssetParameters",
+            "children": {
+              "1f7e277bd526ebce1983fa1e7a84a5281ec533d9187caaebb773681bbf7bf4c1": {
+                "id": "1f7e277bd526ebce1983fa1e7a84a5281ec533d9187caaebb773681bbf7bf4c1",
+                "path": "FallenstedtSiteStack/AssetParameters/1f7e277bd526ebce1983fa1e7a84a5281ec533d9187caaebb773681bbf7bf4c1",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "FallenstedtSiteStack/AssetParameters/1f7e277bd526ebce1983fa1e7a84a5281ec533d9187caaebb773681bbf7bf4c1/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "FallenstedtSiteStack/AssetParameters/1f7e277bd526ebce1983fa1e7a84a5281ec533d9187caaebb773681bbf7bf4c1/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "FallenstedtSiteStack/AssetParameters/1f7e277bd526ebce1983fa1e7a84a5281ec533d9187caaebb773681bbf7bf4c1/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.137.0"
+                }
+              },
+              "0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6eb": {
+                "id": "0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6eb",
+                "path": "FallenstedtSiteStack/AssetParameters/0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6eb",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "FallenstedtSiteStack/AssetParameters/0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6eb/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "FallenstedtSiteStack/AssetParameters/0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6eb/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "FallenstedtSiteStack/AssetParameters/0656e5a71076566b8f7f3f2bf90bb1d480ccbf2573d2e15e8ca4155f5800b6eb/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.137.0"
+                }
+              },
+              "e9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68": {
+                "id": "e9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68",
+                "path": "FallenstedtSiteStack/AssetParameters/e9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "FallenstedtSiteStack/AssetParameters/e9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "FallenstedtSiteStack/AssetParameters/e9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "FallenstedtSiteStack/AssetParameters/e9882ab123687399f934da0d45effe675ecc8ce13b40cb946f3e1d6141fe8d68/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.137.0"
+                }
+              },
+              "e3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0": {
+                "id": "e3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0",
+                "path": "FallenstedtSiteStack/AssetParameters/e3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "FallenstedtSiteStack/AssetParameters/e3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "FallenstedtSiteStack/AssetParameters/e3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "FallenstedtSiteStack/AssetParameters/e3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.137.0"
+                }
+              },
+              "183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7deb": {
+                "id": "183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7deb",
+                "path": "FallenstedtSiteStack/AssetParameters/183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7deb",
+                "children": {
+                  "S3Bucket": {
+                    "id": "S3Bucket",
+                    "path": "FallenstedtSiteStack/AssetParameters/183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7deb/S3Bucket",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "S3VersionKey": {
+                    "id": "S3VersionKey",
+                    "path": "FallenstedtSiteStack/AssetParameters/183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7deb/S3VersionKey",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "ArtifactHash": {
+                    "id": "ArtifactHash",
+                    "path": "FallenstedtSiteStack/AssetParameters/183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7deb/ArtifactHash",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.CfnParameter",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Construct",
+                  "version": "1.137.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.137.0"
+            }
+          },
+          "AWSCloudFrontPartitionHostedZoneIdMap": {
+            "id": "AWSCloudFrontPartitionHostedZoneIdMap",
+            "path": "FallenstedtSiteStack/AWSCloudFrontPartitionHostedZoneIdMap",
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CfnMapping",
+              "version": "1.137.0"
+            }
+          },
+          "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C": {
+            "id": "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
+            "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
+            "children": {
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.CfnRole",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":s3:::",
+                                          {
+                                            "Ref": "AssetParameters183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7debS3BucketE60E10B9"
+                                          }
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:",
+                                          {
+                                            "Ref": "AWS::Partition"
+                                          },
+                                          ":s3:::",
+                                          {
+                                            "Ref": "AssetParameters183be9545687bf221c1f9418e43c9f1ae9490b4667fa87cd3cf224b231bd7debS3BucketE60E10B9"
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "s3:GetObject*",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*",
+                                    "s3:PutObject*",
+                                    "s3:Abort*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "StaticSiteSiteBucket1A888BC8",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "StaticSiteSiteBucket1A888BC8",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "cloudfront:GetInvalidation",
+                                    "cloudfront:CreateInvalidation"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+                            "roles": [
+                              {
+                                "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Policy",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-iam.Role",
+                  "version": "1.137.0"
+                }
+              },
+              "Code": {
+                "id": "Code",
+                "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/core.AssetStaging",
+                      "version": "1.137.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket",
+                    "children": {
+                      "Notifications": {
+                        "id": "Notifications",
+                        "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket/Notifications",
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/core.Construct",
+                          "version": "1.137.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-s3.BucketBase",
+                      "version": "1.137.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-s3-assets.Asset",
+                  "version": "1.137.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "FallenstedtSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Ref": "AssetParameterse3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0S3BucketB3DDCC13"
+                      },
+                      "s3Key": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            {
+                              "Fn::Select": [
+                                0,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameterse3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0S3VersionKey3418DF70"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Fn::Select": [
+                                1,
+                                {
+                                  "Fn::Split": [
+                                    "||",
+                                    {
+                                      "Ref": "AssetParameterse3d9996b6fafcc7da88312672e15e3cc925b02cffc6f01a615d81f22303e3ae0S3VersionKey3418DF70"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+                        "Arn"
+                      ]
+                    },
+                    "handler": "index.handler",
+                    "layers": [
+                      {
+                        "Ref": "StaticSiteDeployWithInvalidationAwsCliLayerBCA2C2ED"
+                      }
+                    ],
+                    "runtime": "python3.7",
+                    "timeout": 900
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-lambda.CfnFunction",
+                  "version": "1.137.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-lambda.Function",
+              "version": "1.137.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "FallenstedtSiteStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "FallenstedtSiteStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.137.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.137.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.137.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.137.0"
+    }
+  }
+}
