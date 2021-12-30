@@ -1,7 +1,0 @@
-
-{{ range first 1 (where .Site.Pages "Dir" "blog/") }}
-<div class="latest_tweet">
-  <p> Latest Post</p>
-  <a href="{{.Permalink}}">{{.Title}}</a>
-</div>    
-{{ end }}

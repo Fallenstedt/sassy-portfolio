@@ -3,7 +3,7 @@ title: Building Widgets On Demand with Flutter
 date: 2019-02-19T12:36:41-08:00
 draft: false
 description: Creating a scrollable linear array of widgets that are created on demand is easy with Flutter. While laying out the list, visible children's elements, states and render objects will be created lazily based on the widget's position
-tags: ["flutter", "dart", "widgets", "flutterio"]
+tags: ["flutter", "dart"]
 ---
 
 ![lazy cat](https://thepracticaldev.s3.amazonaws.com/i/1v01weepczjqzeh0cdrf.jpg)
