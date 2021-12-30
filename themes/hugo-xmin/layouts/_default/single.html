@@ -1,0 +1,29 @@
+{{ partial "header.html" . }}
+<div class="article-meta">
+<h1><span class="title">{{ .Title | markdownify }}</span></h1>
+{{ with .Params.author }}<h2 class="author">{{ . }}</h2>{{ end }}
+{{ if (gt .Params.date 0) }}<h2 class="date">{{ .Date.Format "2006/01/02" }}</h2>{{ end }}
+</div>
+
+<main>
+{{ .Content }}
+</main>
+
+<div class="pagination">
+    <hr>
+    {{if .PrevInSection}}
+    <p>Previous Post:</p>
+      <a class="pagination__item" href="{{.PrevInSection.Permalink}}">
+          <span class="pagination__title">{{.PrevInSection.Title}}</span>
+      </a>
+    {{end}}
+  
+    {{if .NextInSection}}
+    <p>Next Post:</p>
+      <a class="pagination__item" href="{{.NextInSection.Permalink}}">
+        <span class="pagination__title" >{{.NextInSection.Title}}</a>
+      </a>
+    {{end}}
+  </div>
+  
+{{ partial "footer.html" . }}

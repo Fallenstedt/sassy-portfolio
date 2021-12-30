@@ -49,7 +49,7 @@ $tocBreakpoint: 1024px;
   }
 
   img {
-    width: 100%;
+    object-fit: contain;
     max-width: 500px;
     margin: 0 auto;
     display: block;

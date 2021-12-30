@@ -1,5 +1,5 @@
 # DO NOT REMOVE THIS
-theme = "hugo-theme-codex"
+theme = "hugo-xmin"
 
 # Override these settings with your own
 baseURL = "https://fallenstedt.com/"
@@ -7,17 +7,15 @@ copyright = "© {year}"
 languageCode = "en-us"
 title = "Alex Fallenstedt"
 
-# Add your Disqus shortname here.
-# disqusShortname = ""
-
-# Add your Google Analytics identifier: UA-XXXXXXXX-X
-# googleAnalytics = "" 
-
-# Optional params
 [params]
-# Follow the Hugo date/time format reference here: 
-# https://gohugo.io/functions/format/#gos-layout-string
-dateFormat = "Jan 2 2006"
+  description = "A website built through Hugo and blogdown."
+  footer = "&copy; [Alex Fallenstedt](https://fallenstedt.com) 2022 | [Github](https://github.com/Fallenstedt) | [Twitter](https://twitter.com/Fallenstedt) | [500px](https://500px.com/alexanderfallenstedt)"
+  # Follow the Hugo date/time format reference here: 
+    # https://gohugo.io/functions/format/#gos-layout-string
+  dateFormat = "Jan 2 2006"
+
+
+
 
 # Links to your social accounts, comment/uncomment as needed. Icons will be displayed for those specified.
 devto = "https://dev.to/fallenstedt"
@@ -59,3 +57,45 @@ identifier = "blog"
 name = "blog"
 title = "Blog"
 url = "/blog"
+
+
+# baseurl: "/"
+# languageCode: "en-us"
+# title: "A minimal Hugo website"
+# theme: "hugo-xmin"
+# googleAnalytics: ""
+# disqusShortname: ""
+# ignoreFiles: ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+# footnotereturnlinkcontents: "↩"
+
+# permalinks:
+#   note: "/note/:year/:month/:day/:slug/"
+#   post: "/post/:year/:month/:day/:slug/"
+
+# menu:
+#   main:
+#     - name: Home
+#       url: ""
+#       weight: 1
+#     - name: About
+#       url: "about/"
+#       weight: 2
+#     - name: Categories
+#       url: "categories/"
+#       weight: 3
+#     - name: Tags
+#       url: "tags/"
+#       weight: 4
+#     - name: Subscribe
+#       url: "index.xml"
+
+# params:
+#   description: "A website built through Hugo and blogdown."
+#   footer: "&copy; [Yihui Xie](https://yihui.org) 2017 -- 2021 | [Github](https://github.com/yihui) | [Twitter](https://twitter.com/xieyihui)"
+
+# markup:
+#   highlight:
+#     codeFences: false
+#   goldmark:
+#     renderer:
+#       unsafe: true
