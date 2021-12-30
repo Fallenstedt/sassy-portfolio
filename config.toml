@@ -8,11 +8,11 @@ languageCode = "en-us"
 title = "Alex Fallenstedt"
 
 [params]
-  description = "A website built through Hugo and blogdown."
+  description = "I am a Senior Software Engineer at New Relic. I like Go, Wasm, TypeScript and photography, all of which I pursue with various levels dedication."
   footer = "&copy; [Alex Fallenstedt](https://fallenstedt.com) 2022 | [Github](https://github.com/Fallenstedt) | [Twitter](https://twitter.com/Fallenstedt) | [500px](https://500px.com/alexanderfallenstedt)"
   # Follow the Hugo date/time format reference here: 
     # https://gohugo.io/functions/format/#gos-layout-string
-  dateFormat = "Jan 2 2006"
+  dateFormat = "Jan 2, 2006"
 
 
 
