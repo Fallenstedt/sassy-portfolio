@@ -1,4 +1,13 @@
-  
+{{ if and (.IsPage) (eq .Section "blog") }}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@Fallenstedt" />
+<meta name="twitter:title" content="{{ .Title }}" />
+<meta name="twitter:description" content="{{ .Description }}" />
+  {{ if .Params.cover }}
+  <meta name="twitter:image" content="{{.Params.cover}}" />
+  {{ end }}
+{{ end }}
+
 <!-- JSON-LD -->
 <script type="application/ld+json">
   {{ if and (.IsPage) (eq .Section "blog") }}
@@ -40,3 +49,4 @@
     }
   {{ end }}
   </script>
+

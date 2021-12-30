@@ -4,6 +4,7 @@ date: 2021-12-29T12:36:41-08:00
 draft: false
 description: Building with free APIs is a great way to teach yourself new skills in languages you like. I’ve always found APIs as an underrated way to learn something new. Building with APIs brings challenges that force you to learn new parts of programming that video tutorials can not do. In this article I will discuss how to create twitter rules and manage a stream with my open source library `twitterstream`. This library was built for my project findtechjobs so I could find the latest tech jobs posted on twitter.
 tags: ["go", "opensource"]
+cover: https://images.unsplash.com/photo-1622920156895-96dd15c40f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80
 ---
 
 Building with free APIs is a great way to teach yourself new skills in languages you like. I’ve always found APIs as an underrated way to learn something new. Building with APIs brings challenges that force you to learn new parts of programming that video tutorials can not do.
