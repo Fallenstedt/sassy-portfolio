@@ -20,7 +20,8 @@ If you want a complete code example to get started, head over to the examples on
 ## Where do I start?
 
 The first step is to create an app on [Twitter Developers](https://developer.twitter.com/) and obtain a set of consumer keys. One you have an API key and an API secret key, you can generate an access token with `twitterstream`
-Generate an Access Token
+
+## Generate an Access Token
 
 We can use `twitterstream` to generate an access token. This access token will be used to authenticate all network requests going forward. In the code below, we make a network request to twitter’s [oauth2/token endpoint](https://api.twitter.com/oauth2/token) with the The 'Basic' HTTP Authentication Scheme. Then we create an instance of `twitterstream` with our access token.
 
