@@ -6,8 +6,6 @@ description: "Last year, I took the plunge and applied for a Frontend Engineerin
 keywords: [amazon, interview, career]
 draft: false
 tags: [career]
-math: false
-toc: false
 ---
 
 Last year, I took the plunge and applied for a Frontend Engineering Position at Amazon. I knew little about the interview process and I had just one month to prepare for it. The result? I got an offer. In fact, the use of the interview techniques below granted me the opportunity to choose between two competing job offers. In this guide I will reveal the steps I took in order to become a competitive candidate.
