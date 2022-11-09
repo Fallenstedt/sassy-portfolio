@@ -18,6 +18,5 @@ I’m always looking for ways to combine my interests, and I’ve recently start
 
 ### {{< link src="https://github.com/Fallenstedt" class="external" target="_blank" hreflang="en" rel="noopener noreferrer" >}}Code{{< /link >}} | Github
 
-### {{< link rel=me src="https://indieweb.social/@Fallenstedt" class="external" target="_blank" hreflang="en >}}Social{{< /link >}} | Mastodon
+### {{< link rel=me src="https://indieweb.social/@Fallenstedt" class="external" target="_blank" hreflang="en" >}}Social{{< /link >}} | Mastodon
 
-<a rel="me" href="https://indieweb.social/@Fallenstedt">Mastodon</a>
