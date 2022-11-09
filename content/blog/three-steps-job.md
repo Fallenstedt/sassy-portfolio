@@ -1,11 +1,9 @@
 ---
 title: Three Steps I Took to Get a Job Offer From Amazon
 date: 2021-01-12T12:36:41-08:00
-slug: "How to succeed at interviews"
-description: "Last year, I took the plunge and applied for a Frontend Engineering Position at Amazon. I knew little about the interview process and I had just one month to prepare for it. The result? I got an offer. In fact, the use of the interview techniques below granted me the opportunity to choose between two competing job offers. In this guide I will reveal the steps I took in order to become a competitive candidate."
-keywords: [amazon, interview, career]
+lastmod: 2021-01-12T12:36:41-08:00
 draft: false
-tags: [career]
+author: Alex Fallenstedt
 ---
 
 Last year, I took the plunge and applied for a Frontend Engineering Position at Amazon. I knew little about the interview process and I had just one month to prepare for it. The result? I got an offer. In fact, the use of the interview techniques below granted me the opportunity to choose between two competing job offers. In this guide I will reveal the steps I took in order to become a competitive candidate.
@@ -106,4 +104,4 @@ Voicing your thoughts with your interviewer will help you discover a solution if
 
 I hope you feel inspired to do well at your next interview, even if it's not at Amazon. My Amazon interview was the most challenging interview I've ever had, and I learned that careful review of my accomplishments, public speaking, and critical thinking are the foundation for any successful interview.
 
-If you liked this post, **[follow me on twitter](https://twitter.com/Fallenstedt)** as I document my journey in the software world. I frequently share my knowledge about Rust, Go and Typescript and enjoy meeting others who have the desire to learn.
+If you liked this post, **[follow me on mastodon](https://indieweb.social/@Fallenstedt)** as I document my journey in the software world. I frequently share my knowledge about Rust, Go and Typescript and enjoy meeting others who have the desire to learn.

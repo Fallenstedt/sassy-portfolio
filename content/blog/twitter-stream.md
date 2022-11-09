@@ -1,11 +1,13 @@
 ---
-title: Streaming Tweets with Go
+title: Streaming Tweets With Go
 date: 2021-12-29T12:36:41-08:00
+lastmod: 2022-11-07T12:36:41-08:00
 draft: false
-description: Building with free APIs is a great way to teach yourself new skills in languages you like. I’ve always found APIs as an underrated way to learn something new. Building with APIs brings challenges that force you to learn new parts of programming that video tutorials can not do. In this article I will discuss how to create twitter rules and manage a stream with my open source library `twitterstream`. This library was built for my project findtechjobs so I could find the latest tech jobs posted on twitter.
-tags: ["go", "opensource"]
-cover: https://images.unsplash.com/photo-1622920156895-96dd15c40f39?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2342&q=80
+author: Alex Fallenstedt
 ---
+
+## Update
+> This repo is read-only and is no longer worked on. Twitter was a wonderful platform, built by a wonderful team. With its recent changes, its time to re-evaluate what we invest in and the world we want to build. To the projects using this library, I'll leave the repo read-only so you can migrate on your own time
 
 Building with free APIs is a great way to teach yourself new skills in languages you like. I’ve always found APIs as an underrated way to learn something new. Building with APIs brings challenges that force you to learn new parts of programming that video tutorials can not do.
 
@@ -216,4 +218,4 @@ After we have started the stream and before we start processing the tweets, we `
 
 ## Final Thoughts
 
-I hope you find this library useful in streaming tweets from twitter. Building this library was a challenge, and I learned how Go’s concurrency model works. If you liked this post, follow me on [twitter](https://twitter.com/Fallenstedt) as I document my journey in the software world.
+I hope you find this library useful in streaming tweets from twitter. Building this library was a challenge, and I learned how Go’s concurrency model works. If you liked this post, follow me on [mastodon](https://indieweb.social/@Fallenstedt) as I document my journey in the software world.
