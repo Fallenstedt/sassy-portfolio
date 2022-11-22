@@ -1,6 +1,6 @@
 ---
 title: Terraform Cognito With Lambda Triggers
-date: 2021-01-12T12:36:41-08:00
+date: 2022-04-12T12:36:41-08:00
 draft: false
 author: Alex Fallenstedt
 ---

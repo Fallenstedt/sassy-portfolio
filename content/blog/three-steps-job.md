@@ -1,7 +1,6 @@
 ---
 title: Three Steps I Took to Get a Job Offer From Amazon
-date: 2021-01-12T12:36:41-08:00
-lastmod: 2021-01-12T12:36:41-08:00
+date: 2021-07-12T12:36:41-08:00
 draft: false
 author: Alex Fallenstedt
 ---

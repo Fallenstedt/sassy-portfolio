@@ -1,10 +1,9 @@
 ---
 title: Using Rust and WebAssembly to Process Pixels from a Video Feed
-date: 2021-01-12T12:36:41-08:00
+date: 2021-02-12T12:36:41-08:00
 draft: false
 author: Alex Fallenstedt
 ---
-
 
 At [Streem](https://streem.pro/) we are on a mission to make the world's expertise more accessible. We create guidance tools to steer the discussion and ensure accurate understanding the first time. One of the guidance tools we are developing for web is a 3d cursor that can be positioned in a remote video. To accomplish this, we need to process a lot of raw pixel data and AR data per frame.
 
