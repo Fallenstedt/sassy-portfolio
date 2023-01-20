@@ -48,7 +48,7 @@ I opted for [Bioenno’s 100 watt solar panels](https://www.bioennopower.com/col
 
 Knowing the panels I was using helped me decide which solar charge controller to get. I needed a solar charge controller to connect the solar panels to a battery. This controller should be able to handle at least 6A of current from my solar panels.
 
-I decided on a [GV-10-Li-14.2V lithium solar charge controller from genasun](https://sunforgellc.com/product/gv-10/). This solar charge controller is made in the USA, can handle the power output from my solar panels, and can charge LiFePO4 battiers too. 
+I decided on a [GV-10-Li-14.2V lithium solar charge controller from genasun](https://sunforgellc.com/product/gv-10/). This solar charge controller is made in the USA, can handle the power output from my solar panels, and can charge LiFePO4 batteries too. 
 
 I got a slightly oversized solar charge controller because I knew I may build a larger battery system later, and I would like to reuse as many components as possible.
 
@@ -58,7 +58,7 @@ alt="Genasun solar charge controller" >}}
 
 ## Power box
 
-Here is the shortcut I took. Rather than buying individual components to build the box, I decided to get a pre-made box that had a lot of built in components already. The cost of all the components, wires, connectors, and the box individually would be just about the same as buying a complete box. 
+Here is the shortcut I took. Rather than buying individual components to build the box, I decided to get a pre-made box that had a lot of built in components already. The cost of all the components, wires, connectors, and the box individually would be just about the same as buying a pre-buitl power box. 
 
 The [powerwerx megabox](https://powerwerx.com/megabox-portable-power-box-bioenno-batteries) fulfilled my needs perfectly. It could fit my solar charge controller and battery inside well. Additionally, it has the USB inputs for charging small devices and Anderson power pole DC outputs for powering inverter or my ham radio. 
 
