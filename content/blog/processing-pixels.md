@@ -1,6 +1,6 @@
 ---
 title: Using Rust and WebAssembly to Process Pixels from a Video Feed
-date: 2021-02-12T12:36:41-08:00
+date: 2021-05-10T12:36:41-08:00
 draft: false
 author: Alex Fallenstedt
 ---
