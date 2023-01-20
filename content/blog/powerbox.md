@@ -3,6 +3,7 @@ title: How I built a Powerbox
 date: 2023-01-19T12:36:41-08:00
 draft: false
 author: Alex Fallenstedt
+annotations: false
 ---
 
 I recently had a power outage which lasted 10 hours here at home. It was not pleasant sitting the dark with just a flashlight. I knew I had to build a power box, a device which provides a variety of input leads from a battery. This article details what how I designed and built a power box for simple applications such as powering lamps, charging phones, laptops, and powering my ham radio.
