@@ -2,6 +2,7 @@
 title: "Alex Fallenstedt"
 pageTitle: Home
 semanticType: about
+annotations: false
 ---
 
 I’m a programmer who also likes gardening and photography. I’ve been writing code for over 10 years and I’ve been photographing for almost as long. I’ve always been interested in how things work and I’ve always been a bit of a tinkerer. I like to take things apart and put them back together again, and I’m always looking for ways to improve things.
