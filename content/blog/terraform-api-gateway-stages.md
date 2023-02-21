@@ -31,11 +31,7 @@ Assuming the `main.tf` for terraform used a single `api-gateway` and multiple `a
 
 ## The Solution
 
-By creating separate Terraform environments for each stage, you can more easily manage and isolate changes to your API Gateway deployments. You `dev` environment be worked on independently of your `test` environment, or your `prod` environmnet. Terraform environments can be isolated by using a simple file layout.
-
-* I placed terraform configuration files for each environment into its own directory. 
-
-* Each environment had its state managed in its own S3 bucket too
+By creating separate Terraform environments for each stage, you can more easily manage and isolate changes to your API Gateway deployments. Your `dev` environment be worked on independently of your `test` environment, or your `prod` environmnet. Terraform environments can be isolated by placing environment specific infrastructure into its own directory.
 
 This approach had a major benefit of knowing which environment was being worked on, and limited myself from messing up my entire project with an accidental deploy.
 
@@ -61,12 +57,12 @@ terraform/
 
 There are three environments and one modules directory:
 
-* `global` refers to infrastructure that is available across all environments. These can include my IAM roles, Route53 domains and hosted zones, or a single API Gateway instance. 
+* `global` refers to infrastructure that is available across all environments. These can include my IAM roles, Route53 domains and hosted zones, or a global API Gateway instance. 
 
-* `dev` would reference the single API Gateway instance as a `data` source. This environment would add a `dev` stage to the API Gateway. 
+* `dev` would reference the global API Gateway instance as a `data` source. This environment would add a `dev` stage to the API Gateway. 
 
-* `prod` would also reference the single API Gateway instance as a `data` source, and add a `prod` stage to it.
+* `prod` would also reference the global API Gateway instance as a `data` source, and add a `prod` stage to it.
 
-* `modules` are reusable pieces of infrastructure that I can use across environments
+* `modules` are terraform modules that encapsulate the volatility of some piece of infrastructure. These modules are used across all environments.
 
-This directory structure keeps the lifecycle of my API Gateway stages independent while using a single API Gateway instance.
+This directory structure keeps the lifecycle of my API Gateway stages independent, while using a single API Gateway instance.
