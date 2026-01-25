@@ -14,7 +14,7 @@ title: Alex Fallenstedt
 
 # Use full path to theme's repository in case of using Hugo Modules.
 # This is replaced in go.mod for exampleSite to point to the directory above.
-theme: github.com/sergeyklay/gohugo-theme-ed
+# theme: github.com/Fallenstedt/gohugo-theme-ed
 
 enableRobotsTXT: true
 
@@ -171,4 +171,4 @@ module:
     extended: true
     min: "0.95.0"
   imports:
-    - path: github.com/sergeyklay/gohugo-theme-ed
+    - path: "github.com/Fallenstedt/gohugo-theme-ed"

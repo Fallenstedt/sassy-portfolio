@@ -1,3 +1,7 @@
 baseURL = 'https://fallenstedt.com/'
 languageCode = 'en-us'
 title = 'Alex Fallenstedt'
+
+[module]
+  [[module.imports]]
+    path = "github.com/Fallenstedt/gohugo-theme-ed"
