@@ -1,3 +1,5 @@
+github.com/Fallenstedt/gohugo-theme-ed v0.0.2 h1:MdlgswpK3Bne0YFHDGJg7sHh6i/rMInV4Zf6VZFviDE=
+github.com/Fallenstedt/gohugo-theme-ed v0.0.2/go.mod h1:+yM9hNxIcTBUfte1LD8IXXJouv2TbMuDeMAlIWvXobg=
 github.com/MihaiValentin/lunr-languages v0.0.0-20250309185944-190ad03ed756 h1:DknA9ZOx7KoZ/07g2Ismhg+r1JsBAjc4ZAGb3p8VDdQ=
 github.com/MihaiValentin/lunr-languages v0.0.0-20250309185944-190ad03ed756/go.mod h1:9u5XeCq3kYXZEJvSRP8Pz2qBAsNsmIM9ssN2fE1MnPw=
 github.com/olivernn/lunr.js v2.3.9+incompatible h1:eH8iBnjlR4mwlYDdNuqy9PCNLjp2bEs6aoNnTSaccx0=
